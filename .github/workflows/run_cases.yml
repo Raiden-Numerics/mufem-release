@@ -24,16 +24,16 @@ jobs:
       with:
         python-version: '3.12'
 
+    - name: Install Python dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r .requirements.txt
+
     - name: Install mufem
       run: |
         cd $HOME
         wget -q http://www.raiden-numerics.com/downloads/mufem-${MUFEM_VERSION}.zip
         unzip -q mufem-${MUFEM_VERSION}.zip
-
-    - name: Verify ls
-      run: |
-       echo $PATH
-       ls -l
 
     - name: Verify pymufem installation
       run:  command -v pymufem
@@ -43,8 +43,5 @@ jobs:
     - name: Run the examples
       run: |
         cd $GITHUB_WORKSPACE
-        echo $HOME
-        echo $PWD
-        command -v pymufem
         python3 ./run_cases.py
 
