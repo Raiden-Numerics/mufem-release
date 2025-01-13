@@ -33,7 +33,6 @@ jobs:
         cd $GITHUB_WORKSPACE
         echo $HOME
         echo $PWD
-        cd mufem
         command -v pymufem
         python3 ./run_cases.py
       env:
