@@ -22,7 +22,7 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Install dependencies
+    - name: Install mufem
       run: |
         cd ~
         wget -q http://www.raiden-numerics.com/downloads/mufem-${MUFEM_VERSION}.zip
@@ -36,6 +36,6 @@ jobs:
         command -v pymufem
         python3 ./run_cases.py
       env:
-        PATH: ~/mufem
+        PATH: ~/mufem:$PATH
 
 
