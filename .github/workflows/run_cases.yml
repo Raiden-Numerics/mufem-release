@@ -28,8 +28,16 @@ jobs:
         wget -q http://www.raiden-numerics.com/downloads/mufem-${MUFEM_VERSION}.zip
         unzip -q mufem-${MUFEM_VERSION}.zip
 
+    - name: Verify ls
+      run:  ls -l
+
+    - name: Verify ls2
+      run:  ls -l
+      env:
+        PATH: ~/mufem:$PATH
+
     - name: Verify pymufem installation
-      run: which pymufem
+      run:  command -v pymufem
       env:
         PATH: ~/mufem:$PATH
 
