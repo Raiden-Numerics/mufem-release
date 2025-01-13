@@ -15,7 +15,9 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set MUFEM version from VERSION file
-      run: echo "MUFEM_VERSION=$(cat VERSION)" >> $GITHUB_ENV
+      run: | 
+        echo "MUFEM_VERSION=$(cat VERSION)" >> $GITHUB_ENV
+        echo "$HOME/mufem" >> $GITHUB_PATH
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -32,13 +34,9 @@ jobs:
       run: |
        echo $PATH
        ls -l
-       
+
     - name: Verify ls2
-      run: |
-       echo $PATH
-       ls -l
-      env:
-        PATH: /home/runner/mufem
+
 
     - name: Verify pymufem installation
       run:  command -v pymufem
@@ -52,7 +50,4 @@ jobs:
         echo $PWD
         command -v pymufem
         python3 ./run_cases.py
-      env:
-        PATH: /home/runner/mufem
-
 
