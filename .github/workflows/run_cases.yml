@@ -29,8 +29,10 @@ jobs:
         unzip -q mufem-${MUFEM_VERSION}.zip
 
     - name: Verify ls
-      run:  ls -l
-
+      run: |
+       echo $PATH
+       ls -l
+       
     - name: Verify ls2
       run: |
        echo $PATH
