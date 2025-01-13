@@ -1,11 +1,13 @@
 import os
+import sys
 import subprocess
 
 from typing import List
 
+
 def run_cases(base_directory):
 
-    failed_cases : List[str]= []
+    failed_cases: List[str] = []
 
     # Walk through the directory structure
     for root, dirs, files in os.walk(base_directory):
@@ -19,7 +21,7 @@ def run_cases(base_directory):
 
             case_path = os.path.join(root, "case.py")
             print(f"Running case: {case_path}")
-            
+
             # Execute the command
             try:
                 os.chdir(root)
@@ -45,4 +47,3 @@ if __name__ == "__main__":
     base_directory = "."
     # Run the cases
     run_cases(base_directory)
-

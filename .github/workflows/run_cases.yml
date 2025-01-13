@@ -31,6 +31,6 @@ jobs:
       run: |
         python3 ./run_cases.py
       env:
-        PATH: ~/mufem:$PATH
+        PATH: ~/mufem
 
 
