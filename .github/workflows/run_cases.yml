@@ -35,9 +35,6 @@ jobs:
        echo $PATH
        ls -l
 
-    - name: Verify ls2
-
-
     - name: Verify pymufem installation
       run:  command -v pymufem
       env:
