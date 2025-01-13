@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build-docs:
+  run-examples:
     runs-on: ubuntu-24.04
 
     steps:
@@ -34,11 +34,6 @@ jobs:
         cd $HOME
         wget -q http://www.raiden-numerics.com/downloads/mufem-${MUFEM_VERSION}.zip
         unzip -q mufem-${MUFEM_VERSION}.zip
-
-    - name: Verify pymufem installation
-      run:  command -v pymufem
-      env:
-        PATH: ~/mufem:$PATH
 
     - name: Run the examples
       run: |
