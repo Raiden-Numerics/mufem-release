@@ -24,7 +24,7 @@ jobs:
 
     - name: Install mufem
       run: |
-        cd ~
+        cd $HOME
         wget -q http://www.raiden-numerics.com/downloads/mufem-${MUFEM_VERSION}.zip
         unzip -q mufem-${MUFEM_VERSION}.zip
 
@@ -34,7 +34,7 @@ jobs:
     - name: Verify ls2
       run:  ls -l
       env:
-        PATH: ~/mufem:$PATH
+        PATH: ${HOME}/mufem:$PATH
 
     - name: Verify pymufem installation
       run:  command -v pymufem
@@ -49,6 +49,6 @@ jobs:
         command -v pymufem
         python3 ./run_cases.py
       env:
-        PATH: ~/mufem:$PATH
+        PATH: ${HOME}/mufem:$PATH
 
 
