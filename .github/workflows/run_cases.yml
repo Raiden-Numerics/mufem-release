@@ -29,6 +29,8 @@ jobs:
 
     - name: Run the examples
       run: |
+        cd mufem
+        which pymufem
         python3 ./run_cases.py
       env:
         PATH: ~/mufem
