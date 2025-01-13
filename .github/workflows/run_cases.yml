@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         wget -q http://www.raiden-numerics.com/downloads/mufem-${MUFEM_VERSION}.zip
-        unzip mufem-${MUFEM_VERSION}.zip
+        unzip -q mufem-${MUFEM_VERSION}.zip
 
     - name: Run the examples
       run: |
