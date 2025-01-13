@@ -1,0 +1,36 @@
+name: Run Examples
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set MUFEM version from VERSION file
+      run: echo "MUFEM_VERSION=$(cat VERSION)" >> $GITHUB_ENV
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        wget http://www.raiden-numerics.com/downloads/mufem-${MUFEM_VERSION}.zip
+        unzip mufem-${MUFEM_VERSION}.zip
+
+    - name: Run the examples
+      run: |
+        python3 ./run_cases.py
+      env:
+        PATH: ~/mufem:$PATH
+
+
