@@ -36,7 +36,7 @@ jobs:
        echo $PATH
        ls -l
       env:
-        PATH: ${HOME}/mufem:${PATH}
+        PATH: "${HOME}/mufem:$PATH"
 
     - name: Verify pymufem installation
       run:  command -v pymufem
@@ -51,6 +51,6 @@ jobs:
         command -v pymufem
         python3 ./run_cases.py
       env:
-        PATH: ${HOME}/mufem:${PATH}
+        PATH: "${HOME}/mufem:$PATH"
 
 
