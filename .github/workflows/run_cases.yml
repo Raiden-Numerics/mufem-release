@@ -24,11 +24,13 @@ jobs:
 
     - name: Install dependencies
       run: |
+        cd ~
         wget -q http://www.raiden-numerics.com/downloads/mufem-${MUFEM_VERSION}.zip
         unzip -q mufem-${MUFEM_VERSION}.zip
 
     - name: Run the examples
       run: |
+        cd $GITHUB_WORKSPACE
         echo $HOME
         echo $PWD
         ls -l
