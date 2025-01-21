@@ -1,8 +1,6 @@
 import numpy
 
-from mufem import (
-    Bnd, Vol, SteadyRunner, CffConstantScalar, Simulation
-)
+from mufem import Bnd, Vol, SteadyRunner, CffConstantScalar, Simulation
 from mufem.electromagnetics.coil import (
     CoilExcitationCurrent,
     CoilSpecification,
