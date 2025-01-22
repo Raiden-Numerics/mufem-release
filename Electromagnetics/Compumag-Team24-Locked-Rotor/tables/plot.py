@@ -1,6 +1,8 @@
 import pylab
 import numpy
 
+# flake8: noqa
+
 # Plot the bh curve
 pylab.clf()
 

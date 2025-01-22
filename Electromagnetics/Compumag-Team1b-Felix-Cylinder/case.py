@@ -7,9 +7,9 @@ from mufem.electromagnetics.timedomainmagnetic import (
     TimeDomainMagneticModel,
 )
 
-from typing import List
-
-sim = mufem.Simulation.New("Compumag Team1b: Felix Cylinder", "geometry.mesh")
+sim = mufem.Simulation.New(
+    name="Compumag Team1b: Felix Cylinder", mesh_path="geometry.mesh"
+)
 
 # Setup Problem
 mufem.UnsteadyRunner(total_time=0.02, time_step_size=0.001, total_inner_iterations=2)
@@ -20,11 +20,11 @@ magnetic_model = TimeDomainMagneticModel(
 
 # Setup Materials
 air_material = TimeDomainMagneticGeneralMaterial.SimpleVacuum(
-    "Air Material", "Air" @ Vol
+    name="Air", marker="Air" @ Vol
 )
 
 copper_material = TimeDomainMagneticGeneralMaterial.SimpleNonMagnetic(
-    "Al", "Cylinder" @ Vol, 25380710.659898475
+    name="Al", marker="Cylinder" @ Vol, electric_conductivity=25380710.659898475
 )
 magnetic_model.addMaterials([air_material, copper_material])
 
@@ -32,27 +32,35 @@ magnetic_model.addMaterials([air_material, copper_material])
 cff_fall = mufem.CffExpressionScalar("79577.488101574*exp(-time()/0.0069)")
 cff_zero = mufem.CffConstantScalar(0.0)
 
-cff_magnetic_field = mufem.CffVectorComponent(cff_zero, cff_fall, cff_zero)
+cff_magnetic_field = mufem.CffVectorComponent(
+    cff_x=cff_zero, cff_y=cff_fall, cff_z=cff_zero
+)
 
 tangential_magnetic_field_bc = TangentialMagneticFieldBoundaryCondition(
-    "ExternalField", "Air::Boundary" @ Bnd, cff_magnetic_field
+    name="ExternalField",
+    marker="Air::Boundary" @ Bnd,
+    tangential_magnetic_field=cff_magnetic_field,
 )
 magnetic_model.addCondition(tangential_magnetic_field_bc)
 
 # Setup Reports
 ohmic_heating_report = mufem.VolumeIntegralReport(
-    "Ohmic Heating", "Cylinder" @ Vol, "OhmicHeating"
+    name="Ohmic Heating", marker="Cylinder" @ Vol, cff_name="OhmicHeating"
 )
 sim.getReportManager().addReport(ohmic_heating_report)
 
 
-ohmic_heating_monitor = mufem.ReportMonitor("Ohmic Heating Monitor", "Ohmic Heating")
+ohmic_heating_monitor = mufem.ReportMonitor(
+    name="Ohmic Heating Monitor", report_name="Ohmic Heating"
+)
 sim.getMonitorManager().addMonitor(ohmic_heating_monitor)
 
 
 sim.run()
 
 # Plot the losses
+
+# flake8: noqa
 
 import pylab
 
