@@ -19,7 +19,7 @@ def run_cases(base_directory):
             # restored so we can continue the os.walk.
             original_dir = os.getcwd()
 
-            case_path = os.path.join(path=root, paths="case.py")
+            case_path = os.path.join(a=root, p="case.py")
             print(f"Running case: {case_path}")
 
             # Execute the command
