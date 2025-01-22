@@ -1,0 +1,46 @@
+name: "Fedora: 39"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  run-example:
+    runs-on: self-hosted
+    container:
+      image: fedora:39
+    if: github.event.pull_request.draft == false
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set mufem version from VERSION file
+      run: | 
+        echo "MUFEM_VERSION=$(cat VERSION)" >> $GITHUB_ENV
+
+    - name: Install prerequisites
+      run: |
+        dnf install -y wget unzip
+
+    - name: Install mufem
+      run: |
+        base_url="https://github.com/Raiden-Numerics/mufem-release/releases/download"
+        wget -q ${base_url}/${MUFEM_VERSION}/mufem-${MUFEM_VERSION}.zip
+        unzip -q mufem-${MUFEM_VERSION}.zip
+
+    - name: Execute mufem example
+      env:
+        OMPI_ALLOW_RUN_AS_ROOT: "1"
+        OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
+      run: |
+        pwd
+        ls -l
+        ls -l mufem
+        ./mufem/pymufem test.py
+
