@@ -1,2 +1,6 @@
 # mufem-release
-Release repository for μfem
+Release repository for [μfem](http://www.raiden-numerics.com/mufem) ([version](VERSION)).
+
+## Continuous Integration
+
+[![Ubuntu: 24.04](https://github.com/Raiden-Numerics/mufem-release/actions/workflows/test-ubuntu-24-04.yaml/badge.svg)](https://github.com/Raiden-Numerics/mufem-release/actions/workflows/test-ubuntu-24-04.yaml)
