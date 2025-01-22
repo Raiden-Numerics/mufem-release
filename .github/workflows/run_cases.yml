@@ -36,7 +36,8 @@ jobs:
     - name: Install mufem
       run: |
         cd $HOME
-        wget -q http://www.raiden-numerics.com/downloads/mufem-${MUFEM_VERSION}.zip
+        base_url="https://github.com/Raiden-Numerics/mufem-release/releases/download"
+        wget -q ${base_url}/${MUFEM_VERSION}/mufem-${MUFEM_VERSION}.zip
         unzip -q mufem-${MUFEM_VERSION}.zip
 
     - name: Run the examples
