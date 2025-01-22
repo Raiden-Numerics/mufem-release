@@ -18,32 +18,40 @@ from mufem.electromagnetics.timedomainmagnetic import (
 from typing import List
 
 
-sim = Simulation.New("Compumag-Team20-3D-Static-Force-Problem", "geometry.mesh")
+sim = Simulation.New(
+    name="Compumag-Team20-3D-Static-Force-Problem", mesh_path="geometry.mesh"
+)
 
 
 # Setup Problem
 steady_runner = SteadyRunner(total_iterations=0)
 
 magnetic_domain = ["Yoke", "Pole", "Coil", "Air"] @ Vol
-magnetic_model = TimeDomainMagneticModel(magnetic_domain, 1, False)
+magnetic_model = TimeDomainMagneticModel(marker=magnetic_domain, order=1)
 
-air_material = TimeDomainMagneticGeneralMaterial.SimpleVacuum("Air", "Air" @ Vol)
+air_material = TimeDomainMagneticGeneralMaterial.SimpleVacuum(
+    name="Air", marker="Air" @ Vol
+)
 copper_material = TimeDomainMagneticGeneralMaterial.SimpleNonMagnetic(
-    "Copper", "Coil" @ Vol, 1.0e7
+    name="Copper", marker="Coil" @ Vol, electric_conductivity=1.0e7
 )
 
-bh = numpy.loadtxt("data/Table_1_BH_Curve.csv", delimiter=",", skiprows=1)
+bh = numpy.loadtxt("data/Table_1_BH_Curve.csv", delimiter=",", comments="#")
 
 iron_material = TimeDomainMagneticGeneralMaterial.SimpleNonLinear(
-    "Iron", ["Yoke", "Pole"] @ Vol, bh[:, 1], bh[:, 0], 0.0
+    name="Iron",
+    marker=["Yoke", "Pole"] @ Vol,
+    magnetic_field_strength=bh[:, 1],
+    magnetic_flux_density=bh[:, 0],
+    electric_conductivity=0.0,
 )
 
 magnetic_model.addMaterials([air_material, copper_material, iron_material])
 
 # Boundaries
 tangential_magnetic_flux_bc = TangentialMagneticFluxBoundaryCondition(
-    "TangentialFlux",
-    [
+    name="TangentialFlux",
+    marker=[
         "Yoke::PerfectElectric",
         "Pole::PerfectElectric",
         "Coil::In",
@@ -58,19 +66,24 @@ magnetic_model.addCondition(tangential_magnetic_flux_bc)
 coil_model = ExcitationCoilModel()
 sim.getModelManager().addModel(coil_model)
 
-coil_topology = CoilTopologyOpen("Coil::In" @ Bnd, "Coil::Out" @ Bnd)
-coil_type = CoilTypeStranded(1000)
+coil_topology = CoilTopologyOpen(
+    in_marker="Coil::In" @ Bnd, out_marker="Coil::Out" @ Bnd
+)
+coil_type = CoilTypeStranded(number_of_turns=1000)
 
 coil_drive_current = CffConstantScalar(1.0)
 coil_excitation = CoilExcitationCurrent(coil_drive_current)
 
 coil = CoilSpecification(
-    "Coil", "Coil" @ Vol, coil_topology, coil_type, coil_excitation
+    name="Coil",
+    marker="Coil" @ Vol,
+    topology=coil_topology,
+    type=coil_type,
+    excitation=coil_excitation,
 )
 coil_model.addCoilSpecification(coil)
 
-
-magnetic_force_report_1 = MagneticForceReport("Pole Force", "Pole" @ Vol)
+magnetic_force_report_1 = MagneticForceReport(name="Pole Force", marker="Pole" @ Vol)
 
 
 # Run the scan
@@ -89,7 +102,7 @@ for coil_current in numpy.linspace(0.0, 5.0, 11):
 
 
 # Plot the results
-
+# flake8: noqa
 
 import pylab
 

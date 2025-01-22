@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+# flake8: noqa
+
+
 data = np.loadtxt("Table_1_BH_Curve.csv", delimiter=",", skiprows=1)
 
 H = data[:, 1]
