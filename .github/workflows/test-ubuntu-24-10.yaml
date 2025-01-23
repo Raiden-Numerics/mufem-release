@@ -8,7 +8,9 @@ on:
 
 jobs:
   run-example:
-    runs-on: ubuntu-24.10
+    runs-on: self-hosted
+    container:
+      image: ubuntu-24.10
     if: github.event.pull_request.draft == false
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
@@ -34,5 +36,9 @@ jobs:
         unzip -q mufem-${MUFEM_VERSION}.zip
 
     - name: Execute mufem example
+      env:
+        OMPI_ALLOW_RUN_AS_ROOT: "1"
+        OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
       run: |
         ./mufem/pymufem test.py
+
