@@ -23,7 +23,7 @@ jobs:
     - name: Install dependencies
       run: |
         apt-get update
-        apt-get install -y wget unzip python3 python-is-python3
+        apt-get install -y wget unzip python3 python-is-python3 libgfortran
 
     - name: Set mufem version from VERSION file
       run: | 
