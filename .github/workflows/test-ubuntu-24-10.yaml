@@ -11,7 +11,7 @@ jobs:
     runs-on: self-hosted
     container:
       image: ubuntu:24.10
-    #if: github.event.pull_request.draft == false
+    if: github.event.pull_request.draft == false
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}

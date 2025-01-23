@@ -1,10 +1,10 @@
 # mufem-release
 Release repository for [μfem](http://www.raiden-numerics.com/mufem) ([version](VERSION)).
 
-Note that currently we require following dependencies:
+Note that currently we require following packages to be installed on the system:
 * python 3.12 or newer
-* glibc 2.39
-* libgfortran
+* glibc 2.39 or newer
+* gfortran 13.3 or newer
 
 ## Status
 [![Ubuntu: 24.10](https://github.com/Raiden-Numerics/mufem-release/actions/workflows/test-ubuntu-24-10.yaml/badge.svg)](https://github.com/Raiden-Numerics/mufem-release/actions/workflows/test-ubuntu-24-10.yaml)
