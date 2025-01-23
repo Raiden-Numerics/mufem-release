@@ -1,7 +1,12 @@
 # mufem-release
 Release repository for [μfem](http://www.raiden-numerics.com/mufem) ([version](VERSION)).
 
-## Continuous Integration
+Note that currently we require following dependencies:
+* python 3.12 or newer
+* glibc 2.39
+* libgfortran
+
+## Status
 [![Ubuntu: 24.10](https://github.com/Raiden-Numerics/mufem-release/actions/workflows/test-ubuntu-24-10.yaml/badge.svg)](https://github.com/Raiden-Numerics/mufem-release/actions/workflows/test-ubuntu-24-10.yaml)
 
 [![Ubuntu: 24.04](https://github.com/Raiden-Numerics/mufem-release/actions/workflows/test-ubuntu-24-04.yaml/badge.svg)](https://github.com/Raiden-Numerics/mufem-release/actions/workflows/test-ubuntu-24-04.yaml)
