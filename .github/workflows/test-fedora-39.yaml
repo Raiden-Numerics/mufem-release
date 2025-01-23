@@ -26,7 +26,7 @@ jobs:
 
     - name: Install prerequisites
       run: |
-        dnf install -y wget unzip
+        dnf install -y wget unzip python libgfortran
 
     - name: Install mufem
       run: |
@@ -39,8 +39,5 @@ jobs:
         OMPI_ALLOW_RUN_AS_ROOT: "1"
         OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
       run: |
-        pwd
-        ls -l
-        ls -l mufem
         ./mufem/pymufem test.py
 
