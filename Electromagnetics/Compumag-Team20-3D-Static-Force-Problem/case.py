@@ -29,16 +29,16 @@ steady_runner = SteadyRunner(total_iterations=0)
 magnetic_domain = ["Yoke", "Pole", "Coil", "Air"] @ Vol
 magnetic_model = TimeDomainMagneticModel(marker=magnetic_domain, order=1)
 
-air_material = TimeDomainMagneticGeneralMaterial.SimpleVacuum(
+air_material = TimeDomainMagneticGeneralMaterial.Vacuum(
     name="Air", marker="Air" @ Vol
 )
-copper_material = TimeDomainMagneticGeneralMaterial.SimpleNonMagnetic(
+copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
     name="Copper", marker="Coil" @ Vol, electric_conductivity=1.0e7
 )
 
 bh = numpy.loadtxt("data/Table_1_BH_Curve.csv", delimiter=",", comments="#")
 
-iron_material = TimeDomainMagneticGeneralMaterial.SimpleNonLinear(
+iron_material = TimeDomainMagneticGeneralMaterial.MagneticNonLinear(
     name="Iron",
     marker=["Yoke", "Pole"] @ Vol,
     magnetic_field_strength=bh[:, 1],
@@ -46,7 +46,7 @@ iron_material = TimeDomainMagneticGeneralMaterial.SimpleNonLinear(
     electric_conductivity=0.0,
 )
 
-magnetic_model.addMaterials([air_material, copper_material, iron_material])
+magnetic_model.add_materials([air_material, copper_material, iron_material])
 
 # Boundaries
 tangential_magnetic_flux_bc = TangentialMagneticFluxBoundaryCondition(
@@ -60,11 +60,11 @@ tangential_magnetic_flux_bc = TangentialMagneticFluxBoundaryCondition(
     ]
     @ Bnd,
 )
-magnetic_model.addCondition(tangential_magnetic_flux_bc)
+magnetic_model.add_condition(tangential_magnetic_flux_bc)
 
 # Coil
 coil_model = ExcitationCoilModel()
-sim.getModelManager().addModel(coil_model)
+sim.get_model_manager().add_model(coil_model)
 
 coil_topology = CoilTopologyOpen(
     in_marker="Coil::In" @ Bnd, out_marker="Coil::Out" @ Bnd
@@ -81,7 +81,7 @@ coil = CoilSpecification(
     type=coil_type,
     excitation=coil_excitation,
 )
-coil_model.addCoilSpecification(coil)
+coil_model.add_coil_specification(coil)
 
 magnetic_force_report_1 = MagneticForceReport(name="Pole Force", marker="Pole" @ Vol)
 
@@ -92,12 +92,12 @@ center_piece_force_list: List[float] = []
 
 for coil_current in numpy.linspace(0.0, 5.0, 11):
 
-    coil_drive_current.setValue(coil_current)
+    coil_drive_current.set_value(coil_current)
 
     steady_runner.advance(5)
 
-    force_z = magnetic_force_report_1.evaluate()[0].getVectorValue().to_tuple()[2]
-
+    force_z = magnetic_force_report_1.evaluate().z
+    
     center_piece_force_list.append((coil_current, force_z))
 
 

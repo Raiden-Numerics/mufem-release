@@ -19,14 +19,14 @@ magnetic_model = TimeDomainMagneticModel(
 )
 
 # Setup Materials
-air_material = TimeDomainMagneticGeneralMaterial.SimpleVacuum(
+air_material = TimeDomainMagneticGeneralMaterial.Vacuum(
     name="Air", marker="Air" @ Vol
 )
 
-copper_material = TimeDomainMagneticGeneralMaterial.SimpleNonMagnetic(
+copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
     name="Al", marker="Cylinder" @ Vol, electric_conductivity=25380710.659898475
 )
-magnetic_model.addMaterials([air_material, copper_material])
+magnetic_model.add_materials([air_material, copper_material])
 
 # Setup Boundary Conditions
 cff_fall = mufem.CffExpressionScalar("79577.488101574*exp(-time()/0.0069)")
@@ -41,19 +41,19 @@ tangential_magnetic_field_bc = TangentialMagneticFieldBoundaryCondition(
     marker="Air::Boundary" @ Bnd,
     tangential_magnetic_field=cff_magnetic_field,
 )
-magnetic_model.addCondition(tangential_magnetic_field_bc)
+magnetic_model.add_condition(tangential_magnetic_field_bc)
 
 # Setup Reports
 ohmic_heating_report = mufem.VolumeIntegralReport(
     name="Ohmic Heating", marker="Cylinder" @ Vol, cff_name="OhmicHeating"
 )
-sim.getReportManager().addReport(ohmic_heating_report)
+sim.get_report_manager().add_report(ohmic_heating_report)
 
 
 ohmic_heating_monitor = mufem.ReportMonitor(
     name="Ohmic Heating Monitor", report_name="Ohmic Heating"
 )
-sim.getMonitorManager().addMonitor(ohmic_heating_monitor)
+sim.get_monitor_manager().add_monitor(ohmic_heating_monitor)
 
 
 sim.run()
@@ -64,10 +64,10 @@ sim.run()
 
 import pylab
 
-monitor_values = ohmic_heating_monitor.getValues()
+monitor_values = ohmic_heating_monitor.get_values()
 
 
-values = [(value[0], value[1].getScalarValue()) for value in monitor_values]
+values = [(value[0], value[1]) for value in monitor_values]
 
 
 pylab.clf()
