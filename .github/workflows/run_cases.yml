@@ -31,8 +31,8 @@ jobs:
       run: |
         python -m venv $HOME/mufem
         echo "VIRTUAL_ENV=$HOME/mufem" >> $GITHUB_ENV
-        pip install -r .requirements.txt
         pip install mufem==$MUFEM_VERSION
+        pip install numpy matplotlib
 
     - name: Run the examples
       run: |
