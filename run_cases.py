@@ -26,8 +26,8 @@ def run_cases(base_directory):
             # Execute the command
             try:
                 os.chdir(path=root)
-                #args = "pymufem case.py"
-                #args = "mpirun python3 case.py"
+                # args = "pymufem case.py"
+                # args = "mpirun python3 case.py"
                 args = "python3 case.py"
                 _ = subprocess.run(args=args, shell=True, check=True, text=True)
                 print(f"Success: {case_path}")

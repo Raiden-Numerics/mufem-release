@@ -33,9 +33,7 @@ sim.get_model_manager().add_model(magnetic_model)
 
 
 # Define the materials
-air_material = TimeDomainMagneticGeneralMaterial.Vacuum(
-    name="Air", marker="Air" @ Vol
-)
+air_material = TimeDomainMagneticGeneralMaterial.Vacuum(name="Air", marker="Air" @ Vol)
 
 copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
     name="Copper",
@@ -128,10 +126,7 @@ symmetry_factor = 2.0
 
 monitor_values = magnetic_torque_monitor.getValues()
 
-values = [
-    (value[0], symmetry_factor * value[1].z)
-    for value in monitor_values
-]
+values = [(value[0], symmetry_factor * value[1].z) for value in monitor_values]
 
 
 torque_ref = numpy.loadtxt(f"tables/Table_4_Torque.csv", delimiter=",", skiprows=1)

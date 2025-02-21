@@ -19,9 +19,7 @@ magnetic_model = TimeDomainMagneticModel(
 )
 
 # Setup Materials
-air_material = TimeDomainMagneticGeneralMaterial.Vacuum(
-    name="Air", marker="Air" @ Vol
-)
+air_material = TimeDomainMagneticGeneralMaterial.Vacuum(name="Air", marker="Air" @ Vol)
 
 copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
     name="Al", marker="Cylinder" @ Vol, electric_conductivity=25380710.659898475

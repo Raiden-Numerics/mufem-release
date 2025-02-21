@@ -29,9 +29,7 @@ steady_runner = SteadyRunner(total_iterations=0)
 magnetic_domain = ["Yoke", "Pole", "Coil", "Air"] @ Vol
 magnetic_model = TimeDomainMagneticModel(marker=magnetic_domain, order=1)
 
-air_material = TimeDomainMagneticGeneralMaterial.Vacuum(
-    name="Air", marker="Air" @ Vol
-)
+air_material = TimeDomainMagneticGeneralMaterial.Vacuum(name="Air", marker="Air" @ Vol)
 copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
     name="Copper", marker="Coil" @ Vol, electric_conductivity=1.0e7
 )
@@ -97,7 +95,7 @@ for coil_current in numpy.linspace(0.0, 5.0, 11):
     steady_runner.advance(5)
 
     force_z = magnetic_force_report_1.evaluate().z
-    
+
     center_piece_force_list.append((coil_current, force_z))
 
 
