@@ -124,7 +124,7 @@ import pylab
 
 symmetry_factor = 2.0
 
-monitor_values = magnetic_torque_monitor.getValues()
+monitor_values = magnetic_torque_monitor.get_values()
 
 values = [(value[0], symmetry_factor * value[1].z) for value in monitor_values]
 
