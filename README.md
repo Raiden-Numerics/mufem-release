@@ -7,6 +7,7 @@ Install mufem through [pypi](https://pypi.org/project/mufem/) using
 > pip install mufem
 ```
 The run the cases with:
+```bash
 > cd Electromagnetics/Compumag-Team1b-Felix-Cylinder
 > pymufem case.py
 ```
