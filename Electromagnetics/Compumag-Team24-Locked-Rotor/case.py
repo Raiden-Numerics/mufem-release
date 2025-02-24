@@ -20,37 +20,32 @@ from mufem.electromagnetics.timedomainmagnetic import (
 
 sim = mufem.Simulation.New(name="Team-24", mesh_path="geometry.mesh")
 
-is_main_process = sim.getMachine().isMainProcess()
-
-
 unsteady_runner = mufem.UnsteadyRunner(
     total_time=0.15, time_step_size=0.005, total_inner_iterations=6
 )
-sim.setRunner(unsteady_runner)
+sim.set_runner(unsteady_runner)
 
 
 magnetic_domain = ["Rotor", "Stator", "Upper Coil", "Lower Coil", "Air"] @ Vol
 
 magnetic_model = TimeDomainMagneticModel(marker=magnetic_domain, order=1)
-sim.getModelManager().addModel(magnetic_model)
+sim.get_model_manager().add_model(magnetic_model)
 
 
 # Define the materials
-air_material = TimeDomainMagneticGeneralMaterial.SimpleVacuum(
-    name="Air", marker="Air" @ Vol
-)
+air_material = TimeDomainMagneticGeneralMaterial.Vacuum(name="Air", marker="Air" @ Vol)
 
-copper_material = TimeDomainMagneticGeneralMaterial.SimpleNonMagnetic(
+copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
     name="Copper",
     marker=["Upper Coil", "Lower Coil"] @ Vol,
     electric_conductivity=5.8e7,
 )
-copper_material.setEddyCurrents(False)
+copper_material.set_eddy_currents(False)
 
 bh = numpy.loadtxt(f"tables/Updated_BH_curve.csv", delimiter=",", comments="#")
 
 
-iron_material = TimeDomainMagneticGeneralMaterial.SimpleNonLinear(
+iron_material = TimeDomainMagneticGeneralMaterial.MagneticNonLinear(
     name="Iron",
     marker=["Rotor", "Stator"] @ Vol,
     magnetic_field_strength=bh[:, 0],
@@ -58,7 +53,7 @@ iron_material = TimeDomainMagneticGeneralMaterial.SimpleNonLinear(
     electric_conductivity=4.54e6,
 )
 
-magnetic_model.addMaterials([air_material, copper_material, iron_material])
+magnetic_model.add_materials([air_material, copper_material, iron_material])
 
 # Setup Boundaries
 boundary_marker = [
@@ -74,11 +69,11 @@ boundary_marker = [
 tangential_magnetic_flux_bc = TangentialMagneticFluxBoundaryCondition(
     name="TangentialFlux", marker=boundary_marker
 )
-magnetic_model.addCondition(tangential_magnetic_flux_bc)
+magnetic_model.add_condition(tangential_magnetic_flux_bc)
 
 # Setup Coil
 coil_model = ExcitationCoilModel()
-sim.getModelManager().addModel(coil_model)
+sim.get_model_manager().add_model(coil_model)
 
 coil_type = CoilTypeStranded(350)
 
@@ -106,17 +101,17 @@ for coil in ["Upper", "Lower"]:
         type=coil_type,
         excitation=coil_excitation,
     )
-    coil_model.addCoilSpecification(coil)
+    coil_model.add_coil_specification(coil)
 
 
 # Setup Reports
 magnetic_torque_report = MagneticTorqueReport(name="Rotor Torque", marker="Rotor" @ Vol)
-sim.getReportManager().addReport(magnetic_torque_report)
+sim.get_report_manager().add_report(magnetic_torque_report)
 
 magnetic_torque_monitor = mufem.ReportMonitor(
     name="Rotor Torque Monitor", report_name="Rotor Torque"
 )
-sim.getMonitorManager().addMonitor(magnetic_torque_monitor)
+sim.get_monitor_manager().add_monitor(magnetic_torque_monitor)
 
 
 sim.run()
@@ -129,12 +124,9 @@ import pylab
 
 symmetry_factor = 2.0
 
-monitor_values = magnetic_torque_monitor.getValues()
+monitor_values = magnetic_torque_monitor.get_values()
 
-values = [
-    (value[0], symmetry_factor * value[1].getVectorValue().z)
-    for value in monitor_values
-]
+values = [(value[0], symmetry_factor * value[1].z) for value in monitor_values]
 
 
 torque_ref = numpy.loadtxt(f"tables/Table_4_Torque.csv", delimiter=",", skiprows=1)

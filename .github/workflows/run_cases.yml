@@ -1,14 +1,17 @@
 name: Run Examples
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
+on: push
+  #push:
+  #  branches:
+  #    - main
+  #pull_request:
 
 jobs:
   run-examples:
     runs-on: ubuntu-24.04
+    #    runs-on: self-hosted
+    #container:
+    #  image: ubuntu-24.04
     if: github.event.pull_request.draft == false
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,7 +24,6 @@ jobs:
     - name: Set MUFEM version from VERSION file
       run: | 
         echo "MUFEM_VERSION=$(cat VERSION)" >> $GITHUB_ENV
-        echo "$HOME/mufem" >> $GITHUB_PATH
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -30,18 +32,12 @@ jobs:
 
     - name: Install Python dependencies
       run: |
-        pip install --upgrade pip
-        pip install -r .requirements.txt
-
-    - name: Install mufem
-      run: |
-        cd $HOME
-        base_url="https://github.com/Raiden-Numerics/mufem-release/releases/download"
-        wget -q ${base_url}/${MUFEM_VERSION}/mufem-${MUFEM_VERSION}.zip
-        unzip -q mufem-${MUFEM_VERSION}.zip
+        python -m venv $HOME/mufem
+        echo "VIRTUAL_ENV=$HOME/mufem" >> $GITHUB_ENV
+        pip install mufem==$MUFEM_VERSION
+        pip install numpy matplotlib
 
     - name: Run the examples
       run: |
-        cd $GITHUB_WORKSPACE
         python3 ./run_cases.py
 
