@@ -8,9 +8,10 @@ on: push
 
 jobs:
   run-examples:
-    runs-on: self-hosted
-    container:
-      image: ubuntu-24.04
+    runs-on: ubuntu-24.04
+    #    runs-on: self-hosted
+    #container:
+    #  image: ubuntu-24.04
     if: github.event.pull_request.draft == false
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
