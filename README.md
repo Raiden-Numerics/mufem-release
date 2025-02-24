@@ -2,15 +2,19 @@
 
 A collection of validation examples for [μfem](http://www.raiden-numerics.com/mufem) ([version](VERSION)).
 
-Run with:
+Install mufem through [pypi](https://pypi.org/project/mufem/) using
 ```bash
-> pip install mufem==0.0.2
-> cd Electromagnetics/Compumag-Team1b-Felix-Cylinder
-> mpiexec python3 case.py
+> pip install mufem
 ```
-(skip mpiexec if you want to run in serial).
+The run the cases with:
+> cd Electromagnetics/Compumag-Team1b-Felix-Cylinder
+> pymufem case.py
+```
+(use `python3 case.py` if you want to run in serial).
 
 ## Validation cases
+
+Currently tested with version `v0.1.117`.
 
 ### Electromagnetics
 
