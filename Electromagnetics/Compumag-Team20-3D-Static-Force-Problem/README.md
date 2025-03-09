@@ -39,10 +39,10 @@ Figure 2: The mesh used in the simulation visualized using <a href="https://glvi
 
 We use the [Time-Domain Magnetic Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/time_domain_magnetic_model.html) which solves for the magnetic field using finite-element discretization and following equation:
 ```math
-\operatorname{curl} \mu^{-1} \operatorname{curl} \mathbf{A} = \mathbf{J} \quad,
+\rm{curl}\, \mu^{-1} \rm{curl}\, \mathbf{A} = \mathbf{J} \quad,
 ```
 where $\mathbf{A} [\frac{\rm{Wb}}{\rm{m}}]$ is the magnetic vector potential, $\mu [\frac{\rm{H}}{\rm{m}}]$ is the magnetic permeability, and $\mathbf{J} [\frac{\rm{A}}{\rm{m}^2}]$ is the 
-electric current density. The magnetic flux density $\mathbf{B} [T]$ is then given by $\mathbf{B} = \operatorname{curl} \mathbf{A}$. The
+electric current density. The magnetic flux density $\mathbf{B} [T]$ is then given by $\mathbf{B} = \rm{curl}\, \mathbf{A}$. The
 magnetic field $\mathbf{H}[\frac{\rm{A}}{\rm{m}}]$ can be obtained from $\mathbf{H} = \mu^{-1} \mathbf{B}$.
 Note that the
 electric current denisty is only non-zero in the coil body and is required to be divergence free, i.e., $\nabla \cdot \mathbf{J} = 0$.
