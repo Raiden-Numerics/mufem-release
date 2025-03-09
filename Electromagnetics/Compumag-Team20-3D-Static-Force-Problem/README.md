@@ -24,14 +24,8 @@ between the coil current and the resulting force of the pole. The force on the c
 
 ### Mesh
 
-The mesh is was created using netgen and saved in the [mfem v13 format](https://mfem.org/mesh-format-v1.0/#mfem-mesh-v13) with
-the bodies using named attirbutes tagged names: Coil, Air, Center and Coil.
-
-        "Yoke::PerfectElectric",
-        "Pole::PerfectElectric",
-        "Coil::In",
-        "Coil::Out",
-        "Air::PerfectElectric",
+The mesh is was created using netgen and saved in the [mfem v13 format](https://mfem.org/mesh-format-v1.0/#mfem-mesh-v13) 
+using named attributes for the volume bodies (Coil, Air, Center and Coil) and boundaries.
 
 <div align="center">
 <img src="data/Mesh.png" alt="drawing" width="400">
@@ -41,14 +35,11 @@ Figure 2: The mesh used in the simulation visualized using <a href="https://glvi
 </div>
 <br /><br />
 
-
-
-
 ### Model
 
 We use the [Time-Domain Magnetic Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/time_domain_magnetic_model.html) which solves for the magnetic field using finite-element discretization and following equation:
 ```math
-\nabla \times \mu^{-1} \operatorname{curl} \mathbf{A} = \mathbf{J} \quad,
+\operatorname{curl} \mu^{-1} \operatorname{curl} \mathbf{A} = \mathbf{J} \quad,
 ```
 where $\mathbf{A} [\frac{\rm{Wb}}{\rm{m}}]$ is the magnetic vector potential, $\mu [\frac{\rm{H}}{\rm{m}}]$ is the magnetic permeability, and $\mathbf{J} [\frac{\rm{A}}{\rm{m}^2}]$ is the 
 electric current density. The magnetic flux density $\mathbf{B} [T]$ is then given by $\mathbf{B} = \operatorname{curl} \mathbf{A}$. The
@@ -59,9 +50,8 @@ electric current denisty is only non-zero in the coil body and is required to be
 
 As for the boundary, by symmetry the magnetic flux needs to be tangential to the symmetry faces; thus we assign a 
 [Tangential Magnetic Flux Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/conditions/tangential_magnetic_flux_boundary_condition.html)
-which ensures that the $\mathbf{B} \cdot \mathbf{n} = 0$, effectively this is achieved by specifiying the tangential components of $\mathbf{A}$ to
-zero, i.e. $\mathbf{n} \times \mathbf{A} = 0$ . While the air boundary, as a far field boundary can be choosen to be either left free for simplicity we assign a
-tangential flux condition to it as well.
+which ensures that $\mathbf{B} \cdot \mathbf{n} = 0$. This is achieved by specifiying the tangential components of $\mathbf{A}$ to
+zero, i.e. $\mathbf{n} \times \mathbf{A} = 0$ . While the air boundary, as a far field boundary can be choosen to be either left free, for simplicity we assign a tangential flux condition to it as well.
 
 ### Excitation
 
@@ -72,7 +62,7 @@ $$
 \mathbf{J}= I \frac{n_t}{S_c} \mathbf{d} \quad,
 $$
 where $I [\rm{A}]$ is the applied coil current, $n_t$ is the number of coil turns, and $S_c[\rm{m}^2]$ is the coil cross section and $\mathbf{d}$
-is the coil path. Note that the actual calculation is more involved as we need to ensure that the electric current density is homogeneous along a coil cross section as well as support non-constant cross sections of the coil geometry.
+is the coil path (please note that the actual calculation is more involved as we need to ensure that the electric current density is homogeneous along a coil cross section as well as support non-constant cross sections of the coil geometry).
 Here, we choose $n_t=1000$ and a coil current ranging from $I=0\text{A}$ to $I=5\text{A}$ with a total 11 measurements.
 
 ### Reports
@@ -85,13 +75,13 @@ The force $\mathbf{F}[\rm{N}]$ is then given by integrating over the surface $S$
 $$
 \mathbf{F} = \int_S \mathbb{T} \cdot \mathbf{n} \,\rm{d}S \quad,
 $$
-where $\mathbf{n}$ is the normal along the surface.
+where $\mathbf{n}$ is the normal along the surface. Note that only the z-component of $\mathbf{F}$ is relevant for the benchmark here.
 
 
 ### Materials
 
 While the *coil* and *air* have vacuum permeability, the *Yoke* and *Pole* are iron materials with a
-strong non-linearity given by the B(H) curve with a Rayleigh region and saturation. Robustly capturing the Rayleigh region and saturation effects is challenging. In the benchmark case, Table 1.[1] provided the [bh-curve](data/Table_1_BH_Curve.csv) in tabulated form which is shown in Figure 2.
+strong non-linearity given by the B(H) curve with a Rayleigh region and saturation. Robustly capturing the Rayleigh region and saturation effects is numerically challenging. In the benchmark case, the [bh-curve](data/Table_1_BH_Curve.csv) in tabulated is used, also shown in Figure 2.
 
 <div style="display: flex; align-items: flex-start;">
     <img src="./data/bh_curve.png" alt="BH Curve" width="600" style="margin-right: 20px;">
@@ -119,7 +109,7 @@ strong non-linearity given by the B(H) curve with a Rayleigh region and saturati
 ## Running the case
 
 
-We run the case using the [case.py](case.py) with
+We run the case using [case.py](case.py) with
 ```bash
 > pymufem case.py 
 ...
@@ -143,7 +133,7 @@ electromagnetic.TimeDomainMagneticModel,
 Stopping criterion reached!
 ```
 
-In [case.py](case.py), we have a loop over an increasing value of the coil current:
+Note that in [case.py](case.py), we have a loop over an increasing value of the coil current:
 ```python
 for coil_current in numpy.linspace(0.0, 5.0, 11):
 
@@ -166,7 +156,7 @@ Which sets the current, runs the simulation and stores the resulting force. Fina
 
 
 The results are presented in Figure 3, where we find a good match to the experimental and numerical values reported in
-[reference](#references) [2] and [3]. Note, that initially the force increases quadratically with an increase of current until around I=3A, where the steel saturates.
+[reference](#references) [2] and [3]. Note that initially the force increases quadratically with an increase of current until around I=3A, where the steel saturates.
 
 Finally, we save the fields at $I=5A$ for further evaluation with [paraview](https://www.paraview.org/).
 
@@ -179,7 +169,7 @@ Finally, we save the fields at $I=5A$ for further evaluation with [paraview](htt
 <br /><br />
 
 
-As an outlook the paper[3] suggests to investigate the effect of model order, and adaptive refinement (among others) which
+As an outlook, the paper[3] suggests to investigate the effect of model order, and adaptive refinement (among others) which
 we will look into in an upcoming update.
 
 
