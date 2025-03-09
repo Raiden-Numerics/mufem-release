@@ -121,8 +121,8 @@ pylab.plot(
     linewidth=2.5,
     markersize=5.0,
     label="$\\mu$fem",
-    markerfacecolor='none',  
-    markeredgecolor='r',    
+    markerfacecolor="none",
+    markeredgecolor="r",
 )
 
 pylab.xlabel("Coil Current [A]")
