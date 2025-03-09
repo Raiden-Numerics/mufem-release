@@ -50,11 +50,11 @@ magnetic_model.add_materials([air_material, copper_material, iron_material])
 tangential_magnetic_flux_bc = TangentialMagneticFluxBoundaryCondition(
     name="TangentialFlux",
     marker=[
-        "Yoke::PerfectElectric",
-        "Pole::PerfectElectric",
+        "Yoke::TangentialFlux",
+        "Pole::TangentialFlux",
         "Coil::In",
         "Coil::Out",
-        "Air::PerfectElectric",
+        "Air::TangentialFlux",
     ]
     @ Bnd,
 )
@@ -117,9 +117,12 @@ pylab.plot(reference[:, 0], reference[:, 1], "ko", label="Reference")
 pylab.plot(
     calculated[:, 0],
     symmetry_factor * calculated[:, 1],
-    "r-",
+    "ro-",
     linewidth=2.5,
+    markersize=5.0,
     label="$\\mu$fem",
+    markerfacecolor="none",
+    markeredgecolor="r",
 )
 
 pylab.xlabel("Coil Current [A]")
@@ -134,3 +137,11 @@ pylab.savefig(
     f"Force_vs_Current.png",
     bbox_inches="tight",
 )
+
+
+# Finally, we save a few fields so we can visualize with paraview
+vis = sim.get_visualization_helper()
+vis.add_field_output("MagneticFluxDensity")
+vis.add_field_output("ElectricCurrentDensity")
+
+vis.save()
