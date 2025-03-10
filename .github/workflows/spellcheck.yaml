@@ -1,0 +1,21 @@
+name: Spellcheck Markdown Files
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install codespell
+        run: pip install codespell
+
+      - name: Run codespell recursively on Markdown files
+        run: codespell --ignore-words .dict.txt --skip="./.git" --quiet-level=2 -- $(find . -type f -name "*.md")
+
