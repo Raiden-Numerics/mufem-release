@@ -13,7 +13,7 @@ The problem [1] is a non-linear magnetostatic case with a center pole and yoke m
 </div>
 <br /><br />
 
-When current is flowing through the coil, a magnetic field is generated which is channeled through the ferromagnetic material. This creates a force between the pole and the yoke which is measured. We are interested the relation between the coil current and the resulting force on the pole. The force on the center pole is compared to **experimental values** presented in [reference](#references) [3].
+When current is flowing through the coil, a magnetic field is generated which is channeled through the ferromagnetic material. This creates a force between the pole and the yoke which is measured. We are interested the relation between the coil current and the resulting force on the pole. The force on the center pole is compared to **experimental values** presented in [[3]](#[3]).
 
 ## Setup
 
@@ -132,12 +132,12 @@ Which sets the current, runs the simulation and stores the resulting force. Fina
 <img src="Force_vs_Current.png" alt="drawing" width="600">
 </div>
 <div align="center">
-<em>Figure 3: The resulting force in relation to the applied coil current and compared with the experimental values obtained from reference [2].</em>
+<em>Figure 3: The resulting force in relation to the applied coil current and compared with the experimental values obtained from [2].</em>
 </div>
 <br /><br />
 
 
-The results are presented in Figure 3, where we find a good match to the experimental and numerical values reported in [reference](#references) [2] and [3]. Note that initially the force increases quadratically with an increase of current until around I=3A, where the steel saturates.
+The results are presented in Figure 3, where we find a good match to the experimental and numerical values reported in [[2]](#[2]) and [[3]](#[3]). Note that initially the force increases quadratically with an increase of current until around I=3A, where the steel saturates.
 
 Finally, we save the fields at $I=5A$ for further evaluation with [paraview](https://www.paraview.org/).
 
@@ -150,13 +150,13 @@ Finally, we save the fields at $I=5A$ for further evaluation with [paraview](htt
 <br /><br />
 
 
-As an outlook, the paper[3] suggests to investigate the effect of model order, and adaptive refinement (among others) which we will look into in an upcoming update.
+As an outlook, the paper [[3]](#[3]) suggests to investigate the effect of model order, and adaptive refinement (among others) which we will look into in an upcoming update.
 
 
 ## References
 
-[1] https://www.compumag.org/wp/wp-content/uploads/2018/06/problem20.pdf
+<a id="[1]"></a> [1] https://www.compumag.org/wp/wp-content/uploads/2018/06/problem20.pdf
 
-[2] N. Takahashi, T. Nakata, and H. Morishige. "Summary of results for problem 20 (3‐D static force problem)." COMPEL-The international journal for computation and mathematics in electrical and electronic engineering 14.2/3 (1995): 57-75. doi.org/10.1108/eb010138
+<a id="[2]"></a> [2] N. Takahashi, T. Nakata, and H. Morishige. "Summary of results for problem 20 (3‐D static force problem)." COMPEL-The international journal for computation and mathematics in electrical and electronic engineering 14.2/3 (1995): 57-75. doi.org/10.1108/eb010138
 
-[3] N. Takahashi, N. Takayoshi, and H. Morishige. "Investigation of a model to verify software for 3-D static force calculation." IEEE transactions on magnetics 30.5 (1994): 3483-3486. doi.org/10.1109/20.312689
+<a id="[3]"></a> [3] N. Takahashi, N. Takayoshi, and H. Morishige. "Investigation of a model to verify software for 3-D static force calculation." IEEE transactions on magnetics 30.5 (1994): 3483-3486. doi.org/10.1109/20.312689
