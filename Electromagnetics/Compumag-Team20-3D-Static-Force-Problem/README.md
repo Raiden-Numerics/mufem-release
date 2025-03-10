@@ -137,7 +137,7 @@ Which sets the current, runs the simulation and stores the resulting force. Fina
 <br /><br />
 
 
-The results are presented in Figure 3, where we find a good match to the experimental and numerical values reported in [[2]](#[2]) and [[3]](#[3]). Note that initially the force increases quadratically with an increase of current until around I=3A, where the steel saturates.
+The results are presented in Figure 3, where we find a good match to the experimental and numerical values reported in [[2]](#[2]) and [[3]](#[3]). Note that initially the force increases quadratically with an increase of current until around $I=3A$, where the steel saturates.
 
 Finally, we save the fields at $I=5A$ for further evaluation with [paraview](https://www.paraview.org/).
 
@@ -145,10 +145,9 @@ Finally, we save the fields at $I=5A$ for further evaluation with [paraview](htt
 <img src="data/Vis_MagneticFluxDensity.png" alt="drawing" width="600">
 </div>
 <div align="center">
-<em>Figure 4: The magnetic flux density at I=5A. At the corner of the center pole the magnitude of the magnetic flux density exceeds the values of the provided bh table requiring extrapolation.</em>
+<em>Figure 4: The magnetic flux density at I=5 A. At the corner of the center pole the magnitude of the magnetic flux density exceeds the values of the provided bh table requiring extrapolation.</em>
 </div>
 <br /><br />
-
 
 As an outlook, the paper [[3]](#[3]) suggests to investigate the effect of model order, and adaptive refinement (among others) which we will look into in an upcoming update.
 
