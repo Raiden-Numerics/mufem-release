@@ -20,7 +20,7 @@ The setup is a conductive aluminum cylinder with a homogeneous magnetic field in
 $$
 B_y(t) = B_0 e^{-t/\tau} \quad,
 $$
-where $t=0$ represents the initial time where the magnetic field fully penetrates the cylinder. The decay constant is $\tau=0.0069$ and intial magnetic flux density is $B_0 = 0.1 \left[T \right]$. The decaying external magnetic flux density field can be incorporated into our solution by imposing a magnetic field of the form
+where $t=0$ represents the initial time where the magnetic field fully penetrates the cylinder. The decay constant is $\tau=0.0069$ and initial magnetic flux density is $B_0 = 0.1 \left[T \right]$. The decaying external magnetic flux density field can be incorporated into our solution by imposing a magnetic field of the form
 ```math
 \vec{H}_0(t) = 
 \left( 
