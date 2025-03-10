@@ -14,9 +14,9 @@ and a stranded (wound) copper coil which is excited by a constant current. The g
 </div>
 <br /><br />
 
-When current is flowing through the coil, a magnetic field is generated which is channeled through the ferromagnetic 
-material. This creates a force between the pole and the yoke which is measured. We are interested the relation 
-between the coil current and the resulting force of the pole. The force on the center pole is compared to 
+When current is flowing through the coil, a magnetic field is generated which is channeled through the ferromagnetic
+material. This creates a force between the pole and the yoke which is measured. We are interested the relation
+between the coil current and the resulting force on the pole. The force on the center pole is compared to
 **experimental values** presented in [reference](#references)[3].
 
 ## Setup
@@ -24,7 +24,7 @@ between the coil current and the resulting force of the pole. The force on the c
 
 ### Mesh
 
-The mesh is was created using netgen and saved in the [mfem v13 format](https://mfem.org/mesh-format-v1.0/#mfem-mesh-v13) 
+The mesh was created using netgen and saved in the [mfem v13 format](https://mfem.org/mesh-format-v1.0/#mfem-mesh-v13)
 using named attributes for the volume bodies (Coil, Air, Center and Coil) and boundaries.
 
 <div align="center">
@@ -41,26 +41,28 @@ We use the [Time-Domain Magnetic Model](https://www.raiden-numerics.com/mufem/mo
 ```math
 \rm{curl}\, \mu^{-1} \rm{curl}\, \mathbf{A} = \mathbf{J} \quad,
 ```
-where $\mathbf{A} [\frac{\rm{Wb}}{\rm{m}}]$ is the magnetic vector potential, $\mu [\frac{\rm{H}}{\rm{m}}]$ is the magnetic permeability, and $\mathbf{J} [\frac{\rm{A}}{\rm{m}^2}]$ is the 
-electric current density. The magnetic flux density $\mathbf{B} [T]$ is then given by $\mathbf{B} = \rm{curl}\, \mathbf{A}$. The
+where $\mathbf{A} [\frac{\rm{Wb}}{\rm{m}}]$ is the magnetic vector potential, $\mu [\frac{\rm{H}}{\rm{m}}]$ is the magnetic permeability, and $\mathbf{J} [\frac{\rm{A}}{\rm{m}^2}]$ is the
+electric current density. The magnetic flux density $\mathbf{B} [T]$ is then given by $\mathbf{B} = \rm{curl} \, \mathbf{A}$. The
 magnetic field $\mathbf{H}[\frac{\rm{A}}{\rm{m}}]$ can be obtained from $\mathbf{H} = \mu^{-1} \mathbf{B}$.
 Note that the
 electric current denisty is only non-zero in the coil body and is required to be divergence free, i.e., $\nabla \cdot \mathbf{J} = 0$.
 
 
-As for the boundary, by symmetry the magnetic flux needs to be tangential to the symmetry faces; thus we assign a 
+As for the boundary, by symmetry the magnetic flux needs to be tangential to the symmetry faces; thus we assign a
 [Tangential Magnetic Flux Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/conditions/tangential_magnetic_flux_boundary_condition.html)
 which ensures that $\mathbf{B} \cdot \mathbf{n} = 0$. This is achieved by specifiying the tangential components of $\mathbf{A}$ to
 zero, i.e. $\mathbf{n} \times \mathbf{A} = 0$ . While the air boundary, as a far field boundary can be choosen to be either left free, for simplicity we assign a tangential flux condition to it as well.
 
 ### Excitation
 
-The electric current density in the right-hand side of the equation is provided by the 
+The electric current density in the right-hand side of the equation is provided by the
 [Excitation Coil Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/excitation_coil/excitation_coil_model.html) which
 models the poperties of the stranded coil. The electric current density inside the coil body can be calculated using
+
 $$
 \mathbf{J}= I \frac{n_t}{S_c} \mathbf{d} \quad,
 $$
+
 where $I [\rm{A}]$ is the applied coil current, $n_t$ is the number of coil turns, and $S_c[\rm{m}^2]$ is the coil cross section and $\mathbf{d}$
 is the coil path (please note that the actual calculation is more involved as we need to ensure that the electric current density is homogeneous along a coil cross section as well as support non-constant cross sections of the coil geometry).
 Here, we choose $n_t=1000$ and a coil current ranging from $I=0\text{A}$ to $I=5\text{A}$ with a total 11 measurements.
@@ -68,13 +70,17 @@ Here, we choose $n_t=1000$ and a coil current ranging from $I=0\text{A}$ to $I=5
 ### Reports
 
 The force is calculated using the [Magnetic Force Report](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/reports/magnetic_force_report.html) which uses the Maxwell stress tensor $\mathbb{T} [\rm{Pa}]$ given by
+
 $$
 \mathbb{T} = \mathbf{B} \otimes \mathbf{H} - \frac{1}{2} \left( \mathbf{B} \cdot \mathbf{H} \right) \mathbb{I}   \quad.
 $$
+
 The force $\mathbf{F}[\rm{N}]$ is then given by integrating over the surface $S$ of the center pole body with
+
 $$
 \mathbf{F} = \int_S \mathbb{T} \cdot \mathbf{n} \,\rm{d}S \quad,
 $$
+
 where $\mathbf{n}$ is the normal along the surface. Note that only the z-component of $\mathbf{F}$ is relevant for the benchmark here.
 
 
@@ -99,7 +105,7 @@ strong non-linearity given by the B(H) curve with a Rayleigh region and saturati
             </li>
         </ul>
         <p>
-            The transition between these regions is characterized by the irreversible domain wall movements and progressive domain rotation. 
+            The transition between these regions is characterized by the irreversible domain wall movements and progressive domain rotation.
         </p>
     </div>
 </div>
@@ -111,20 +117,20 @@ strong non-linearity given by the B(H) curve with a Rayleigh region and saturati
 
 We run the case using [case.py](case.py) with
 ```bash
-> pymufem case.py 
+> pymufem case.py
 ...
 43 2.477455e-08
 44 7.077223e-10
 45 3.873954e-11
 Stopping criterion reached!
-electromagnetic.TimeDomainMagneticModel, 
+electromagnetic.TimeDomainMagneticModel,
 46 2.857851e-06
 47 1.633936e-07
 48 1.051301e-08
 49 1.973070e-10
 50 4.131711e-11
 Stopping criterion reached!
-electromagnetic.TimeDomainMagneticModel, 
+electromagnetic.TimeDomainMagneticModel,
 51 2.642555e-06
 52 1.691569e-07
 53 1.072489e-08
@@ -143,7 +149,7 @@ for coil_current in numpy.linspace(0.0, 5.0, 11):
     force_z = magnetic_force_report_1.evaluate().z
 
     center_piece_force_list.append((coil_current, force_z))
-```    
+```
 Which sets the current, runs the simulation and stores the resulting force. Finally, we generate a plot showing the dependency of the force vs. the coil current.
 
 <div align="center">
