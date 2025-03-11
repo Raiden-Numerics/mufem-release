@@ -50,7 +50,7 @@ where $I [\rm{A}]$ is the applied coil current, $n_t$ is the number of coil turn
 
 ### Reports
 
-The force is calculated using the [Magnetic Force Report](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/reports/magnetic_force_report.html) which uses the Maxwell stress tensor $\mathbb{T} [\rm{Pa}]$ given by
+The force is calculated using the [Magnetic Force Report](xhttps://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/reports/magnetic_force_report.html) which uses the Maxwell stress tensor $\mathbb{T} [\rm{Pa}]$ given by
 ```math
 \mathbb{T} = \mathbf{B} \otimes \mathbf{H} - \frac{1}{2} \left( \mathbf{B} \cdot \mathbf{H} \right) \mathbb{I}   \quad.
 ```

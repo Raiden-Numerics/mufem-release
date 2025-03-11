@@ -19,7 +19,5 @@ jobs:
           args: >
             --no-progress
             --timeout 10
-            --exclude-mail
-            --exclude "https://example.com"
             **/*.md
 
