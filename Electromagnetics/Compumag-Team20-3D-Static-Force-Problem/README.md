@@ -32,7 +32,7 @@ Figure 2: The mesh used in the simulation visualized using <a href="https://glvi
 
 ### Model
 
-We use the [Time-Domain Magnetic Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/time_domain_magnetic_model.html) which solves for the magnetic field using finite-element discretization and following equation:
+We use the [Time-Domain Magnetic Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/time_domain_magnetic_model2.html) which solves for the magnetic field using finite-element discretization and following equation:
 ```math
 \rm{curl}\, \mu^{-1} \rm{curl}\, \mathbf{A} = \mathbf{J} \quad,
 ```
