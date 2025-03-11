@@ -1,6 +1,6 @@
 # mufem-examples
 
-A collection of validation examples for [μfem](http://www.raiden-numerics.com/mufem) ([version](VERSION)).
+A collection of validation examples for [μfem](https://www.raiden-numerics.com/mufem) ([version](VERSION)).
 
 To run the validations, install mufem through [pypi](https://pypi.org/project/mufem/) using
 ```bash

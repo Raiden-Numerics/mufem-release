@@ -32,7 +32,7 @@ Figure 2: The mesh used in the simulation visualized using <a href="https://glvi
 
 ### Model
 
-We use the [Time-Domain Magnetic Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/time_domain_magnetic_model2.html) which solves for the magnetic field using finite-element discretization and following equation:
+We use the [Time-Domain Magnetic Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/time_domain_magnetic_model.html) which solves for the magnetic field using finite-element discretization and following equation:
 ```math
 \rm{curl}\, \mu^{-1} \rm{curl}\, \mathbf{A} = \mathbf{J} \quad,
 ```
@@ -50,7 +50,7 @@ where $I [\rm{A}]$ is the applied coil current, $n_t$ is the number of coil turn
 
 ### Reports
 
-The force is calculated using the [Magnetic Force Report](xhttps://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/reports/magnetic_force_report.html) which uses the Maxwell stress tensor $\mathbb{T} [\rm{Pa}]$ given by
+The force is calculated using the [Magnetic Force Report](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/reports/magnetic_force_report.html) which uses the Maxwell stress tensor $\mathbb{T} [\rm{Pa}]$ given by
 ```math
 \mathbb{T} = \mathbf{B} \otimes \mathbf{H} - \frac{1}{2} \left( \mathbf{B} \cdot \mathbf{H} \right) \mathbb{I}   \quad.
 ```
