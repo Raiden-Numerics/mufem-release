@@ -36,13 +36,13 @@ We use the [Time-Domain Magnetic Model](https://www.raiden-numerics.com/mufem/mo
 ```math
 \rm{curl}\, \mu^{-1} \rm{curl}\, \mathbf{A} = \mathbf{J} \quad,
 ```
-where $\mathbf{A} [\frac{\rm{Wb}}{\rm{m}}]$ is the magnetic vector potential, $\mu [\frac{\rm{H}}{\rm{m}}]$ is the magnetic permeability, and $\mathbf{J} [\frac{\rm{A}}{\rm{m}^2}]$ is the electric current density. The magnetic flux density $\mathbf{B} [T]$ is then given by $\mathbf{B} = \rm{curl} \mathbf{A}$. The magnetic field $\mathbf{H}[\frac{\rm{A}}{\rm{m}}]$ can be obtained from $\mathbf{H} = \mu^{-1} \mathbf{B}$. Note that the electric current denisty is only non-zero in the coil body and is required to be divergence free, i.e., $\nabla \cdot \mathbf{J} = 0$.
+where $\mathbf{A} [\frac{\rm{Wb}}{\rm{m}}]$ is the magnetic vector potential, $\mu [\frac{\rm{H}}{\rm{m}}]$ is the magnetic permeability, and $\mathbf{J} [\frac{\rm{A}}{\rm{m}^2}]$ is the electric current density. The magnetic flux density $\mathbf{B} [T]$ is then given by $\mathbf{B} = \rm{curl} \mathbf{A}$. The magnetic field $\mathbf{H}[\frac{\rm{A}}{\rm{m}}]$ can be obtained from $\mathbf{H} = \mu^{-1} \mathbf{B}$. Note that the electric current density is only non-zero in the coil body and is required to be divergence free, i.e., $\nabla \cdot \mathbf{J} = 0$.
 
-As for the boundary, by symmetry the magnetic flux needs to be tangential to the symmetry faces; thus we assign a [Tangential Magnetic Flux Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/conditions/tangential_magnetic_flux_boundary_condition.html) which ensures that $\mathbf{B} \cdot \mathbf{n} = 0$. This is achieved by specifiying the tangential components of $\mathbf{A}$ to zero, i.e. $\mathbf{n} \times \mathbf{A} = 0$. While the air boundary, as a far field boundary can be choosen to be either left free, for simplicity we assign a tangential flux condition to it as well.
+As for the boundary, by symmetry the magnetic flux needs to be tangential to the symmetry faces; thus we assign a [Tangential Magnetic Flux Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_domain_magnetic/conditions/tangential_magnetic_flux_boundary_condition.html) which ensures that $\mathbf{B} \cdot \mathbf{n} = 0$. This is achieved by specifying the tangential components of $\mathbf{A}$ to zero, i.e. $\mathbf{n} \times \mathbf{A} = 0$. While the air boundary, as a far field boundary can be chosen to be either left free, for simplicity we assign a tangential flux condition to it as well.
 
 ### Excitation
 
-The electric current density in the right-hand side of the equation is provided by the [Excitation Coil Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/excitation_coil/excitation_coil_model.html) which models the poperties of the stranded coil. The electric current density inside the coil body can be calculated using
+The electric current density in the right-hand side of the equation is provided by the [Excitation Coil Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/excitation_coil/excitation_coil_model.html) which models the properties of the stranded coil. The electric current density inside the coil body can be calculated using
 ```math
 \mathbf{J}= I \frac{n_t}{S_c} \mathbf{d} \quad,
 ```
