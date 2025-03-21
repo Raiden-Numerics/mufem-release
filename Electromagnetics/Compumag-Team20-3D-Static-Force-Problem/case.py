@@ -131,7 +131,7 @@ plt.legend(loc="best").draw_frame(False)
 plt.xlim(0.0, 5.4)
 plt.ylim(0, 90)
 
-plt.savefig("Force_vs_Current.png", bbox_inches="tight")
+plt.savefig("results/Force_vs_Current.png", bbox_inches="tight")
 
 
 # Finally, we save a few fields so we can visualize with paraview

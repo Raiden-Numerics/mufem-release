@@ -43,7 +43,7 @@ copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
 )
 copper_material.set_eddy_currents(False)
 
-bh = numpy.loadtxt("tables/Updated_BH_curve.csv", delimiter=",", comments="#")
+bh = numpy.loadtxt("data/tables/Updated_BH_curve.csv", delimiter=",", comments="#")
 
 
 iron_material = TimeDomainMagneticGeneralMaterial.MagneticNonLinear(
@@ -79,7 +79,7 @@ sim.get_model_manager().add_model(coil_model)
 coil_type = CoilTypeStranded(350)
 
 current_time = numpy.loadtxt(
-    "tables/Table_3_Coil_Current.csv",
+    "data/tables/Table_3_Coil_Current.csv",
     delimiter=",",
     comments="#",
 )
@@ -126,7 +126,7 @@ monitor_values = magnetic_torque_monitor.get_values()
 values = [(value[0], symmetry_factor * value[1].z) for value in monitor_values]
 
 
-torque_ref = numpy.loadtxt("tables/Table_4_Torque.csv", delimiter=",", skiprows=1)
+torque_ref = numpy.loadtxt("data/tables/Table_4_Torque.csv", delimiter=",", skiprows=1)
 
 plt.clf()
 
@@ -141,4 +141,4 @@ plt.xlabel("Time t [s]")
 plt.ylabel("Torque T [Nm]")
 plt.legend(loc="best").draw_frame(False)
 
-plt.savefig("Time_vs_Rotor_Torque.png", bbox_inches="tight")
+plt.savefig("results/Time_vs_Rotor_Torque.png", bbox_inches="tight")

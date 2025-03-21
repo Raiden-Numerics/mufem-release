@@ -94,4 +94,4 @@ plt.xticks([0, 0.01, 0.02])
 plt.ylim(0, 600)
 plt.legend(loc="best").draw_frame(False)
 
-plt.savefig("OhmicHeating.png", bbox_inches="tight")
+plt.savefig("results/OhmicHeating.png", bbox_inches="tight")
