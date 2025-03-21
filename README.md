@@ -2,17 +2,34 @@
 
 A collection of validation examples for [μfem](https://www.raiden-numerics.com/mufem) ([version](VERSION)).
 
-To run the validations, install mufem through [pypi](https://pypi.org/project/mufem/) using
+To run the examples you will need Python version 3.12 installed. We also recommend that you first create a separate Python virtual environment:
 ```bash
-> pip install mufem
+python -m venv ~/mufemEnv
+```
+Here we assume that the environment data will be stored in the `mufemEnv` folder in your home directory. To activate the newly created Python environment run the following command:
+```bash
+source ~/mufemEnv/activate
 ```
 
-and execute each case using
+Use [pypi](https://pypi.org/project/mufem/) to install the necessary Python libraries:
 ```bash
-> cd Electromagnetics/Compumag-Team1b-Felix-Cylinder
-> pymufem case.py
+pip install numpy matplotlib
 ```
-(use `python3 case.py` if you want to run in serial).
+And, finally, install mufem:
+```bash
+pip install mufem
+```
+
+To launch a specific case, go to the case directory, e.g.
+```
+cd Electromagnetics/Compumag-Team1b-Felix-Cylinder
+```
+and execute the case by
+```bash
+pymufem case.py
+```
+The command `pymufem` will launch the case in parallel mode. If you want to launch it in serial mode, you can use `python3 case.py` command.
+
 
 ## Validation cases
 
