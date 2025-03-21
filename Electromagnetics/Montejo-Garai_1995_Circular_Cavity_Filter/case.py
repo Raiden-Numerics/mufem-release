@@ -16,7 +16,7 @@ from mufem.electromagnetics.timeharmonicmaxwell import (
 # Problem setup
 # **************************************************************************************
 sim = Simulation.New(
-    name="Montejo-Garai_1995_Circular_Cavity_Filter", mesh_path="geometry.mesh"
+    name="Montejo-Garai_1995_Circular_Cavity_Filter", mesh_path="geometry.msh"
 )
 
 steady_runner = SteadyRunner(total_iterations=0)
@@ -24,10 +24,10 @@ steady_runner = SteadyRunner(total_iterations=0)
 # **************************************************************************************
 # Markers
 # **************************************************************************************
-marker_domain = "Filter" @ Vol
-marker_pec_walls = "Filter::PEC" @ Bnd
-marker_input_port = "Filter::Input" @ Bnd
-marker_output_port = "Filter::Output" @ Bnd
+marker_input_port = "InputPort" @ Bnd
+marker_output_port = "OutputPort" @ Bnd
+marker_walls = "Walls" @ Bnd
+marker_domain = "Domain" @ Vol
 
 # **************************************************************************************
 # Model
@@ -40,13 +40,13 @@ sim.get_model_manager().add_model(model)
 # **************************************************************************************
 # Materials
 # **************************************************************************************
-air_material = TimeHarmonicMaxwellGeneralMaterial.Vacuum("Air", marker_domain)
-model.add_material(air_material)
+material_air = TimeHarmonicMaxwellGeneralMaterial.Vacuum("Air", marker_domain)
+model.add_material(material_air)
 
 # **************************************************************************************
 # Boundary conditions
 # **************************************************************************************
-condition_pec = PerfectElectricConductorCondition("PEC", marker_pec_walls)
+condition_pec = PerfectElectricConductorCondition("PEC", marker_walls)
 
 mode_index = 0  # index of the mode that will be launched from the input port
 condition_input_port = InputPortCondition("Input", marker_input_port, mode_index)
@@ -65,7 +65,7 @@ sim.get_report_manager().add_report(report_s_parameters)
 # **************************************************************************************
 # Run the simulation
 # **************************************************************************************
-Nf = 100  # number of frequencies to scan
+Nf = 251  # number of frequencies to scan
 frequencies = numpy.linspace(10e9, 15e9, Nf)  # [Hz] frequencies to scan
 
 S21 = numpy.zeros(Nf, dtype=complex)

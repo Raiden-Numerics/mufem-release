@@ -2,10 +2,27 @@
 
 ## Introduction
 
+<div align="center">
+    <img src="data/Geometry.png" alt="drawing" width="600">
+    <br/>
+    <br/>
+    Figure 1: Geometry. Circular cavity filter.
+</div>
+<br/>
+<br/>
 
 ## Setup
 
 ### Mesh
+
+<div align="center">
+    <img src="data/Mesh.png" alt="drawing" width="600">
+    <br/>
+    <br/>
+    Figure 2: Mesh. Circular cavity filter.
+</div>
+<br/>
+<br/>
 
 ### Model
 
@@ -19,11 +36,11 @@
 ## Running the case
 
 <div align="center">
-<img src="results/transmission_spectrum.png" alt="drawing">
+    <img src="results/S21_vs_frequency.png" alt="drawing">
+    <br/>
+    Figure 2: Transmission spectrum of the circular cavity filter.
 </div>
-<div align="center">
-<em>Figure 1: Transmission spectrum of the circular cavity filter.</em>
-</div>
-<br /><br />
+<br/>
+<br/>
 
 ## References
