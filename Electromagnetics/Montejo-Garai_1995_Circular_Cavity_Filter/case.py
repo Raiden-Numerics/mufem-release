@@ -1,4 +1,5 @@
 import numpy
+import pylab
 
 from mufem import Bnd, Vol, Simulation, SteadyRunner
 from mufem.electromagnetics.timeharmonicmaxwell import (
@@ -11,40 +12,40 @@ from mufem.electromagnetics.timeharmonicmaxwell import (
 )
 
 
-# *****************************************************************************
+# **************************************************************************************
 # Problem setup
-# *****************************************************************************
+# **************************************************************************************
 sim = Simulation.New(
     name="Montejo-Garai_1995_Circular_Cavity_Filter", mesh_path="geometry.mesh"
 )
 
 steady_runner = SteadyRunner(total_iterations=0)
 
-# *****************************************************************************
+# **************************************************************************************
 # Markers
-# *****************************************************************************
+# **************************************************************************************
 marker_domain = "Filter" @ Vol
 marker_pec_walls = "Filter::PEC" @ Bnd
 marker_input_port = "Filter::Input" @ Bnd
 marker_output_port = "Filter::Output" @ Bnd
 
-# *****************************************************************************
+# **************************************************************************************
 # Model
-# *****************************************************************************
+# **************************************************************************************
 frequency = 14.5e9  # [Hz] radiation frequency
 order = 2  # finite element polynomial degree
 model = TimeHarmonicMaxwellModel(marker_domain, frequency, order)
 sim.get_model_manager().add_model(model)
 
-# *****************************************************************************
+# **************************************************************************************
 # Materials
-# *****************************************************************************
+# **************************************************************************************
 air_material = TimeHarmonicMaxwellGeneralMaterial.Vacuum("Air", marker_domain)
 model.add_material(air_material)
 
-# *****************************************************************************
+# **************************************************************************************
 # Boundary conditions
-# *****************************************************************************
+# **************************************************************************************
 condition_pec = PerfectElectricConductorCondition("PEC", marker_pec_walls)
 
 mode_index = 0  # index of the mode that will be launched from the input port
@@ -52,22 +53,18 @@ condition_input_port = InputPortCondition("Input", marker_input_port, mode_index
 
 condition_output_port = OutputPortCondition("Output", marker_output_port)
 
-model.add_conditions(
-    [condition_pec, condition_input_port, condition_output_port]
-)
+model.add_conditions([condition_pec, condition_input_port, condition_output_port])
 
-# *****************************************************************************
+# **************************************************************************************
 # Reports
-# *****************************************************************************
+# **************************************************************************************
 nmodes = 1  # number of modes to be calculated for the report
-report_s_parameters = SParametersReport(
-    "S-parameters", condition_output_port, nmodes
-)
+report_s_parameters = SParametersReport("S-parameters", condition_output_port, nmodes)
 sim.get_report_manager().add_report(report_s_parameters)
 
-# *****************************************************************************
+# **************************************************************************************
 # Run the simulation
-# *****************************************************************************
+# **************************************************************************************
 Nf = 100  # number of frequencies to scan
 frequencies = numpy.linspace(10e9, 15e9, Nf)  # [Hz] frequencies to scan
 
@@ -80,11 +77,9 @@ for i, frequency in enumerate(frequencies):
     report_data = report_s_parameters.evaluate().to_numpy()
     S21[i] = report_data[0, 0]
 
-# *****************************************************************************
+# **************************************************************************************
 # Plot the results
-# *****************************************************************************
-import pylab
-
+# **************************************************************************************
 pylab.clf()
 
 # Reference data:
