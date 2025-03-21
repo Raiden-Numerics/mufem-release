@@ -129,7 +129,7 @@ for coil_current in numpy.linspace(0.0, 5.0, 11):
 Which sets the current, runs the simulation and stores the resulting force. Finally, we generate a plot showing the dependency of the force versus the coil current.
 
 <div align="center">
-<img src="Force_vs_Current.png" alt="drawing" width="600">
+<img src="results/Force_vs_Current.png" alt="drawing" width="600">
 </div>
 <div align="center">
 <em>Figure 3: The resulting force in relation to the applied coil current and compared with the experimental values obtained from [2].</em>
