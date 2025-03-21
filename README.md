@@ -2,7 +2,7 @@
 
 A collection of validation examples for [μfem](https://www.raiden-numerics.com/mufem) ([version](VERSION)).
 
-To run the validation, we recommend that you first create a separate Python virtual environment:
+To run the examples you will need Python version 3.12 installed. We also recommend that you first create a separate Python virtual environment:
 ```bash
 python -m venv ~/mufemEnv
 ```
