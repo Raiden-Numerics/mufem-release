@@ -36,7 +36,7 @@
 ## Running the case
 
 <div align="center">
-    <img src="results/S21_vs_frequency.png" alt="drawing">
+    <img src="results/S21_vs_frequency.png" alt="drawing" width="600">
     <br/>
     Figure 2: Transmission spectrum of the circular cavity filter.
 </div>
