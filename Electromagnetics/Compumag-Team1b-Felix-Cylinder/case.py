@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+import numpy
+
 import mufem
 
 from mufem import Bnd, Vol
@@ -58,21 +61,16 @@ sim.run()
 
 # Plot the losses
 
-# flake8: noqa
-
-import pylab
-
 monitor_values = ohmic_heating_monitor.get_values()
-
 
 values = [(value[0], value[1]) for value in monitor_values]
 
 
-pylab.clf()
+plt.clf()
 
-power_loss_reference = pylab.loadtxt("data/PowerLoss.csv", delimiter=",")
+power_loss_reference = numpy.loadtxt("data/PowerLoss.csv", delimiter=",")
 
-pylab.plot(
+plt.plot(
     power_loss_reference[:, 0],
     power_loss_reference[:, 1],
     "k-",
@@ -81,7 +79,7 @@ pylab.plot(
     markersize=6.5,
 )
 
-pylab.plot(
+plt.plot(
     *zip(*values),
     "r.-",
     label="$\\mu$fem",
@@ -89,11 +87,11 @@ pylab.plot(
     linewidth=2.0,
 )
 
-pylab.xlabel("Time t [s]")
-pylab.ylabel("Ohmic Heating Loss P$_\\Omega$ [W]")
-pylab.xlim(0, 0.02)
-pylab.xticks([0, 0.01, 0.02])
-pylab.ylim(0, 600)
-pylab.legend(loc="best").draw_frame(False)
+plt.xlabel("Time t [s]")
+plt.ylabel("Ohmic Heating Loss P$_\\Omega$ [W]")
+plt.xlim(0, 0.02)
+plt.xticks([0, 0.01, 0.02])
+plt.ylim(0, 600)
+plt.legend(loc="best").draw_frame(False)
 
-pylab.savefig(f"OhmicHeating.png")
+plt.savefig("OhmicHeating.png", bbox_inches="tight")

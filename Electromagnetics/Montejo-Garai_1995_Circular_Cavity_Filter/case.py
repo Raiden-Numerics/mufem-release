@@ -1,5 +1,5 @@
+import matplotlib.pyplot as plt
 import numpy
-import pylab
 
 from mufem import Bnd, Vol, Simulation, SteadyRunner
 from mufem.electromagnetics.timeharmonicmaxwell import (
@@ -80,21 +80,21 @@ for i, frequency in enumerate(frequencies):
 # **************************************************************************************
 # Plot the results
 # **************************************************************************************
-pylab.clf()
+plt.clf()
 
 # Reference data:
 data = numpy.loadtxt("data/Montejo-Garai_1995.csv", delimiter=",")
 f_GHz = data[:, 0]
 S21_dB = data[:, 1]
-pylab.plot(f_GHz, S21_dB, "k^", label="Montejo-Garai 1995", markersize=10)
+plt.plot(f_GHz, S21_dB, "k^", label="Montejo-Garai 1995", markersize=10)
 
 # Simulated data:
 f_GHz = frequencies / 1e9
 S21_abs2 = numpy.abs(S21) ** 2
 S21_dB = 10 * numpy.log10(S21_abs2)
-pylab.plot(f_GHz, S21_dB, label="$\\mu$fem", color="red")
+plt.plot(f_GHz, S21_dB, label="$\\mu$fem", color="red")
 
-pylab.legend(loc="best", frameon=False)
-pylab.xlabel("Frequency [GHz]")
-pylab.ylabel("|S21|$^2$ [dB]")
-pylab.savefig("results/transmission_spectrum.png", bbox_inches="tight")
+plt.legend(loc="best", frameon=False)
+plt.xlabel("Frequency [GHz]")
+plt.ylabel("|S21|$^2$ [dB]")
+plt.savefig("results/transmission_spectrum.png", bbox_inches="tight")

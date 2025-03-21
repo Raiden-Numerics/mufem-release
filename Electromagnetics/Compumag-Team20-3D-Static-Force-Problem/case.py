@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy
 
 from mufem import Bnd, Vol, SteadyRunner, CffConstantScalar, Simulation
@@ -100,11 +101,8 @@ for coil_current in numpy.linspace(0.0, 5.0, 11):
 
 
 # Plot the results
-# flake8: noqa
 
-import pylab
-
-pylab.clf()
+plt.clf()
 
 symmetry_factor = 4.0
 
@@ -112,9 +110,9 @@ calculated = numpy.array(center_piece_force_list)
 
 reference = numpy.loadtxt("data/ReferenceForce.csv", delimiter=",", comments="#")
 
-pylab.plot(reference[:, 0], reference[:, 1], "ko", label="Reference")
+plt.plot(reference[:, 0], reference[:, 1], "ko", label="Reference")
 
-pylab.plot(
+plt.plot(
     calculated[:, 0],
     symmetry_factor * calculated[:, 1],
     "ro-",
@@ -125,18 +123,15 @@ pylab.plot(
     markeredgecolor="r",
 )
 
-pylab.xlabel("Coil Current [A]")
-pylab.ylabel("Pole Force [N]")
+plt.xlabel("Coil Current [A]")
+plt.ylabel("Pole Force [N]")
 
-pylab.legend(loc="best").draw_frame(False)
+plt.legend(loc="best").draw_frame(False)
 
-pylab.xlim(0.0, 5.4)
-pylab.ylim(0, 90)
+plt.xlim(0.0, 5.4)
+plt.ylim(0, 90)
 
-pylab.savefig(
-    f"Force_vs_Current.png",
-    bbox_inches="tight",
-)
+plt.savefig("Force_vs_Current.png", bbox_inches="tight")
 
 
 # Finally, we save a few fields so we can visualize with paraview
