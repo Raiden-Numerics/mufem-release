@@ -10,7 +10,7 @@ In this test case we consider a microwave waveguide filter consisting of a circu
     <img src="data/Geometry.png" alt="drawing" width="600">
     <br/>
     <br/>
-    Figure 1: Geometry of the microwave filter.
+    Figure 1: Geometry of the waveguide circular cavity filter.
 </div>
 <br/>
 <br/>
