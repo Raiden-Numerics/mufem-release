@@ -1,8 +1,9 @@
-import mufem
+import matplotlib.pyplot as plt
 import numpy
 
-from mufem import Bnd, Vol
+import mufem
 
+from mufem import Bnd, Vol
 from mufem.electromagnetics.coil import (
     CoilExcitationCurrent,
     CoilSpecification,
@@ -42,7 +43,7 @@ copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
 )
 copper_material.set_eddy_currents(False)
 
-bh = numpy.loadtxt(f"tables/Updated_BH_curve.csv", delimiter=",", comments="#")
+bh = numpy.loadtxt("data/tables/Updated_BH_curve.csv", delimiter=",", comments="#")
 
 
 iron_material = TimeDomainMagneticGeneralMaterial.MagneticNonLinear(
@@ -78,7 +79,7 @@ sim.get_model_manager().add_model(coil_model)
 coil_type = CoilTypeStranded(350)
 
 current_time = numpy.loadtxt(
-    f"tables/Table_3_Coil_Current.csv",
+    "data/tables/Table_3_Coil_Current.csv",
     delimiter=",",
     comments="#",
 )
@@ -118,10 +119,6 @@ sim.run()
 
 # After the simulation has run, we plot the results
 
-# flake8: noqa
-
-import pylab
-
 symmetry_factor = 2.0
 
 monitor_values = magnetic_torque_monitor.get_values()
@@ -129,21 +126,19 @@ monitor_values = magnetic_torque_monitor.get_values()
 values = [(value[0], symmetry_factor * value[1].z) for value in monitor_values]
 
 
-torque_ref = numpy.loadtxt(f"tables/Table_4_Torque.csv", delimiter=",", skiprows=1)
+torque_ref = numpy.loadtxt("data/tables/Table_4_Torque.csv", delimiter=",", skiprows=1)
 
-pylab.plot(torque_ref[:, 0], torque_ref[:, 1], "k-", label="Reference")
-pylab.plot(*zip(*values), "r.-", label="$\\mu$fem")
+plt.clf()
 
-pylab.xlim((0, 0.15))
-pylab.ylim((0.0, 3.5))
+plt.plot(torque_ref[:, 0], torque_ref[:, 1], "k-", label="Reference")
 
-pylab.xticks([0.0, 0.05, 0.1, 0.15])
+plt.plot(*zip(*values), "r.-", label="$\\mu$fem")
 
+plt.xlim(0, 0.15)
+plt.ylim(0.0, 3.5)
+plt.xticks([0.0, 0.05, 0.1, 0.15])
+plt.xlabel("Time t [s]")
+plt.ylabel("Torque T [Nm]")
+plt.legend(loc="best").draw_frame(False)
 
-pylab.xlabel("Time t [s]")
-pylab.ylabel("Torque T [Nm]")
-
-pylab.legend(loc="best").draw_frame(False)
-
-
-pylab.savefig(f"Time_vs_Rotor_Torque.png", bbox_inches="tight")
+plt.savefig("results/Time_vs_Rotor_Torque.png", bbox_inches="tight")

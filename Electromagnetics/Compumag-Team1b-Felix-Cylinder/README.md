@@ -22,8 +22,8 @@ B_y(t) = B_0 e^{-t/\tau} \quad,
 $$
 where $t=0$ represents the initial time where the magnetic field fully penetrates the cylinder. The decay constant is $\tau=0.0069$ and initial magnetic flux density is $B_0 = 0.1 \left[T \right]$. The decaying external magnetic flux density field can be incorporated into our solution by imposing a magnetic field of the form
 ```math
-\vec{H}_0(t) = 
-\left( 
+\vec{H}_0(t) =
+\left(
     \begin{array}{c}
     0 \\
     \mu_0 B_y(t) \\
@@ -32,9 +32,9 @@ where $t=0$ represents the initial time where the magnetic field fully penetrate
 \right) \quad.
 ```
 
-Part of the benchmark is to calculate the *Ohmic losses* which can be calculated by 
+Part of the benchmark is to calculate the *Ohmic losses* which can be calculated by
 ```math
-   \rho_\Omega 
+   \rho_\Omega
    \left[ \frac{W}{m^3} \right]
    = \vec{J} \cdot \vec{E} = \sigma \frac{\partial \vec{A}}{\partial t} \cdot \frac{\partial \vec{A}}{\partial t} \quad.
 ```
@@ -46,9 +46,9 @@ We setup an unsteady simulation with a *Magnetostatic initialization* to model t
 ## Results
 
 
-The quantity of interest is the *Ohmic Heating Loss* inside the cylinder over time. The reference results can be found in Ref. [2]. 
+The quantity of interest is the *Ohmic Heating Loss* inside the cylinder over time. The reference results can be found in Ref. [2].
 
-![Ohmic Heating Loss](OhmicHeating.png)
+![Ohmic Heating Loss](results/OhmicHeating.png)
 
 We see that the _Ohmic heating losses_ are well reproduced by the code with only minor deviations towards the end.
 
@@ -56,8 +56,7 @@ We see that the _Ohmic heating losses_ are well reproduced by the code with only
 ## References
 
 - [1] Compumag, https://www.compumag.org/wp/wp-content/uploads/2018/06/problem1b.pdf, "Problem 1B The FELIX short Cylinder Experiment"
-      doi: 
-- [2] Davey, K., "The Felix Cylinder Problem (International Eddy Current Workshop Problem 1)." 
-    COMPEL-The international journal for computation and mathematics in electrical and electronic engineering 
+      doi:
+- [2] Davey, K., "The Felix Cylinder Problem (International Eddy Current Workshop Problem 1)."
+    COMPEL-The international journal for computation and mathematics in electrical and electronic engineering
     7.1/2 (1988): 11-27. doi: 10.1108/eb010036
-
