@@ -35,17 +35,17 @@ z = z + wr75_length
 
 # Input coupling iris:
 gmsh.model.occ.addBox(0, 0, 0, iris_width, iris_height, iris_length, 102)
-gmsh.model.occ.translate([(3,102)], -iris_width / 2, -iris_height / 2, z)
+gmsh.model.occ.translate([(3, 102)], -iris_width / 2, -iris_height / 2, z)
 z = z + iris_length
 
 # Circular cavity:
 gmsh.model.occ.addCylinder(0, 0, 0, 0, 0, cavity_length, cavity_radius, 103)
-gmsh.model.occ.translate([(3,103)], 0, 0, z)
+gmsh.model.occ.translate([(3, 103)], 0, 0, z)
 z = z + cavity_length
 
 # Output coupling iris:
 gmsh.model.occ.addBox(0, 0, 0, iris_width, iris_height, iris_length, 104)
-gmsh.model.occ.translate([(3,104)], -iris_width / 2, -iris_height / 2, z)
+gmsh.model.occ.translate([(3, 104)], -iris_width / 2, -iris_height / 2, z)
 z = z + iris_length
 
 # Output WR75 waveguide:
@@ -54,7 +54,7 @@ gmsh.model.occ.translate([(3, 105)], -wr75_width / 2, -wr75_height / 2, z)
 z = z + wr75_length
 
 # Fuse all parts together:
-gmsh.model.occ.fuse([(3, 101)], [(3, 102), (3, 103), (3,104), (3,105)],  100)
+gmsh.model.occ.fuse([(3, 101)], [(3, 102), (3, 103), (3, 104), (3, 105)], 100)
 gmsh.model.occ.synchronize()
 
 
@@ -69,7 +69,7 @@ ov = gmsh.model.getEntitiesInBoundingBox(
     -eps,
     +wr75_width / 2 + eps,
     +wr75_height / 2 + eps,
-    + eps,
+    +eps,
     2,
 )
 input_port = ov[0]
@@ -86,9 +86,7 @@ ov = gmsh.model.getEntitiesInBoundingBox(
 output_port = ov[0]
 
 walls = [
-    ov
-    for ov in gmsh.model.getEntities(dim=2)
-    if ov not in [input_port, output_port]
+    ov for ov in gmsh.model.getEntities(dim=2) if ov not in [input_port, output_port]
 ]
 
 ov = gmsh.model.getEntities(3)
@@ -97,7 +95,10 @@ domain = ov[0]
 gmsh.model.addPhysicalGroup(2, [input_port[1]], name="InputPort")
 gmsh.model.addPhysicalGroup(2, [output_port[1]], name="OutputPort")
 gmsh.model.addPhysicalGroup(2, [ov[1] for ov in walls], name="Walls")
-gmsh.model.addPhysicalGroup(3, [domain[1]], name="Domain")
+gmsh.model.addPhysicalGroup(3, [domain[1]], name="Domain", tag=1)
+# @todo(SFW-47): Here we force the tag of the domain to be 1. This is done since MFEM
+# creates the array of markers with the length based on the maximum tag number rather
+# than the number of tags.
 
 
 # **************************************************************************************

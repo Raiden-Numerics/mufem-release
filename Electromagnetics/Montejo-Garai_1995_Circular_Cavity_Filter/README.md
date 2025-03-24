@@ -43,4 +43,9 @@
 <br/>
 <br/>
 
+
+| Out of resonance (12 GHz) | At resonance (14 GHz) |
+| - | - |
+| ![E12GHz](results/scene_electric_field_12GHz.png) | ![E14GHz](results/scene_electric_field_14GHz.png) |
+
 ## References

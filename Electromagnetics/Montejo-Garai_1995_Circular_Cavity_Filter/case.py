@@ -68,11 +68,19 @@ sim.get_report_manager().add_report(report_s_parameters)
 Nf = 251  # number of frequencies to scan
 frequencies = numpy.linspace(10e9, 15e9, Nf)  # [Hz] frequencies to scan
 
+frequencies_paraview = [12e9, 14e9]  # [Hz] frequencies at which to save the field
+
+vis = sim.get_visualization_helper()
+vis.add_field_output("ElectricFieldReal")
+
 S21 = numpy.zeros(Nf, dtype=complex)
 
 for i, frequency in enumerate(frequencies):
     model.set_frequency(frequency)
     steady_runner.advance(1)
+
+    if frequency in frequencies_paraview:
+        vis.save()
 
     report_data = report_s_parameters.evaluate().to_numpy()
     S21[i] = report_data[0, 0]
@@ -97,4 +105,4 @@ plt.plot(f_GHz, S21_dB, label="$\\mu$fem", color="red")
 plt.legend(loc="best", frameon=False)
 plt.xlabel("Frequency [GHz]")
 plt.ylabel("|S21|$^2$ [dB]")
-plt.savefig("results/transmission_spectrum.png", bbox_inches="tight")
+plt.savefig("results/S21_vs_frequency.png", bbox_inches="tight")
