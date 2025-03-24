@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Waveguide filters are devices designed to pass signals only at certain frequencies. The main component of waveguide filters is a cavity resonator connected to the rest of the waveguide through a small input and output iris. The incident electromagnetic wave with a frequency matching the cavity's resonant frequency will pass through, while other frequencies will be reflected. In electronics, waveguide filters are used to isolate signals and reduce noise in devices like multiplexers, receivers, and transmitters, which serve as essential components in satellite communication systems, radars, telephone networks and television broadcasting.
+Waveguide filters are devices designed to pass signals only at certain frequencies. The main component of waveguide filters is a cavity resonator connected to the rest of the waveguide through a small input and output irises. The incident electromagnetic wave with a frequency matching the cavity's resonant frequency will pass through, while other frequencies will be reflected. In electronics, waveguide filters are used to isolate signals and reduce noise in devices like multiplexers, receivers, and transmitters, which serve as essential components in satellite communication systems, radars, telephone networks and television broadcasting.
 
 In this test case we consider a microwave waveguide filter consisting of a circular resonator connected to the input and output rectangular waveguides via thin rectangular irises. The following figure shows the geometry of the filter.
 
@@ -15,7 +15,7 @@ In this test case we consider a microwave waveguide filter consisting of a circu
 <br/>
 <br/>
 
-The purpose of this test case is to calculate the transmission of a waveguide filter over a given frequency range to determine the frequencies at which the filter passes the incoming signal. We can compare the obtained results with those published in [[1]](#Montejo-Garai1995). We are also interested in visualizing the electric field inside the filter cavity at its resonant frequency and outside of the resonance.
+The purpose of this test case is to calculate the transmission of a waveguide filter over a given frequency range to determine the frequencies at which the filter passes the incoming signal. We then compare the obtained results to the experimental results published in [[1]](#Montejo-Garai1995). We also visualize the electric field inside the filter obtained at one of the resonant frequencies of the cavity and at one frequency outside of the resonance.
 
 
 ## Setup
@@ -27,9 +27,7 @@ Following [[1]](#Montejo-Garai1995) and [[2]](#Liu2002), we use the following di
 
 ### Mesh
 
-To generate the mesh we use [Gmsh](https://gmsh.info/) mesh generator. The corresponding code can be found in the [geometry.py](geometry.py) file. To improve the accuracy of modeling, we use the mesh with second-order finite elements. This avoids artifacts that arise when trying to approximate a curved surface with flat finite elements.
-
-During mesh generation, we assign named attributes to the waveguide input ("InputPort") and output ("OutputPort") ports, the waveguide and cavity walls ("Walls"), and the entire computational domain ("Domain").
+To generate the mesh we use [Gmsh](https://gmsh.info/) mesh generator. The corresponding code can be found in the [geometry.py](geometry.py) file. To improve the accuracy of modeling, we use the mesh with second-order finite elements. By using such a mesh, we can avoid artifacts that arise when trying to approximate a curved surface with flat finite elements. The following figure shows the resulting mesh.
 
 <div align="center">
     <img src="data/Mesh.png" alt="drawing" width="600">
@@ -40,22 +38,25 @@ During mesh generation, we assign named attributes to the waveguide input ("Inpu
 <br/>
 <br/>
 
+During mesh generation, we assign named attributes to the waveguide input ("InputPort") and output ("OutputPort") ports, the walls of the waveguides and cavity ("Walls"), and the entire computational domain ("Domain").
+
+
 ### Model
 
 For the simulation we use [Time-Harmonic Maxwell Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/time_harmonic_maxwell_model.html) which solves the following equation for the complex amplitude $\tilde{\mathbf{E}}$ of the electric field:
 
 ```math
 \nabla \times \left(\frac{1}{\mu} \nabla \times \tilde{\mathbf{E}}\right) -
-\varepsilon \omega^2 \tilde{\mathbf{E}} = 0,
+\varepsilon \omega^2 \tilde{\mathbf{E}} = 0.
 ```
 
-where $\mu$ and $\varepsilon$ are the permeability and the permittivity of the material filling the waveguides and the cavity, and $\omega = 2\pi f$ is the angular frequency of the incoming radiation of frequency $f$.
+Here $\mu$ and $\varepsilon$ are the permeability and the permittivity of the material filling the waveguides and the cavity, and $\omega = 2\pi f$ is the angular frequency of the incoming radiation of frequency $f$.
 
-As the boundary conditions we use the [Perfect Electric Conductor Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html) for the waveguides and cavity walls, together with the [Input Port Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/input_port_condition.html) and the [Output Port Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/output_port_condition.html) for the input and output ports of the waveguide.
+As the boundary conditions we use the [Perfect Electric Conductor Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html) for the walls of the waveguides and cavity, together with the [Input Port Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/input_port_condition.html) and the [Output Port Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/output_port_condition.html) for the input and output ports of the waveguides.
 
-The incident electric field is considered to be the field in the TE$_{10}$ mode, entering through the input port of the waveguide.
+As the incident electric field we consider the field in the TE$_{10}$ mode, entering through the input port of the waveguide.
 
-In this test case we assume that the volume of the waveguides and the cavity is filled with air which we model using the [Vacuum](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_vacuum.html) material with the free sapce permeability and permittivity.
+We also assume that the volume of the waveguides and the cavity is filled with air, which we model using the [Vacuum](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_vacuum.html) material with the permeability and permittivity of free space.
 
 
 ### Reports
