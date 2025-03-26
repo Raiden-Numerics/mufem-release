@@ -8,6 +8,12 @@ A collection of validation examples for ([version](VERSION)).
 
 To run the validations please make sure to follow the [Installation instructions](https://raiden-numerics.github.io/mufem-doc/getting_started/installation.html).
 
+To execute a specific case write
+
+```bash
+(mufem-env) pymufem Electromagnetics/Compumag-Team1b-Felix-Cylinder/case.py
+```
+
 ### Electromagnetics
 
 * [**TEAM (Testing Electromagnetic Analysis Methods)**](https://www.compumag.org/wp/team/)
