@@ -1,6 +1,10 @@
-# mufem-examples
+# μfem
 
-A collection of validation examples for [μfem](https://www.raiden-numerics.com/mufem) ([version](VERSION)).
+A finite-element multi-physics application framework based on [mfem](https://mfem.org/), see [μfem](https://raiden-numerics.github.io/mufem-doc/index.html) for more details.
+
+## Validation cases
+
+A collection of validation examples for ([version](VERSION)).
 
 To run the examples you will need Python version 3.12 installed. We also recommend that you first create a separate Python virtual environment:
 ```bash
@@ -29,11 +33,6 @@ and execute the case by
 pymufem case.py
 ```
 The command `pymufem` will launch the case in parallel mode. If you want to launch it in serial mode, you can use `python3 case.py` command.
-
-
-## Validation cases
-
-Currently tested with version `v0.1.117`.
 
 ### Electromagnetics
 
