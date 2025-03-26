@@ -6,33 +6,13 @@ A finite-element multi-physics application framework based on [mfem](https://mfe
 
 A collection of validation examples for ([version](VERSION)).
 
-To run the examples you will need Python version 3.12 installed. We also recommend that you first create a separate Python virtual environment:
-```bash
-python -m venv ~/mufemEnv
-```
-Here we assume that the environment data will be stored in the `mufemEnv` folder in your home directory. To activate the newly created Python environment run the following command:
-```bash
-source ~/mufemEnv/activate
-```
+To run the validations please make sure to follow the [Installation instructions](https://raiden-numerics.github.io/mufem-doc/getting_started/installation.html).
 
-Use [pypi](https://pypi.org/project/mufem/) to install the necessary Python libraries:
-```bash
-pip install numpy matplotlib
-```
-And, finally, install mufem:
-```bash
-pip install mufem
-```
+To execute a specific case write
 
-To launch a specific case, go to the case directory, e.g.
-```
-cd Electromagnetics/Compumag-Team1b-Felix-Cylinder
-```
-and execute the case by
 ```bash
-pymufem case.py
+(mufem-env) pymufem Electromagnetics/Compumag-Team1b-Felix-Cylinder/case.py
 ```
-The command `pymufem` will launch the case in parallel mode. If you want to launch it in serial mode, you can use `python3 case.py` command.
 
 ### Electromagnetics
 
