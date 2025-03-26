@@ -36,7 +36,7 @@ To generate the mesh we use [Gmsh](https://gmsh.info/) mesh generator (please no
 </div>
 <br/>
 
-During mesh generation, we assign named attributes to the waveguide input ("InputPort") and output ("OutputPort") ports, the walls of the waveguides and cavity ("Walls"), and the entire computational domain ("Domain").
+During the mesh generation, we assign named attributes to the waveguide input ("InputPort") and output ("OutputPort") ports, the walls of the waveguides and cavity ("Walls"), and the entire computational domain ("Domain").
 
 
 ### Model
@@ -45,10 +45,10 @@ For the simulation we use [Time-Harmonic Maxwell Model](https://www.raiden-numer
 
 ```math
 \nabla \times \left(\frac{1}{\mu} \nabla \times \tilde{\mathbf{E}}\right) -
-\varepsilon \omega^2 \tilde{\mathbf{E}} = 0.
+\varepsilon \omega^2 \tilde{\mathbf{E}} = 0,
 ```
 
-Here $\mu$ and $\varepsilon$ are the permeability and the permittivity of the material filling the waveguides and the cavity, and $\omega = 2\pi f$ is the angular frequency of the incoming radiation of frequency $f$.
+where $\mu$ and $\varepsilon$ are the permeability and the permittivity of the material filling the waveguides and the cavity, and $\omega = 2\pi f$ is the angular frequency of the incoming radiation of frequency $f$.
 
 As the boundary conditions we use the [Perfect Electric Conductor Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html) for the walls of the waveguides and cavity, together with the [Input Port Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/input_port_condition.html) and the [Output Port Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/output_port_condition.html) for the input and output ports of the waveguides.
 
@@ -59,7 +59,7 @@ We also assume that the volume of the waveguides and the cavity is filled with a
 
 ### Reports
 
-To calculate what fraction of the incident radiation passes through the filter, we use the [S-parameters Report](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/reports/s-parameters_report.html). This report calculates the scattering parameters, or S-parameters, which describe the input-output relationships between various ports of an electrical device. Mathematically, each S-parameter $S_{ji}$ can be represented as an overlapping integral between the electric field $\tilde{\mathbf{E}}$ launched from port $i$ with a given waveguide mode $\tilde{\mathbf{e}}$ of port $j$:
+To calculate what fraction of the incident radiation passes through the filter, we use the [S-parameters Report](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/reports/s_parameters_report.html). This report calculates scattering parameters, or S-parameters, which describe the input-output relationships between various ports of a device. Mathematically, each S-parameter $S_{ji}$ can be represented as an overlapping integral between the electric field $\tilde{\mathbf{E}}$ launched from port $i$ and a given waveguide mode $\tilde{\mathbf{e}}$ of port $j$:
 
 ```math
 S_{ji} = \frac{\int_{\Gamma_j} \tilde{\mathbf{E}} \cdot \tilde{\mathbf{e}}\, d\Gamma}
@@ -92,11 +92,11 @@ At each iteration, we extract the data corresponding to $S_{21}$ parameter and s
 <div align="center">
     <img src="results/S21_vs_frequency.png" alt="S21 vs frequency" width="50%">
     <br/>
-    Figure 3: Transmission spectrum (the squared magnitude of the obtained S21​ parameter as a function of frequency) of the waveguide circular cavity filter.
+    Figure 3: Transmission spectrum (the squared magnitude of S21​ parameter as a function of frequency) of the waveguide circular cavity filter.
 </div>
 <br/>
 
-In this figure we can see that the transmission spectrum of the waveguide circular filter has a number of resonances around 10.4, 11.5, and 12.6 GHz, as well as a fairly wide bandwidth from 13.8 to 14.5 GHz. Radiation emitted at these frequencies passes through the filter with minimal loss, while radiation at other frequencies is reflected back. Figure 3 also shows that the results of our simulations are in a very good agreement with the experimental data presented in [[1]](#Montejo-Garai1995).
+In Fig. 3 we can see that the transmission spectrum of the waveguide circular filter has a number of resonances around 10.4, 11.5, and 12.6 GHz, as well as a fairly wide bandwidth from 13.8 to 14.5 GHz. Radiation emitted at these frequencies passes through the filter with minimal loss, while radiation at other frequencies is reflected back. Figure 3 also shows that the results of our simulations are in a very good agreement with the experimental data presented in [[1]](#Montejo-Garai1995).
 
 To illustrate the electric field configuration inside the filter at frequencies both within and outside the filter's bandwidth, during the simulation we export the electric field at 12 GHz and 14 GHz to a [VTK](https://vtk.org/) file. For the visualization of the fields we use [Paraview](https://www.paraview.org/) (please note that [Paraview](https://www.paraview.org/) is not supplied with $\mu$fem and must be installed separately). You can find the corresponding code in the [paraview.py](paraview.py) file. Figure 4 shows the distribution of the electric field inside the waveguide filter at both frequencies.
 
