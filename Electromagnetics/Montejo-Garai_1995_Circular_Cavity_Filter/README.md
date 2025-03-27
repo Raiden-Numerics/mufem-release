@@ -59,13 +59,14 @@ We also assume that the volume of the waveguides and the cavity is filled with a
 
 ### Reports
 
-To calculate what fraction of the incident radiation passes through the filter, we use the [S-parameters Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/reports/s_parameters_report.html). This report calculates scattering parameters, or S-parameters, which describe the input-output relationships between various ports of a device. Mathematically, each S-parameter $S_{ji}$ can be represented as an overlapping integral between the electric field $\tilde{\mathbf{E}}$ launched from port $i$ and a given waveguide mode $\tilde{\mathbf{e}}$ of port $j$:
+To calculate what fraction of the incident radiation passes through the filter, we use the [S-parameters Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/reports/s_parameters_report.html). This report calculates scattering parameters, or S-parameters, which describe the input-output relationships between various ports of a device. In our case, we are interested in the $S_{21}$ parameter, which plays the role of the filter transmission coefficient and is determined by the formula:
 
 ```math
-S_{ji} = \frac{\int_{\Gamma_j} \tilde{\mathbf{E}} \cdot \tilde{\mathbf{e}}\, d\Gamma}
-              {\int_{\Gamma_j} \tilde{\mathbf{e}} \cdot \tilde{\mathbf{e}}\, d\Gamma} - \delta_{ji},
+S_{21} = \frac{\int_{\Gamma_2} \tilde{\mathbf{E}} \cdot \tilde{\mathbf{e}}_1\, d\Gamma}
+              {\int_{\Gamma_2} \tilde{\mathbf{e}}_1 \cdot \tilde{\mathbf{e}}_1\, d\Gamma},
 ```
-where the integral is taken over the surface $\Gamma_j$ of port $j$ and $\delta_{ji}$ is the Kronecker symbol, which takes into account that if we are interested in the radiation reflected back to the port from which we launched the signal, then we must subtract the incident radiation. In our case, the S-parameter we are interested in is $S_{21}$ with the waveguide mode $\tilde{\mathbf{e}}$ corresponding to TE$_{10}$ mode. This parameter, acting as the filter's transmission coefficient, shows what portion of radiation emitted from port 1 (the input port) reaches port 2 (the output port) in the form of the TE$_{10}$ mode.
+
+where $\tilde{\mathbf{E}}$ is the amplitude of the electric field obtained as a result of the simulation, $\tilde{\mathbf{e}}_1$ is the first mode of the waveguide (the TE$_{10}$ mode in the case of rectangular waveguides), and the integration is performed over the plane of the output port (arbitrarily indexed by the number 2). The $S_{21}$ parameter shows what portion of radiation emitted from the input port reaches the output port in the form of the TE$_{10}$ mode.
 
 
 ## Running the case
