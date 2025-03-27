@@ -41,7 +41,7 @@ During the mesh generation, we assign named attributes to the waveguide input ("
 
 ### Model
 
-For the simulation we use [Time-Harmonic Maxwell Model](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/time_harmonic_maxwell_model.html) which solves the following equation for the complex amplitude $\tilde{\mathbf{E}}$ of the electric field:
+For the simulation we use [Time-Harmonic Maxwell Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/time_harmonic_maxwell_model.html) which solves the following equation for the complex amplitude $\tilde{\mathbf{E}}$ of the electric field:
 
 ```math
 \nabla \times \left(\frac{1}{\mu} \nabla \times \tilde{\mathbf{E}}\right) -
@@ -50,16 +50,16 @@ For the simulation we use [Time-Harmonic Maxwell Model](https://www.raiden-numer
 
 where $\mu$ and $\varepsilon$ are the permeability and the permittivity of the material filling the waveguides and the cavity, and $\omega = 2\pi f$ is the angular frequency of the incoming radiation of frequency $f$.
 
-As the boundary conditions we use the [Perfect Electric Conductor Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html) for the walls of the waveguides and cavity, together with the [Input Port Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/input_port_condition.html) and the [Output Port Condition](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/conditions/output_port_condition.html) for the input and output ports of the waveguides.
+As the boundary conditions we use the [Perfect Electric Conductor Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html) for the walls of the waveguides and cavity, together with the [Input Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/input_port_condition.html) and the [Output Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/output_port_condition.html) for the input and output ports of the waveguides.
 
 As the incident electric field we consider the field in the TE$_{10}$ mode, entering through the input port of the waveguide.
 
-We also assume that the volume of the waveguides and the cavity is filled with air, which we model using the [Vacuum](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_vacuum.html) material with the permeability and permittivity of free space.
+We also assume that the volume of the waveguides and the cavity is filled with air, which we model using the [Vacuum](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_vacuum.html) material with the permeability and permittivity of free space.
 
 
 ### Reports
 
-To calculate what fraction of the incident radiation passes through the filter, we use the [S-parameters Report](https://www.raiden-numerics.com/mufem/models/electromagnetics/time_harmonic_maxwell/reports/s_parameters_report.html). This report calculates scattering parameters, or S-parameters, which describe the input-output relationships between various ports of a device. Mathematically, each S-parameter $S_{ji}$ can be represented as an overlapping integral between the electric field $\tilde{\mathbf{E}}$ launched from port $i$ and a given waveguide mode $\tilde{\mathbf{e}}$ of port $j$:
+To calculate what fraction of the incident radiation passes through the filter, we use the [S-parameters Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/reports/s_parameters_report.html). This report calculates scattering parameters, or S-parameters, which describe the input-output relationships between various ports of a device. Mathematically, each S-parameter $S_{ji}$ can be represented as an overlapping integral between the electric field $\tilde{\mathbf{E}}$ launched from port $i$ and a given waveguide mode $\tilde{\mathbf{e}}$ of port $j$:
 
 ```math
 S_{ji} = \frac{\int_{\Gamma_j} \tilde{\mathbf{E}} \cdot \tilde{\mathbf{e}}\, d\Gamma}
