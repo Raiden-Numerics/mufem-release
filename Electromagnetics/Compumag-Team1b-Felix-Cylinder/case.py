@@ -10,8 +10,13 @@ from mufem.electromagnetics.timedomainmagnetic import (
     TimeDomainMagneticModel,
 )
 
+from pathlib import Path
+
+dir_path = Path(__file__).resolve().parent
+
+
 sim = mufem.Simulation.New(
-    name="Compumag Team1b: Felix Cylinder", mesh_path="geometry.mesh"
+    name="Compumag Team1b: Felix Cylinder", mesh_path=f"{dir_path}/geometry.mesh"
 )
 
 # Setup Problem
@@ -68,7 +73,7 @@ values = [(value[0], value[1]) for value in monitor_values]
 
 plt.clf()
 
-power_loss_reference = numpy.loadtxt("data/PowerLoss.csv", delimiter=",")
+power_loss_reference = numpy.loadtxt(f"{dir_path}/data/PowerLoss.csv", delimiter=",")
 
 plt.plot(
     power_loss_reference[:, 0],
@@ -94,4 +99,4 @@ plt.xticks([0, 0.01, 0.02])
 plt.ylim(0, 600)
 plt.legend(loc="best").draw_frame(False)
 
-plt.savefig("results/OhmicHeating.png", bbox_inches="tight")
+plt.savefig(f"{dir_path}/results/OhmicHeating.png", bbox_inches="tight")

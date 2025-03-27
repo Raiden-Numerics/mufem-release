@@ -18,9 +18,14 @@ from mufem.electromagnetics.timedomainmagnetic import (
 
 from typing import List
 
+from pathlib import Path
+
+dir_path = Path(__file__).resolve().parent
+
 
 sim = Simulation.New(
-    name="Compumag-Team20-3D-Static-Force-Problem", mesh_path="geometry.mesh"
+    name="Compumag-Team20-3D-Static-Force-Problem",
+    mesh_path=f"{dir_path}/geometry.mesh",
 )
 
 
@@ -35,7 +40,7 @@ copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
     name="Copper", marker="Coil" @ Vol, electric_conductivity=1.0e7
 )
 
-bh = numpy.loadtxt("data/Table_1_BH_Curve.csv", delimiter=",", comments="#")
+bh = numpy.loadtxt(f"{dir_path}/data/Table_1_BH_Curve.csv", delimiter=",", comments="#")
 
 iron_material = TimeDomainMagneticGeneralMaterial.MagneticNonLinear(
     name="Iron",
@@ -108,7 +113,9 @@ symmetry_factor = 4.0
 
 calculated = numpy.array(center_piece_force_list)
 
-reference = numpy.loadtxt("data/ReferenceForce.csv", delimiter=",", comments="#")
+reference = numpy.loadtxt(
+    f"{dir_path}/data/ReferenceForce.csv", delimiter=",", comments="#"
+)
 
 plt.plot(reference[:, 0], reference[:, 1], "ko", label="Reference")
 
@@ -131,7 +138,7 @@ plt.legend(loc="best").draw_frame(False)
 plt.xlim(0.0, 5.4)
 plt.ylim(0, 90)
 
-plt.savefig("results/Force_vs_Current.png", bbox_inches="tight")
+plt.savefig(f"{dir_path}/results/Force_vs_Current.png", bbox_inches="tight")
 
 
 # Finally, we save a few fields so we can visualize with paraview
