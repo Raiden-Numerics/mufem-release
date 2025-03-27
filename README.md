@@ -1,14 +1,16 @@
 # μfem
 
-A finite-element multi-physics application framework based on [mfem](https://mfem.org/), see [μfem](https://raiden-numerics.github.io/mufem-doc/index.html) for more details.
+A finite-element multi-physics application framework based on [mfem](https://mfem.org/).
+
+![Logo](.logo.png)
+
+See the [μfem documentation](https://raiden-numerics.github.io/mufem-doc/index.html) for more details.
+
 
 ## Validation cases
 
-A collection of validation examples for ([version](VERSION)).
-
-To run the validations please make sure to follow the [Installation instructions](https://raiden-numerics.github.io/mufem-doc/getting_started/installation.html).
-
-To execute a specific case write
+A collection of validation examples for μfem (tested with [version](VERSION)). 
+To run the validations please make sure to follow the [Installation instructions](https://raiden-numerics.github.io/mufem-doc/getting_started/installation.html). To execute a specific case write
 
 ```bash
 (mufem-env) pymufem Electromagnetics/Compumag-Team1b-Felix-Cylinder/case.py
