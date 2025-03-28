@@ -26,6 +26,9 @@ To run the validations please make sure to follow the [Installation instructions
   - [Compumag TEAM 20: 3D Static Force Problem](Electromagnetics/Compumag-Team20-3D-Static-Force-Problem/README.md)
   - [Compumag TEAM 24: Locked Rotor](Electromagnetics/Compumag-Team24-Locked-Rotor/README.md)
 
+* **Time-Harmonic Maxwell (High-Frequency Electromagnetics)**
+  - [Montejo-Garai (1995): Circular Cavity Filter](Electromagnetics/Montejo-Garai_1995_Circular_Cavity_Filter/README.md)
+
 ## Continuous Integration
 
 [![Run Examples](https://github.com/Raiden-Numerics/mufem-examples/actions/workflows/run_cases.yml/badge.svg)](https://github.com/Raiden-Numerics/mufem-examples/actions/workflows/run_cases.yml)
