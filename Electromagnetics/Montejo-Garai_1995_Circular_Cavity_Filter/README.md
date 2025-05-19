@@ -117,4 +117,4 @@ We see that at 12 GHz, most of the electric field entering through the input por
 
 <a id="Montejo-Garai1995"></a> [1] J.R. Montejo-Garai and J. Zapata, "Full-wave design and realization of multicoupled dual-mode circular waveguide filters", IEEE Transactions on Microwave Theory and Techniques, 43, 1290 (1995) https://doi.org/10.1109/22.390185
 
-<a id="Liu2002"></a> J. Liu, J.-M. Jin, E.K.N. Yung and R.S. Chen,  "A fast, higher order three-dimensional finite-element analysis of microwave waveguide devices", Microwave and Optical Technology Letters, 32, 344 (2002) https://doi.org/10.1002/mop.10174
+<a id="Liu2002"></a> [2] J. Liu, J.-M. Jin, E.K.N. Yung and R.S. Chen,  "A fast, higher order three-dimensional finite-element analysis of microwave waveguide devices", Microwave and Optical Technology Letters, 32, 344 (2002) https://doi.org/10.1002/mop.10174

@@ -21,6 +21,7 @@ sim = Simulation.New(
 
 steady_runner = SteadyRunner(total_iterations=0)
 
+
 # **************************************************************************************
 # Markers
 # **************************************************************************************
@@ -28,6 +29,7 @@ marker_input_port = "InputPort" @ Bnd
 marker_output_port = "OutputPort" @ Bnd
 marker_walls = "Walls" @ Bnd
 marker_domain = "Domain" @ Vol
+
 
 # **************************************************************************************
 # Model
@@ -37,11 +39,13 @@ order = 2  # finite element polynomial degree
 model = TimeHarmonicMaxwellModel(marker_domain, frequency, order)
 sim.get_model_manager().add_model(model)
 
+
 # **************************************************************************************
 # Materials
 # **************************************************************************************
 material_air = TimeHarmonicMaxwellGeneralMaterial.Vacuum("Air", marker_domain)
 model.add_material(material_air)
+
 
 # **************************************************************************************
 # Boundary conditions
@@ -55,12 +59,14 @@ condition_output_port = OutputPortCondition("Output", marker_output_port)
 
 model.add_conditions([condition_pec, condition_input_port, condition_output_port])
 
+
 # **************************************************************************************
 # Reports
 # **************************************************************************************
 nmodes = 1  # number of modes to be calculated for the report
 report_s_parameters = SParametersReport("S-parameters", condition_output_port, nmodes)
 sim.get_report_manager().add_report(report_s_parameters)
+
 
 # **************************************************************************************
 # Run the simulation
@@ -84,6 +90,7 @@ for i, frequency in enumerate(frequencies):
 
     report_data = report_s_parameters.evaluate().to_numpy()
     S21[i] = report_data[0, 0]
+
 
 # **************************************************************************************
 # Plot the results

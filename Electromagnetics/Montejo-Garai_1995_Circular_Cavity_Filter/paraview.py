@@ -5,14 +5,25 @@ import paraview.simple as pvs
 # Setup the view
 # **************************************************************************************
 view = pvs.GetRenderView()
-view.ViewSize = [1200, 1000]
-view.CameraPosition = [-0.6830, 0.2588, -0.6830]
-view.CameraParallelProjection = 1  # enable orthographic (parallel) projection
+view.ViewSize = [1200, 650]
 view.OrientationAxesVisibility = 0
 
-# view.CameraViewAngle = 1
+# Need to call the render in advance to keep the camera properties, since if this is the
+# first render and the view is a RenderView, the camera is reset:
+# https://www.paraview.org/paraview-docs/nightly/python/paraview.simple.html#paraview.simple.Render
+pvs.Render()
+
+wr75_length = 20e-3
+iris_length = 1e-3
+cavity_length = 100e-3
+total_length = wr75_length + iris_length + cavity_length + iris_length + wr75_length
+
 camera = view.GetActiveCamera()
-camera.ViewAngle = 3
+camera.SetFocalPoint(0, 0, total_length / 2)
+camera.SetPosition(-0.6830, 0.2588, -0.6830)
+camera.SetParallelProjection(1)
+camera.SetParallelScale(0.03)  # zoom
+
 
 # **************************************************************************************
 # Electric field at 12 GHz
@@ -36,6 +47,8 @@ scalar_bar.TitleColor = [0, 0, 0]
 scalar_bar.LabelColor = [0, 0, 0]
 scalar_bar.Title = "Electric Field [V/m]"
 scalar_bar.ComponentTitle = ""
+scalar_bar.UseCustomLabels = True
+scalar_bar.CustomLabels = [0, 50, 100, 150]
 
 pvs.Render()
 pvs.SaveScreenshot(
@@ -65,6 +78,8 @@ scalar_bar.TitleColor = [0, 0, 0]
 scalar_bar.LabelColor = [0, 0, 0]
 scalar_bar.Title = "Electric Field [V/m]"
 scalar_bar.ComponentTitle = ""
+scalar_bar.UseCustomLabels = True
+scalar_bar.CustomLabels = [0, 50, 100, 150]
 
 pvs.Render()
 pvs.SaveScreenshot(
