@@ -68,18 +68,15 @@ sim.run()
 
 # Plot the losses
 
-monitor_values = ohmic_heating_monitor.get_values()
-
-values = [(value[0], value[1]) for value in monitor_values]
-
-
 plt.clf()
 
-power_loss_reference = numpy.loadtxt(f"{dir_path}/data/PowerLoss.csv", delimiter=",")
+ref_power_loss_time, ref_power_loss_value = numpy.loadtxt(
+    f"{dir_path}/data/PowerLoss.csv", delimiter=",", unpack=True
+)
 
-plt.plot(
-    x=power_loss_reference[:, 0],
-    y=power_loss_reference[:, 1],
+plt.plot(  # noqa: FKA100 - false positive, wants x=, y= but not available
+    ref_power_loss_time,
+    ref_power_loss_value,
     color="k",
     linestyle="-",
     label="Davey et al.",
@@ -87,10 +84,11 @@ plt.plot(
     markersize=6.5,
 )
 
-x_vals, y_vals = zip(*values)
+monitor_values = ohmic_heating_monitor.get_values()
+
+
 plt.plot(
-    x=x_vals,
-    y=y_vals,
+    *zip(*monitor_values),
     color="r",
     linestyle="-",
     marker=".",
@@ -105,7 +103,5 @@ plt.xlim(left=0, right=0.02)
 plt.xticks([0, 0.01, 0.02])
 plt.ylim(bottom=0, top=600)
 plt.legend(loc="best").set_frame_on(False)
-
-plt.savefig(f"{dir_path}/results/OhmicHeating.png", bbox_inches="tight")
 
 plt.savefig(f"{dir_path}/results/OhmicHeating.png", bbox_inches="tight")
