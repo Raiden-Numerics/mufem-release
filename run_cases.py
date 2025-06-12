@@ -45,4 +45,10 @@ def run_cases(base_directory):
 
 if __name__ == "__main__":
 
-    run_cases(base_directory=".")
+    if len(sys.argv) > 1:
+        base_directory = sys.argv[1]
+    else:
+        base_directory = "."
+    print(f"Running cases in directory: {base_directory}")
+
+    run_cases(base_directory=base_directory)

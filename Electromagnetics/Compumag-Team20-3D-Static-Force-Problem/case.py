@@ -35,8 +35,9 @@ steady_runner = SteadyRunner(total_iterations=0)
 magnetic_domain = ["Yoke", "Pole", "Coil", "Air"] @ Vol
 magnetic_model = TimeDomainMagneticModel(marker=magnetic_domain, order=1)
 
-air_material = TimeDomainMagneticGeneralMaterial.Vacuum(name="Air", marker="Air" @ Vol)
-copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
+air_material = TimeDomainMagneticGeneralMaterial.Constant(name="Air", marker="Air" @ Vol)
+
+copper_material = TimeDomainMagneticGeneralMaterial.Constant(
     name="Copper", marker="Coil" @ Vol, electric_conductivity=1.0e7
 )
 
@@ -143,7 +144,7 @@ plt.savefig(f"{dir_path}/results/Force_vs_Current.png", bbox_inches="tight")
 
 # Finally, we save a few fields so we can visualize with paraview
 vis = sim.get_visualization_helper()
-vis.add_field_output("MagneticFluxDensity")
-vis.add_field_output("ElectricCurrentDensity")
+vis.add_field_output("Magnetic Flux Density")
+vis.add_field_output("Electric Current Density")
 
 vis.save()

@@ -27,9 +27,9 @@ magnetic_model = TimeDomainMagneticModel(
 )
 
 # Setup Materials
-air_material = TimeDomainMagneticGeneralMaterial.Vacuum(name="Air", marker="Air" @ Vol)
+air_material = TimeDomainMagneticGeneralMaterial.Constant(name="Air", marker="Air" @ Vol)
 
-copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
+copper_material = TimeDomainMagneticGeneralMaterial.Constant(
     name="Al", marker="Cylinder" @ Vol, electric_conductivity=25380710.659898475
 )
 magnetic_model.add_materials([air_material, copper_material])
@@ -51,7 +51,7 @@ magnetic_model.add_condition(tangential_magnetic_field_bc)
 
 # Setup Reports
 ohmic_heating_report = mufem.VolumeIntegralReport(
-    name="Ohmic Heating", marker="Cylinder" @ Vol, cff_name="OhmicHeating"
+    name="Ohmic Heating", marker="Cylinder" @ Vol, cff_name="Ohmic Heating"
 )
 sim.get_report_manager().add_report(ohmic_heating_report)
 
