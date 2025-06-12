@@ -38,7 +38,9 @@ sim.get_model_manager().add_model(magnetic_model)
 
 
 # Define the materials
-air_material = TimeDomainMagneticGeneralMaterial.Constant(name="Air", marker="Air" @ Vol)
+air_material = TimeDomainMagneticGeneralMaterial.Constant(
+    name="Air", marker="Air" @ Vol
+)
 
 copper_material = TimeDomainMagneticGeneralMaterial.Constant(
     name="Copper",

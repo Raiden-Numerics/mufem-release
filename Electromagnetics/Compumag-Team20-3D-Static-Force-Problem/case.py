@@ -35,7 +35,9 @@ steady_runner = SteadyRunner(total_iterations=0)
 magnetic_domain = ["Yoke", "Pole", "Coil", "Air"] @ Vol
 magnetic_model = TimeDomainMagneticModel(marker=magnetic_domain, order=1)
 
-air_material = TimeDomainMagneticGeneralMaterial.Constant(name="Air", marker="Air" @ Vol)
+air_material = TimeDomainMagneticGeneralMaterial.Constant(
+    name="Air", marker="Air" @ Vol
+)
 
 copper_material = TimeDomainMagneticGeneralMaterial.Constant(
     name="Copper", marker="Coil" @ Vol, electric_conductivity=1.0e7

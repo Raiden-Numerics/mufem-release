@@ -5,14 +5,14 @@ import paraview.simple as pvs
 # Setup the view
 # **************************************************************************************
 
+
 def create_screenshot(input_file_name: str, scene_output_name: str):
-    
+
     pvs.ResetSession()
     view = pvs.CreateRenderView()
     pvs.SetActiveView(view)
     view.ViewSize = [1200, 650]
     view.OrientationAxesVisibility = 0
-
 
     # Need to call the render in advance to keep the camera properties, since if this is the
     # first render and the view is a RenderView, the camera is reset:
@@ -58,6 +58,7 @@ def create_screenshot(input_file_name: str, scene_output_name: str):
         OverrideColorPalette="WhiteBackground",
     )
 
+
 # **************************************************************************************
 # Electric field at 12 GHz
 # **************************************************************************************
@@ -66,7 +67,6 @@ create_screenshot(
     input_file_name="Output_0.vtpc",
     scene_output_name="scene_electric_field_12GHz",
 )
-
 
 
 # **************************************************************************************

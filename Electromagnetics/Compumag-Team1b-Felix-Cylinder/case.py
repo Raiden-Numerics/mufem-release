@@ -27,7 +27,9 @@ magnetic_model = TimeDomainMagneticModel(
 )
 
 # Setup Materials
-air_material = TimeDomainMagneticGeneralMaterial.Constant(name="Air", marker="Air" @ Vol)
+air_material = TimeDomainMagneticGeneralMaterial.Constant(
+    name="Air", marker="Air" @ Vol
+)
 
 copper_material = TimeDomainMagneticGeneralMaterial.Constant(
     name="Al", marker="Cylinder" @ Vol, electric_conductivity=25380710.659898475
@@ -76,17 +78,22 @@ plt.clf()
 power_loss_reference = numpy.loadtxt(f"{dir_path}/data/PowerLoss.csv", delimiter=",")
 
 plt.plot(
-    power_loss_reference[:, 0],
-    power_loss_reference[:, 1],
-    "k-",
+    x=power_loss_reference[:, 0],
+    y=power_loss_reference[:, 1],
+    color="k",
+    linestyle="-",
     label="Davey et al.",
     linewidth=2.5,
     markersize=6.5,
 )
 
+x_vals, y_vals = zip(*values)
 plt.plot(
-    *zip(*values),
-    "r.-",
+    x=x_vals,
+    y=y_vals,
+    color="r",
+    linestyle="-",
+    marker=".",
     label="$\\mu$fem",
     markersize=6.5,
     linewidth=2.0,
@@ -94,9 +101,11 @@ plt.plot(
 
 plt.xlabel("Time t [s]")
 plt.ylabel("Ohmic Heating Loss P$_\\Omega$ [W]")
-plt.xlim(0, 0.02)
+plt.xlim(left=0, right=0.02)
 plt.xticks([0, 0.01, 0.02])
-plt.ylim(0, 600)
-plt.legend(loc="best").draw_frame(False)
+plt.ylim(bottom=0, top=600)
+plt.legend(loc="best").set_frame_on(False)
+
+plt.savefig(f"{dir_path}/results/OhmicHeating.png", bbox_inches="tight")
 
 plt.savefig(f"{dir_path}/results/OhmicHeating.png", bbox_inches="tight")
