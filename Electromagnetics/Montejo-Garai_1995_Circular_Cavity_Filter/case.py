@@ -43,7 +43,7 @@ sim.get_model_manager().add_model(model)
 # **************************************************************************************
 # Materials
 # **************************************************************************************
-material_air = TimeHarmonicMaxwellGeneralMaterial.Vacuum("Air", marker_domain)
+material_air = TimeHarmonicMaxwellGeneralMaterial.Constant("Air", marker_domain)
 model.add_material(material_air)
 
 
@@ -86,7 +86,7 @@ for i, frequency in enumerate(frequencies):
     steady_runner.advance(1)
 
     if frequency in frequencies_paraview:
-        vis.save()
+        vis.save(order=2)
 
     report_data = report_s_parameters.evaluate().to_numpy()
     S21[i] = report_data[0, 0]

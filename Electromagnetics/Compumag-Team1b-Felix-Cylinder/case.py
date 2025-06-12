@@ -27,9 +27,11 @@ magnetic_model = TimeDomainMagneticModel(
 )
 
 # Setup Materials
-air_material = TimeDomainMagneticGeneralMaterial.Vacuum(name="Air", marker="Air" @ Vol)
+air_material = TimeDomainMagneticGeneralMaterial.Constant(
+    name="Air", marker="Air" @ Vol
+)
 
-copper_material = TimeDomainMagneticGeneralMaterial.NonMagnetic(
+copper_material = TimeDomainMagneticGeneralMaterial.Constant(
     name="Al", marker="Cylinder" @ Vol, electric_conductivity=25380710.659898475
 )
 magnetic_model.add_materials([air_material, copper_material])
@@ -51,7 +53,7 @@ magnetic_model.add_condition(tangential_magnetic_field_bc)
 
 # Setup Reports
 ohmic_heating_report = mufem.VolumeIntegralReport(
-    name="Ohmic Heating", marker="Cylinder" @ Vol, cff_name="OhmicHeating"
+    name="Ohmic Heating", marker="Cylinder" @ Vol, cff_name="Ohmic Heating"
 )
 sim.get_report_manager().add_report(ohmic_heating_report)
 
@@ -66,27 +68,30 @@ sim.run()
 
 # Plot the losses
 
-monitor_values = ohmic_heating_monitor.get_values()
-
-values = [(value[0], value[1]) for value in monitor_values]
-
-
 plt.clf()
 
-power_loss_reference = numpy.loadtxt(f"{dir_path}/data/PowerLoss.csv", delimiter=",")
+ref_power_loss_time, ref_power_loss_value = numpy.loadtxt(
+    f"{dir_path}/data/PowerLoss.csv", delimiter=",", unpack=True
+)
 
-plt.plot(
-    power_loss_reference[:, 0],
-    power_loss_reference[:, 1],
-    "k-",
+plt.plot(  # noqa: FKA100 - false positive, wants x=, y= but not available
+    ref_power_loss_time,
+    ref_power_loss_value,
+    color="k",
+    linestyle="-",
     label="Davey et al.",
     linewidth=2.5,
     markersize=6.5,
 )
 
+monitor_values = ohmic_heating_monitor.get_values()
+
+
 plt.plot(
-    *zip(*values),
-    "r.-",
+    *zip(*monitor_values),
+    color="r",
+    linestyle="-",
+    marker=".",
     label="$\\mu$fem",
     markersize=6.5,
     linewidth=2.0,
@@ -94,9 +99,9 @@ plt.plot(
 
 plt.xlabel("Time t [s]")
 plt.ylabel("Ohmic Heating Loss P$_\\Omega$ [W]")
-plt.xlim(0, 0.02)
+plt.xlim(left=0, right=0.02)
 plt.xticks([0, 0.01, 0.02])
-plt.ylim(0, 600)
-plt.legend(loc="best").draw_frame(False)
+plt.ylim(bottom=0, top=600)
+plt.legend(loc="best").set_frame_on(False)
 
 plt.savefig(f"{dir_path}/results/OhmicHeating.png", bbox_inches="tight")
