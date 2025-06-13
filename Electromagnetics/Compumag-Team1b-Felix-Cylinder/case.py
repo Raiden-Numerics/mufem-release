@@ -66,6 +66,10 @@ sim.get_monitor_manager().add_monitor(ohmic_heating_monitor)
 
 sim.run()
 
+vis = sim.get_visualization_helper()
+vis.add_field_output("Electric Current Density")
+vis.save()
+
 # Plot the losses
 
 plt.clf()
@@ -97,8 +101,8 @@ plt.plot(
     linewidth=2.0,
 )
 
-plt.xlabel("Time t [s]")
-plt.ylabel("Ohmic Heating Loss P$_\\Omega$ [W]")
+plt.xlabel("Time [s]")
+plt.ylabel("Ohmic Heating Loss [W]")
 plt.xlim(left=0, right=0.02)
 plt.xticks([0, 0.01, 0.02])
 plt.ylim(bottom=0, top=600)
