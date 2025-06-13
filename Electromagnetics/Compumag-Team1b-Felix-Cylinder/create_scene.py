@@ -1,10 +1,6 @@
-# state file generated using paraview version 6.0.0-RC1
-import paraview
-
-paraview.compatibility.major = 6
-paraview.compatibility.minor = 0
-
 import paraview.simple as pvs
+import os
+
 
 renderView1 = pvs.CreateView("RenderView")
 
@@ -23,12 +19,12 @@ renderView1.Set(
 
 pvs._DisableFirstRenderCameraReset()
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
 
 outputvtpcseries = pvs.XMLPartitionedDatasetCollectionReader(
     registrationName="Output.vtpc.series",
-    FileName=[
-        "/mnt/Data/mufem/mufem-release/Electromagnetics/Compumag-Team1b-Felix-Cylinder/VisualizationOutput/Output.vtpc.series"
-    ],
+    FileName=[f"{script_dir}/VisualizationOutput/Output.vtpc.series"],
 )
 
 glyph1 = pvs.Glyph(
@@ -97,6 +93,6 @@ glyph1Display.SetScalarBarVisibility(renderView1, True)
 
 pvs.Render()
 pvs.SaveScreenshot(
-    f"results/Scene_Electric_Current_Density.png",
+    f"{script_dir}/results/Scene_Electric_Current_Density.png",
     OverrideColorPalette="WhiteBackground",
 )
