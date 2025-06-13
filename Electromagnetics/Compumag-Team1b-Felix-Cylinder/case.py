@@ -83,7 +83,7 @@ plt.plot(  # noqa: FKA100 - false positive, wants x=, y= but not available
     ref_power_loss_value,
     color="k",
     linestyle="-",
-    label="Davey et al.",
+    label="Davey (1988)",
     linewidth=2.5,
     markersize=6.5,
 )
