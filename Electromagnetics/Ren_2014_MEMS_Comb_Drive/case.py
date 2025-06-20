@@ -90,41 +90,42 @@ sim.get_report_manager().add_report(report)
 # **************************************************************************************
 # Run the simulation
 # **************************************************************************************
-# number of mesh refinement cycles + 1 (including the initial mesh):
-nref_with_initial = 21
+max_dofs = 15000  # maximum number of degrees of freedom
 
-ne = np.zeros(nref_with_initial)
-energy = np.zeros(nref_with_initial)
+dofs = np.zeros(0)
+energies = np.zeros(0)
 
 vis = sim.get_visualization_helper()
 vis.add_field_output("Electric Potential")
 
-for n in range(nref_with_initial):
-    if n > 0:
-        refinement_model.refine_mesh()
+initial_mesh = True
 
+while True:
     steady_runner.advance(2)
 
-    ne[n] = sim.get_domain().get_mesh().get_number_cells()
-    print(ne[n])
+    dofs = np.append(dofs, model.number_of_dofs())
+    energies = np.append(energies, report.evaluate())
 
-    energy[n] = report.evaluate()
+    if initial_mesh:
+        vis.save()
+        initial_mesh = False
 
-vis.save(order=2)
+    if model.number_of_dofs() >= max_dofs:
+        break
+    else:
+        refinement_model.refine_mesh()
+
+vis.save()
 
 
 # **************************************************************************************
 # Plot the results
 # **************************************************************************************
 voltage = 1  # [V]
-capacitance = 2 * energy / voltage**2  # [F]
+capacitances = 2 * energies / voltage**2  # [F]
 
 plt.figure()
-plt.plot(ne / 1e3, capacitance / 1e-15)
-plt.xlabel("Number of elements (10³)")
+plt.plot(dofs / 1e3, capacitances / 1e-15)
+plt.xlabel("Number of degrees of freedom (10³)")
 plt.ylabel("Capacitance [fF]")
 plt.savefig("results/Capacitance.png", bbox_inches="tight")
-
-
-data = np.stack([ne/1e3, capacitance/1e-15])
-np.savetxt("out.dat", data.T, header="Number of elements (10³), Capacitance [fF]", delimiter=", ")
