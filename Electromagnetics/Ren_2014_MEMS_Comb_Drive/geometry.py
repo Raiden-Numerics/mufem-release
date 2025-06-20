@@ -6,12 +6,11 @@ gmsh.initialize()
 # **************************************************************************************
 # Create geometry
 # **************************************************************************************
-u = 1
+u = 1  # unit of spatial dimensions
 
 
 def tooth(x, y, z):
     return gmsh.model.occ.addBox(x, y, z, 15 * u, 4 * u, 4 * u)
-
 
 # tag_ruler = gmsh.model.occ.addBox(0, 0, -2, 22*u, 4*u, 1*u)
 
@@ -27,6 +26,8 @@ ov = gmsh.model.occ.fuse(
     [(3, tag_tooth1), (3, tag_tooth2), (3, tag_tooth3), (3, tag_tooth4)],
 )
 comb1 = ov[0][0]
+
+# gmsh.model.occ.translate([comb1], -1, 0, 0)
 
 # Comb 2:
 tag_tooth1 = tooth(7 * u, 0, 5 * u)
