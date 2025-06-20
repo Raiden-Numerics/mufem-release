@@ -1,5 +1,26 @@
 # Ren 2014: MEMS Comb Drive
 
+## Introduction
+
+
+## Setup
+
+### Dimensions
+
+### Mesh
+
+### Model
+
+### Reports
+
+### Adaptive mesh refinement
+
+## Running the case
+
+
+## References
+
+
 Comb drives are capacitive actuators that utilize electrostatic forces generated between two electrically conductive combs. These actuators typically function at the micro- or nanometer scale and are among the most widely used electrostatic actuators and sensors in the micro-electromechanical systems (MEMS) industry. When a voltage is applied between the static and moving combs, attractive electrostatic forces are created, drawing them together. The force produced by the actuator is proportional to the change in capacitance between the two combs, which increases with the driving voltage.
 
 In this test case, we monitor the capacitance of the comb drive described in [[1,2]](#Ren2014). This comb drive consists of two comb conductors, one with four teeth and the other with three, positioned above a grounded plate. Figure 1 shows the geometry of the problem.
@@ -61,11 +82,6 @@ To generate the mesh, we utilize [Gmsh](https://gmsh.info/) mesh generator. To e
     | Obtained (fF) | Reference value from [[1]](#Ren2014) (fF)|
     | -             | -                            |
     | 5.375         | 5.372                        |
-
-* **Residuals**
-We can see that the residuals do converge very well by $10^{-6}$ per iteration which is the iterative solver convergence setting:
-
-    ![Residuals](./results/Residual.png)
 
 
 ## References

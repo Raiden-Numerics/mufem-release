@@ -43,8 +43,8 @@ sim.get_domain().load_mesh(
 )
 sim.get_domain().get_mesh().scale(1e-6)
 
-# refinement_model = RefinementModel()
-# sim.get_model_manager().add_model(refinement_model)
+refinement_model = RefinementModel()
+sim.get_model_manager().add_model(refinement_model)
 
 
 # **************************************************************************************
@@ -54,8 +54,8 @@ order = 1  # finite element polynomial degree
 model = ElectrostaticsModel(Everywhere @ Vol, order)
 sim.get_model_manager().add_model(model)
 
-# mesh_refiner = model.get_mesh_refiner()
-# mesh_refiner.set_refinement_fraction(0.6)
+mesh_refiner = model.get_mesh_refiner()
+mesh_refiner.set_refinement_fraction(0.6)
 
 
 # **************************************************************************************
@@ -100,13 +100,13 @@ vis = sim.get_visualization_helper()
 vis.add_field_output("Electric Potential")
 
 for n in range(nref_with_initial):
-    # if n > 0:
-    #     refinement_model.refine_mesh()
+    if n > 0:
+        refinement_model.refine_mesh()
 
     steady_runner.advance(2)
 
-    ne[n] = n
-    # ne[n] = model.number_of_elements()
+    ne[n] = sim.get_domain().get_mesh().get_number_cells()
+    print(ne[n])
 
     energy[n] = report.evaluate()
 
@@ -124,3 +124,7 @@ plt.plot(ne / 1e3, capacitance / 1e-15)
 plt.xlabel("Number of elements (10³)")
 plt.ylabel("Capacitance [fF]")
 plt.savefig("results/Capacitance.png", bbox_inches="tight")
+
+
+data = np.stack([ne/1e3, capacitance/1e-15])
+np.savetxt("out.dat", data.T, header="Number of elements (10³), Capacitance [fF]", delimiter=", ")
