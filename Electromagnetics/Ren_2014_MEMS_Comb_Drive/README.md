@@ -63,19 +63,29 @@ To generate the mesh, we utilize [Gmsh](https://gmsh.info/) mesh generator. To e
 
 ## Results
 
+* **Effect of mesh refinement**
+
+    | Initial mesh | Mesh after several refinement cycles  |
+    | ---          | --- |
+    | <img src="./results/Mesh_Electric_Potential_xshift=0.0_0.png" width="450"/> | <img src="./results/Mesh_Electric_Potential_xshift=0.0_1.png" width="450"/>
+
+
 * **Electric Potential**
 
 <div align="center">
-    <img src="./results/Scene_Electric_Potential_0.png" alt="drawing" width="600">
+    <img src="./results/output.gif" alt="drawing" width="600">
     <br/>
     <br/>
     Figure 3: The mesh created by Gmsh mesh generator.
 </div>
 <br/>
 
+
 * **Capacitance**
 
-    ![Capacitance](./results/Capacitance.png)
+    ![Capacitance](./results/Capacitance_Vs_Dofs.png)
+
+    ![Capacitance](./results/Capacitance_Vs_Xshift.png)
 
     Calculated using the formula $C = 2 W / V^2$
 
