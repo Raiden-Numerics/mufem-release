@@ -54,7 +54,7 @@ As the boundary conditions we use the [Perfect Electric Conductor Condition](htt
 
 As the incident electric field we consider the field in the TE$_{10}$ mode, entering through the input port of the waveguide.
 
-We also assume that the volume of the waveguides and the cavity is filled with air, which we model using the [Vacuum](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_vacuum.html) material with the permeability and permittivity of free space.
+We also assume that the volume of the waveguides and the cavity is filled with air, which we model using the [Constant](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_constant.html) time-harmonic Maxwell material with the permeability and permittivity of free space.
 
 
 ### Reports
