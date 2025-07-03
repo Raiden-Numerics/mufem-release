@@ -96,9 +96,6 @@ for ix, mesh_file in enumerate(mesh_files):
     sim.get_domain().load_mesh(mesh_file)
     sim.get_domain().get_mesh().scale(1e-6)
 
-    ncells = np.array([])
-    energies = np.array([])
-
     for i in range(max_iterations):
         runner.advance(2)
 
