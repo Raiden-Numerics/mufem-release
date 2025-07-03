@@ -77,36 +77,36 @@ pymufem case.py
 Inside the [case.py](case.py) file we have the following double loop:
 ```py
 for mesh_file in mesh_files:
-    sim.get_domain().load_mesh(mesh_file, nonconforming=nonconforming_options)
+    sim.get_domain().load_mesh(mesh_file)
     sim.get_domain().get_mesh().scale(1e-6)
 
-
-    dofs = np.array([])
+    ncells = np.array([])
     energies = np.array([])
 
-    vis = sim.get_visualization_helper()
-    vis.add_field_output("Electric Potential")
-
-    initial_mesh = True
-
-    while True:
+    for i in range(max_iterations):
         runner.advance(2)
 
-        dofs = np.append(dofs, model.number_of_dofs())
+        if i == 0:
+            vis.save()
+
+        nc = sim.get_domain().get_mesh().get_total_number_cells()
+
+        ncells = np.append(ncells, nc)
         energies = np.append(energies, report.evaluate())
 
-        if initial_mesh:
-            vis.save()
-            initial_mesh = False
-
-        if model.number_of_dofs() >= max_dofs:
+        if nc >= max_ncells:
             break
         else:
             refinement_model.refine_mesh()
 
+    else:
+        raise RuntimeError(
+            "Maximum number of iterations reached without reaching max_ncells."
+        )
+
     vis.save()
 ```
-The external `for` loop iterates over individual mesh files to simulate the problem for each specified inter-comb distance. Meanwhile, during each iteration of the internal `while` loop, we refine the mesh according to the established mesh refinement algorithm. This loop concludes when the number of degrees of freedom in the model exceeds the empirically chosen limit of `max_dofs`, set at 15,000. For each mesh file, we save the electric potential obtained from both the initial and final meshes in the [VTK](https://vtk.org/) file format, allowing for subsequent visualization using [ParaView](https://www.paraview.org/).
+The external `for` loop iterates over individual mesh files to simulate the problem for each specified inter-comb distance. Meanwhile, inside the internal `for` loop, we refine the mesh according to the established mesh refinement algorithm. This loop concludes when the number of mesh elements exceeds the empirically chosen limit of `max_ncells`, set at 100,000. For each mesh file, we save the electric potential obtained from both the initial and final meshes in the [VTK](https://vtk.org/) file format, allowing for subsequent visualization using [ParaView](https://www.paraview.org/).
 
 
 ## Results
@@ -127,7 +127,7 @@ As an example, Figure 3 illustrates the calculated electric field potential alon
   <img src="results/Scene_Electric_Potential_1_Mesh.png" width="450" />
   <br/>
   <br/>
-  Figure 3: A slice of the computational domain displaying the calculated electric field potential along with the mesh edges for two different meshes: (left) the initial mesh and (right) the mesh after several cycles of adaptive mesh refinement.
+  Figure 3: A slice of the computational domain displaying the calculated electric field potential along with the mesh edges for two different meshes: (left) the initial mesh and (right) the mesh after several cycles of adaptive mesh refinement. The images are obtained using <a href="paraview_mesh.py">paraview_mesh.py</a> file.
 </div>
 <br/>
 
@@ -138,7 +138,7 @@ With each refinement cycle, the number of degrees of freedom increases. Figure 4
     <img src="results/Capacitance_Vs_Ncells.png" width="600">
     <br/>
     <br/>
-    Figure 4: The relationship between capacitance and the number of cells for various inter-comb shifts.
+    Figure 4: The relationship between capacitance and the number of cells for various inter-comb shifts. The plot is obtained using <a href="capacitance_vs_ncells.py">capacitance_vs_ncells.py</a> file.
 </div>
 <br/>
 
@@ -153,7 +153,7 @@ Figure 5 illustrates how the distribution of electric potential changes as the s
     <img src="results/Electric_Potential.gif" width="600">
     <br/>
     <br/>
-    Figure 5: The distribution of electric potential for various shifts between the combs.
+    Figure 5: The distribution of electric potential for various shifts between the combs. The git animation is obtained using <a href="paraview_gif.py">paraview_gif.py</a> file.
 </div>
 <br/>
 
@@ -172,7 +172,7 @@ To calculate the derivative $\partial C/\partial x$​ in Figure 6, we plot the 
     <img src="results/Capacitance_Vs_Xshift.png" width="600">
     <br/>
     <br/>
-    Figure 6: Dependence of the comb drive capacitance on the distance between the combs, along with its linear fit.
+    Figure 6: Dependence of the comb drive capacitance on the distance between the combs, along with its linear fit. The plot is obtained using <a href="capacitance_vs_xshift.py">capacitance_vs_xshift.py</a> file.
 </div>
 <br/>
 
