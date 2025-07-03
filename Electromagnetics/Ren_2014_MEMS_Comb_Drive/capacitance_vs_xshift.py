@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-xshifts = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8]
+data = np.loadtxt("results/Capacitance.csv", delimiter=",")
+
+xshifts = np.unique(data[:, 0])
 
 N = len(xshifts)
 
@@ -9,13 +11,12 @@ x = np.zeros(N)
 C = np.zeros(N)
 
 for i, xshift in enumerate(xshifts):
-    fname = f"results/Capacitance_xshift={xshift:.1f}.csv"
+    subdata = data[data[:,0] == xshift]
 
-    data = np.loadtxt(fname, delimiter=",")
-    dofs = data[:, 0]
-    capacitance = data[:, 1]
+    ncells = subdata[:,1]
+    capacitance = subdata[:,2]
 
-    x[i] = float(fname.split('_')[-1][:-4].split('=')[-1]) * 1e-6
+    x[i] = xshift * 1e-6
     C[i] = capacitance[-1]
 
 a, b = np.polyfit(x, C, 1)

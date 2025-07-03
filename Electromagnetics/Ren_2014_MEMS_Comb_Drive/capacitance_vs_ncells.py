@@ -3,19 +3,17 @@ import numpy as np
 
 xshifts = [0, 2, 4, 6, 8]
 
+data = np.loadtxt("results/Capacitance.csv", delimiter=",")
+
 plt.figure(constrained_layout=True)
 
 for i, xshift in enumerate(xshifts):
-    fname = f"results/Capacitance_xshift={xshift:.1f}.csv"
+    subdata = data[data[:,0] == xshift]
 
-    data = np.loadtxt(fname, delimiter=",")
+    ncells = subdata[:,1]
+    capacitance = subdata[:,2]
 
-    dofs = data[:, 0]
-    capacitance = data[:, 1]
-
-    label = fname.split('_')[-1][:-4]
-
-    plt.plot(dofs / 1e3, capacitance / 1e-15, "o-", label=label)
+    plt.plot(ncells / 1e3, capacitance / 1e-15, "o-", label=f"xshift = {xshift:.1f} μm")
 
 plt.legend(loc=0, frameon=False)
 plt.xlabel("Number of cells [10³]")

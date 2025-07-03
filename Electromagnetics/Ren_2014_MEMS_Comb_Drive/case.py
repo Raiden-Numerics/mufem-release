@@ -79,10 +79,13 @@ max_iterations = 25  # maximum number of iterations for each mesh file
 
 max_ncells = 1e5  # maximum number of cells
 
+with open("results/Capacitance.csv", "w") as fp:
+    fp.write("# xshift [um], ncells, capacitance [F]\n")
+
 vis = sim.get_field_exporter()
 vis.add_field_output("Electric Potential")
 
-for mesh_file in mesh_files:
+for ix, mesh_file in enumerate(mesh_files):
     sim.get_domain().load_mesh(mesh_file)
     sim.get_domain().get_mesh().scale(1e-6)
 
@@ -95,12 +98,15 @@ for mesh_file in mesh_files:
         if i == 0:
             vis.save()
 
-        nc = sim.get_domain().get_mesh().get_total_number_cells()
+        ncells = sim.get_domain().get_mesh().get_total_number_cells()
+        energy = report.evaluate()
+        capacitance = 2 * energy / voltage**2  # [F]
 
-        ncells = np.append(ncells, nc)
-        energies = np.append(energies, report.evaluate())
+        if sim.get_machine().is_main_process():
+            with open("results/Capacitance.csv", "a") as fp:
+                fp.write(f"{xshifts[ix]:.1f}, {ncells}, {capacitance}\n")
 
-        if nc >= max_ncells:
+        if ncells >= max_ncells:
             break
         else:
             refinement_model.refine_mesh()
@@ -111,13 +117,3 @@ for mesh_file in mesh_files:
         )
 
     vis.save()
-
-
-    # Save the results -----------------------------------------------------------------
-    capacitances = 2 * energies / voltage**2  # [F]
-
-    suffix = mesh_file.split('_')[-1][:-4]
-
-    fname = f"results/Capacitance_{suffix}.csv"
-    data = np.column_stack([ncells, capacitances])
-    np.savetxt(fname, data, delimiter=", ", header="Number of cells, Capacitance [F]")
