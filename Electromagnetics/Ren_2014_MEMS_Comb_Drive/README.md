@@ -7,7 +7,7 @@ Comb drives are capacitive actuators that utilize electrostatic forces generated
 In this test case, we monitor the capacitance of the comb drive described in [[1,2]](#Ren2014). This comb drive consists of two comb conductors, one with four teeth and the other with three, positioned above a grounded plate. Figure 1 shows the geometry of the problem.
 
 <div align="center">
-    <img src="data/Geometry.png" alt="drawing" width="600">
+    <img src="data/Geometry.png" width="600">
     <br/>
     <br/>
     Figure 1: Electrostatic MEMS comb drive.
@@ -29,7 +29,7 @@ The exact dimensions of the comb drive components are illustrated in Fig. 3 of [
 To simulate the entire system, we enclose the comb drive within a rectangular box, with one boundary serving as the ground plate. To generate the mesh, we utilize [Gmsh](https://gmsh.info/) mesh generator. The corresponding code can be found in the [geometry.py](geometry.py) file. To enhance simulation speed without compromising precision, we implement the adaptive mesh refinement algorithm. Figure 2 illustrates the initial mesh configuration.
 
 <div align="center">
-    <img src="data/Mesh.png" alt="drawing" width="600">
+    <img src="data/Mesh.png" width="600">
     <br/>
     <br/>
     Figure 2: The initial mesh configuration.
@@ -123,8 +123,8 @@ For instance, in the code above, we set the mesh refinement fraction to 0.6, ind
 As an example, Figure 3 illustrates the calculated electric field potential along with the mesh edges for both the initial mesh and the mesh after several cycles of adaptive mesh refinement. Notably, the mesh becomes denser near the edges of the combs, where the electric potential changes most significantly.
 
 <div align="center">
-  <img src="results/Mesh_Electric_Potential_xshift=0.0_0.png" alt="|E| at 12 GHz" width="450" />
-  <img src="results/Mesh_Electric_Potential_xshift=0.0_1.png" alt="|E| at 14 GHz" width="450" />
+  <img src="results/Scene_Electric_Potential_0_Mesh.png" width="450" />
+  <img src="results/Scene_Electric_Potential_1_Mesh.png" width="450" />
   <br/>
   <br/>
   Figure 3: A slice of the computational domain displaying the calculated electric field potential along with the mesh edges for two different meshes: (left) the initial mesh and (right) the mesh after several cycles of adaptive mesh refinement.
@@ -135,10 +135,10 @@ As an example, Figure 3 illustrates the calculated electric field potential alon
 With each refinement cycle, the number of degrees of freedom increases. Figure 4 illustrates how the calculated capacitance value changes as the number of degrees of freedom grows. It is clear that the capacitance value at the initial mesh is overestimated; however, with each subsequent mesh refinement cycle, it decreases. After a certain number of refinement cycles, the capacitance value stabilizes and reaches its final value.
 
 <div align="center">
-    <img src="results/Capacitance_Vs_Dofs.png" alt="drawing" width="600">
+    <img src="results/Capacitance_Vs_Ncells.png" width="600">
     <br/>
     <br/>
-    Figure 4: The relationship between capacitance and the number of degrees of freedom for various inter-comb shifts.
+    Figure 4: The relationship between capacitance and the number of cells for various inter-comb shifts.
 </div>
 <br/>
 
@@ -150,7 +150,7 @@ The final value of the capacitance is taken as the value calculated at the large
 Figure 5 illustrates how the distribution of electric potential changes as the shift between the combs increases. This movement mimics the action of a real comb drive, where the combs tend to move apart when voltage is applied.
 
 <div align="center">
-    <img src="results/output.gif" alt="drawing" width="600">
+    <img src="results/Electric_Potential.gif" width="600">
     <br/>
     <br/>
     Figure 5: The distribution of electric potential for various shifts between the combs.
@@ -166,10 +166,10 @@ F = \frac{1}{2} \frac{\partial C}{\partial x} V^2,
 $$
 where $\partial C/\partial x$ represents the change in capacitance with respect to distance between the combs, and $V$ is the applied voltage.
 
-To calculate the derivative $\partial C/\partial x$​ in Figure 6, we plot the capacitance against the shift distance. As observed, the capacitance decreases linearly as the distance between the combs increases. By applying a linear fit, we can extract the value of $\partial C/\partial x$​, which in this case is equal to $-3.1\times10^{-10}$ F/m. Using this value in the formula provided earlier, we can estimate that the comb drive generates a force $F$ with an amplitude of 0.155 nN.
+To calculate the derivative $\partial C/\partial x$​ in Figure 6, we plot the capacitance against the shift distance. As observed, the capacitance decreases linearly as the distance between the combs increases. By applying a linear fit, we can extract the value of $\partial C/\partial x$​, which in this case is equal to $-3.1\times10^{-10}$ F/m. Using this value in the formula provided earlier, we can estimate that the comb drive generates a force $F$ with an amplitude of 0.152 nN.
 
 <div align="center">
-    <img src="results/Capacitance_Vs_Xshift.png" alt="drawing" width="600">
+    <img src="results/Capacitance_Vs_Xshift.png" width="600">
     <br/>
     <br/>
     Figure 6: Dependence of the comb drive capacitance on the distance between the combs, along with its linear fit.

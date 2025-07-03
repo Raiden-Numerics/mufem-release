@@ -19,8 +19,8 @@ for i, xshift in enumerate(xshifts):
     plt.plot(dofs / 1e3, capacitance / 1e-15, "o-", label=label)
 
 plt.legend(loc=0, frameon=False)
-plt.xlabel("Number of degrees of freedom [10³]")
+plt.xlabel("Number of cells [10³]")
 plt.ylabel("Capacitance [fF]")
-plt.savefig("results/Capacitance_Vs_Dofs.png")
+plt.savefig("results/Capacitance_Vs_Ncells.png")
 
 plt.show()

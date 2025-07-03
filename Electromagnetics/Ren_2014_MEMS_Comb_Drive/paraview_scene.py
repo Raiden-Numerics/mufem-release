@@ -1,4 +1,9 @@
+import sys
+sys.path.insert(0, '/home/fedoroff/software/ParaView-5.13.20250312-MPI-Linux-Python3.12-x86_64/lib/python3.12/site-packages/')
+
 import paraview.simple as pvs
+
+import subprocess
 
 
 def create_scene(data_file, screenshot_file, show=False):
@@ -75,9 +80,27 @@ def create_scene(data_file, screenshot_file, show=False):
 
 
 if __name__ == "__main__":
-    for xshift in [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8]:
-
-        data_file = f"results/VisualizationOutput_xshift={xshift:.1f}/Output_1.vtpc"
-        screenshot_file = f"results/Electric_Potential_xshift={xshift:.1f}.png"
+    # Create the scene images with a siple name pattern:
+    for i in range(17):
+        data_file = f"VisualizationOutput/Output_{2*i+1}.vtpc"
+        screenshot_file = f"results/{i}.png"
 
         create_scene(data_file, screenshot_file)
+
+    # 1) Use ffmpeg to convert the images to mp4 movie:
+    #    - use the 'reverse' option to reverse the video in order to show the attractive
+    #      force
+    # 2) Use ffmpeg to convert mp4 movie to gif:
+    #    - creating mp4 first and then converting to gif results in better gif quality
+    # 3) Remove unnecessary files
+    commands = [
+        "ffmpeg -framerate 5 -i results/%d.png -vf reverse -c:v libx264 -pix_fmt yuv420p results/output.mp4",
+        "ffmpeg -i results/output.mp4 -vf 'fps=5,scale=800:-1:flags=lanczos' -c:v gif results/Electric_Potential.gif -y",
+        "rm results/output.mp4",
+        "bash -c 'rm results/{0..16}.png'"
+    ]
+    for command in commands:
+        result = subprocess.run(command, shell=True, text=True, capture_output=True)
+
+        if result.returncode != 0:
+            print(result.stderr)

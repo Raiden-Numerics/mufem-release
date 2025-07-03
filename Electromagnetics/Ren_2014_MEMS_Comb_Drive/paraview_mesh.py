@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '/home/fedoroff/software/ParaView-5.13.20250312-MPI-Linux-Python3.12-x86_64/lib/python3.12/site-packages/')
+
 import paraview.simple as pvs
 
 
@@ -78,12 +81,10 @@ def create_scene(data_file, screenshot_file, show=False):
 
 
 if __name__ == "__main__":
-    xshift = 0.0
-
-    data_file = f"results/VisualizationOutput_xshift={xshift:.1f}/Output_0.vtpc"
-    screenshot_file = f"results/Mesh_Electric_Potential_xshift={xshift:.1f}_0.png"
+    data_file = "VisualizationOutput/Output_0.vtpc"
+    screenshot_file = f"results/Scene_Electric_Potential_0_Mesh.png"
     create_scene(data_file, screenshot_file)
 
-    data_file = f"results/VisualizationOutput_xshift={xshift:.1f}/Output_1.vtpc"
-    screenshot_file = f"results/Mesh_Electric_Potential_xshift={xshift:.1f}_1.png"
+    data_file = "VisualizationOutput/Output_1.vtpc"
+    screenshot_file = f"results/Scene_Electric_Potential_1_Mesh.png"
     create_scene(data_file, screenshot_file)
