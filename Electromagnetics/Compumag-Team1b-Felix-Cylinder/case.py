@@ -66,7 +66,7 @@ sim.get_monitor_manager().add_monitor(ohmic_heating_monitor)
 
 sim.run()
 
-vis = sim.get_visualization_helper()
+vis = sim.get_field_exporter()
 vis.add_field_output("Electric Current Density")
 vis.save()
 

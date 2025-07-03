@@ -145,7 +145,7 @@ plt.savefig(f"{dir_path}/results/Force_vs_Current.png", bbox_inches="tight")
 
 
 # Finally, we save a few fields so we can visualize with paraview
-vis = sim.get_visualization_helper()
+vis = sim.get_field_exporter()
 vis.add_field_output("Magnetic Flux Density")
 vis.add_field_output("Electric Current Density")
 
