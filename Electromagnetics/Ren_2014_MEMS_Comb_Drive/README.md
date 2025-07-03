@@ -26,7 +26,7 @@ The exact dimensions of the comb drive components are illustrated in Fig. 3 of [
 
 ### Mesh
 
-To simulate the entire system, we enclose the comb drive within a rectangular box, with one boundary serving as the ground plate. To generate the mesh, we utilize [Gmsh](https://gmsh.info/) mesh generator. The corresponding code can be found in the [geometry.py](geometry.py) file. To enhance simulation speed without compromising precision, we implement the adaptive mesh refinement algorithm. Figure 2 illustrates the initial mesh configuration.
+To simulate the entire system, we enclose the comb drive within a rectangular box, with one boundary serving as the ground plate. To generate the mesh, we utilize [Gmsh](https://gmsh.info/) mesh generator. To enhance simulation speed without compromising precision, we implement the adaptive mesh refinement algorithm. Figure 2 illustrates the initial mesh configuration.
 
 <div align="center">
     <img src="data/Mesh.png" width="600">
@@ -38,7 +38,7 @@ To simulate the entire system, we enclose the comb drive within a rectangular bo
 
 During the mesh generation process, we assign named attributes to the surfaces of each comb ("Comb1" and "Comb2"), to the boundary of the computational domain representing the ground plate ("Ground"), and to the entire computational domain itself ("Domain").
 
-To investigate the change in capacitance as the distance between the combs increases, we generated several mesh files with varying shifts of the combs relative to each other. We begin with a zero shift, corresponding to an initial distance of 1 μm between the combs. Subsequently, we increase the inter-comb distance from this initial value by shifting the combs in increments of 0.5 μm, up to a final shift of 8 μm, at which point the combs no longer interlock.
+To investigate the change in capacitance as the distance between the combs increases, we prepare a function `create_geometry` which generates the mesh for a given shift of the combs relative to each other and then writes it to a file. We begin with a zero shift, corresponding to an initial distance of 1 μm between the combs. Subsequently, we increase the inter-comb distance from this initial value by shifting the combs in increments of 0.5 μm, up to a final shift of 8 μm, at which point the combs no longer interlock.
 
 
 ### Model
@@ -76,12 +76,12 @@ pymufem case.py
 
 Inside the [case.py](case.py) file we have the following double loop:
 ```py
-for mesh_file in mesh_files:
-    sim.get_domain().load_mesh(mesh_file)
-    sim.get_domain().get_mesh().scale(1e-6)
+for xshift in xshifts:
+    if sim.get_machine().is_main_process():
+        create_geometry(xshift)
 
-    ncells = np.array([])
-    energies = np.array([])
+    sim.get_domain().load_mesh("geometry.msh")
+    sim.get_domain().get_mesh().scale(1e-6)
 
     for i in range(max_iterations):
         runner.advance(2)
@@ -89,12 +89,15 @@ for mesh_file in mesh_files:
         if i == 0:
             vis.save()
 
-        nc = sim.get_domain().get_mesh().get_total_number_cells()
+        ncells = sim.get_domain().get_mesh().get_total_number_cells()
+        energy = report.evaluate()
+        capacitance = 2 * energy / voltage**2  # [F]
 
-        ncells = np.append(ncells, nc)
-        energies = np.append(energies, report.evaluate())
+        if sim.get_machine().is_main_process():
+            with open("results/Capacitance.csv", "a") as fp:
+                fp.write(f"{xshift:.1f}, {ncells}, {capacitance}\n")
 
-        if nc >= max_ncells:
+        if ncells >= max_ncells:
             break
         else:
             refinement_model.refine_mesh()
@@ -106,7 +109,7 @@ for mesh_file in mesh_files:
 
     vis.save()
 ```
-The external `for` loop iterates over individual mesh files to simulate the problem for each specified inter-comb distance. Meanwhile, inside the internal `for` loop, we refine the mesh according to the established mesh refinement algorithm. This loop concludes when the number of mesh elements exceeds the empirically chosen limit of `max_ncells`, set at 100,000. For each mesh file, we save the electric potential obtained from both the initial and final meshes in the [VTK](https://vtk.org/) file format, allowing for subsequent visualization using [ParaView](https://www.paraview.org/).
+The external `for` loop iterates through all inter-comb shifts. At the start of each iteration, we generate the corresponding geometry by invoking `create_geometry(xshift)`, which writes the associated mesh to a file. Meanwhile, the internal `for` loop refines the mesh according to the established mesh refinement algorithm. This loop continues until the number of mesh elements surpasses the empirically determined limit of `max_ncells`, which is set at 100,000. For each mesh file, we save the electric potential obtained from both the initial and final meshes in the [VTK](https://vtk.org/) file format, allowing for subsequent visualization using [ParaView](https://www.paraview.org/).
 
 
 ## Results
