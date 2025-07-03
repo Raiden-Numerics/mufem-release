@@ -5,12 +5,10 @@ def create_geometry(xshift=0, mesh_file="geometry.msh", show=True):
 
     gmsh.initialize()
 
-
     # **********************************************************************************
     # Create geometry
     # **********************************************************************************
     u = 1  # unit of spatial dimensions
-
 
     def tooth(x, y, z):
         return gmsh.model.occ.addBox(x, y, z, 15 * u, 4 * u, 4 * u)
@@ -54,7 +52,6 @@ def create_geometry(xshift=0, mesh_file="geometry.msh", show=True):
     ov = gmsh.model.occ.cut([(3, tag_domain)], [comb1, comb2])
     domain = ov[0][0]
 
-
     gmsh.model.occ.synchronize()
 
     # **********************************************************************************
@@ -72,7 +69,6 @@ def create_geometry(xshift=0, mesh_file="geometry.msh", show=True):
     gmsh.model.addPhysicalGroup(2, [dimTag[1] for dimTag in comb2], name="Comb2", tag=2)
     gmsh.model.addPhysicalGroup(2, [dimTag[1] for dimTag in ground], name="Ground", tag=3)
     gmsh.model.addPhysicalGroup(3, [dimTag[1] for dimTag in domain], name="Domain", tag=1)
-
 
     # **********************************************************************************
     # Adjust the view
@@ -102,7 +98,6 @@ def create_geometry(xshift=0, mesh_file="geometry.msh", show=True):
     gmsh.option.setNumber("General.Clip0B", -1)
     gmsh.option.setNumber("General.Clip0D", 4.01 * u)
     gmsh.option.setNumber("Mesh.Clip", 1)
-
 
     # **********************************************************************************
     # Generate mesh

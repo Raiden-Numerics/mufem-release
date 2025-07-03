@@ -91,8 +91,15 @@ if __name__ == "__main__":
     #    - creating mp4 first and then converting to gif results in better gif quality
     # 3) Remove unnecessary files
     commands = [
-        "ffmpeg -framerate 5 -i results/%d.png -vf reverse -c:v libx264 -pix_fmt yuv420p results/output.mp4",
-        "ffmpeg -i results/output.mp4 -vf 'fps=5,scale=800:-1:flags=lanczos' -c:v gif results/Electric_Potential.gif -y",
+        (
+            "ffmpeg -framerate 5 -i results/%d.png "
+            "-vf reverse -c:v libx264 -pix_fmt yuv420p results/output.mp4"
+        ),
+        (
+            "ffmpeg -i results/output.mp4 "
+            "-vf 'fps=5,scale=800:-1:flags=lanczos' "
+            "-c:v gif results/Electric_Potential.gif -y"
+        ),
         "rm results/output.mp4",
         "bash -c 'rm results/{0..16}.png'"
     ]

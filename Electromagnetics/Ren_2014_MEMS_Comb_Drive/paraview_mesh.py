@@ -76,12 +76,11 @@ def create_scene(data_file, screenshot_file, show=False):
     pvs.Delete(display)
 
 
-
 if __name__ == "__main__":
     data_file = "VisualizationOutput/Output_0.vtpc"
-    screenshot_file = f"results/Scene_Electric_Potential_0_Mesh.png"
+    screenshot_file = "results/Scene_Electric_Potential_0_Mesh.png"
     create_scene(data_file, screenshot_file)
 
     data_file = "VisualizationOutput/Output_1.vtpc"
-    screenshot_file = f"results/Scene_Electric_Potential_1_Mesh.png"
+    screenshot_file = "results/Scene_Electric_Potential_1_Mesh.png"
     create_scene(data_file, screenshot_file)

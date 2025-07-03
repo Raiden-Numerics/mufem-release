@@ -8,10 +8,10 @@ data = np.loadtxt("results/Capacitance.csv", delimiter=",")
 plt.figure(constrained_layout=True)
 
 for i, xshift in enumerate(xshifts):
-    subdata = data[data[:,0] == xshift]
+    subdata = data[data[:, 0] == xshift]
 
-    ncells = subdata[:,1]
-    capacitance = subdata[:,2]
+    ncells = subdata[:, 1]
+    capacitance = subdata[:, 2]
 
     plt.plot(ncells / 1e3, capacitance / 1e-15, "o-", label=f"xshift = {xshift:.1f} μm")
 
