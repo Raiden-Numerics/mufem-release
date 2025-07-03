@@ -16,6 +16,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Install dependencies
+      run: |
+        apt-get update
+        apt-get install -y libgomp1
+
     - name: Set MUFEM version from VERSION file
       run: |
         echo "MUFEM_VERSION=$(cat VERSION)" >> $GITHUB_ENV
