@@ -23,8 +23,8 @@ a, b = np.polyfit(x, C, 1)
 print(a, " ", b)
 
 V = 1  # [V] applied voltage
-dCdx = a   # [F/m] derivative of the capacitance
-F = 1/2 * dCdx * V**2  # [N] comb drive force
+dCdx = a  # [F/m] derivative of the capacitance
+F = 1 / 2 * dCdx * V**2  # [N] comb drive force
 
 print(f"Force F = {F} [N]")
 print(f"Force F = {F/1e-9} [nN]")

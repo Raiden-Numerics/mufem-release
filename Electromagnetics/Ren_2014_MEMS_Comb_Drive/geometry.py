@@ -28,7 +28,7 @@ def create_geometry(xshift=0, mesh_file="geometry.msh", show=True):
     )
     comb1 = ov[0][0]
 
-    gmsh.model.occ.translate([comb1], -xshift/2, 0, 0)
+    gmsh.model.occ.translate([comb1], -xshift / 2, 0, 0)
 
     # Comb 2:
     tag_tooth1 = tooth(7 * u, 0, 5 * u)
@@ -41,13 +41,15 @@ def create_geometry(xshift=0, mesh_file="geometry.msh", show=True):
     )
     comb2 = ov[0][0]
 
-    gmsh.model.occ.translate([comb2], +xshift/2, 0, 0)
+    gmsh.model.occ.translate([comb2], +xshift / 2, 0, 0)
 
     # Domain box:
     wx = 88 * u
     wy = 44 * u
     wz = 88 * u
-    tag_domain = gmsh.model.occ.addBox(11 * u - wx / 2, -6 * u, 17 * u - wz / 2, wx, wy, wz)
+    tag_domain = gmsh.model.occ.addBox(
+        11 * u - wx / 2, -6 * u, 17 * u - wz / 2, wx, wy, wz
+    )
 
     ov = gmsh.model.occ.cut([(3, tag_domain)], [comb1, comb2])
     domain = ov[0][0]
@@ -67,8 +69,12 @@ def create_geometry(xshift=0, mesh_file="geometry.msh", show=True):
 
     gmsh.model.addPhysicalGroup(2, [dimTag[1] for dimTag in comb1], name="Comb1", tag=1)
     gmsh.model.addPhysicalGroup(2, [dimTag[1] for dimTag in comb2], name="Comb2", tag=2)
-    gmsh.model.addPhysicalGroup(2, [dimTag[1] for dimTag in ground], name="Ground", tag=3)
-    gmsh.model.addPhysicalGroup(3, [dimTag[1] for dimTag in domain], name="Domain", tag=1)
+    gmsh.model.addPhysicalGroup(
+        2, [dimTag[1] for dimTag in ground], name="Ground", tag=3
+    )
+    gmsh.model.addPhysicalGroup(
+        3, [dimTag[1] for dimTag in domain], name="Domain", tag=1
+    )
 
     # **********************************************************************************
     # Adjust the view

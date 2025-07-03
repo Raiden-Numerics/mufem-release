@@ -53,15 +53,21 @@ model.add_material(material)
 voltage = 1  # [V]
 
 condition_comb1 = ElectricPotentialCondition.Constant(
-    "Comb1", "Comb1" @ Bnd, 0.0,
+    "Comb1",
+    "Comb1" @ Bnd,
+    0.0,
 )
 
 condition_comb2 = ElectricPotentialCondition.Constant(
-    "Comb2", "Comb2" @ Bnd, voltage,
+    "Comb2",
+    "Comb2" @ Bnd,
+    voltage,
 )
 
 condition_ground = ElectricPotentialCondition.Constant(
-    "Ground", "Ground" @ Bnd, 0.0,
+    "Ground",
+    "Ground" @ Bnd,
+    0.0,
 )
 
 model.add_conditions([condition_comb1, condition_comb2, condition_ground])
@@ -69,7 +75,8 @@ model.add_conditions([condition_comb1, condition_comb2, condition_ground])
 
 # Reports ------------------------------------------------------------------------------
 report = VolumeIntegralReport(
-    name="Electric Energy Density Report", cff_name="Electric Energy Density",
+    name="Electric Energy Density Report",
+    cff_name="Electric Energy Density",
 )
 sim.get_report_manager().add_report(report)
 

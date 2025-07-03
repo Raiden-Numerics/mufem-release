@@ -101,7 +101,7 @@ if __name__ == "__main__":
             "-c:v gif results/Electric_Potential.gif -y"
         ),
         "rm results/output.mp4",
-        "bash -c 'rm results/{0..16}.png'"
+        "bash -c 'rm results/{0..16}.png'",
     ]
     for command in commands:
         result = subprocess.run(command, shell=True, text=True, capture_output=True)
