@@ -9,7 +9,7 @@ See the [μfem documentation](https://raiden-numerics.github.io/mufem-doc/index.
 
 ## Validation cases
 
-A collection of validation examples for μfem (tested with [version](VERSION)). 
+A collection of validation examples for μfem (tested with [version](VERSION)).
 To run the validations please make sure to follow the [Installation instructions](https://raiden-numerics.github.io/mufem-doc/getting_started/installation.html). To execute a specific case write
 
 ```bash
@@ -25,6 +25,9 @@ To run the validations please make sure to follow the [Installation instructions
   - [Compumag TEAM-1b: The Felix Cylinder](Electromagnetics/Compumag-Team1b-Felix-Cylinder/README.md)
   - [Compumag TEAM 20: 3D Static Force Problem](Electromagnetics/Compumag-Team20-3D-Static-Force-Problem/README.md)
   - [Compumag TEAM 24: Locked Rotor](Electromagnetics/Compumag-Team24-Locked-Rotor/README.md)
+
+* **Electrostatics**
+  - [Ren (2014): MEMS Comb Drive](Electromagnetics/Ren_2014_MEMS_Comb_Drive/README.md)
 
 * **Time-Harmonic Maxwell (High-Frequency Electromagnetics)**
   - [Montejo-Garai (1995): Circular Cavity Filter](Electromagnetics/Montejo-Garai_1995_Circular_Cavity_Filter/README.md)

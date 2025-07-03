@@ -16,8 +16,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Install dependencies
+      run: |
+        apt-get update
+        apt-get install -y libgomp1
+
     - name: Set MUFEM version from VERSION file
-      run: | 
+      run: |
         echo "MUFEM_VERSION=$(cat VERSION)" >> $GITHUB_ENV
 
     - name: Set up Python
@@ -29,10 +34,10 @@ jobs:
       run: |
         python -m venv $HOME/mufem
         echo "VIRTUAL_ENV=$HOME/mufem" >> $GITHUB_ENV
-        pip install mufem==$MUFEM_VERSION
-        pip install numpy matplotlib
+        pip install mufem==$MUFEM_VERSION        
+        pip install -r requirements.txt
+        pip install -i https://gmsh.info/python-packages-dev-nox --force-reinstall --no-cache-dir gmsh
 
     - name: Run the examples
       run: |
         python3 ./run_cases.py
-
