@@ -1,6 +1,3 @@
-import sys
-sys.path.insert(0, '/home/fedoroff/software/ParaView-5.13.20250312-MPI-Linux-Python3.12-x86_64/lib/python3.12/site-packages/')
-
 import paraview.simple as pvs
 
 
