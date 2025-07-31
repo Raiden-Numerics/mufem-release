@@ -1,14 +1,29 @@
 # Compumag TEAM-24: Nonlinear Time-Transient Rotational Test Rig
 
-The benchmark case [1] is a transient magnetic problem involving eddy currents and nonlinear materials, solved using [case.py](case.py). The geometry consists of a rotor locked at 22°, a stator, and two coils surrounded by an air domain, as shown:
-![Geometry](data/Geometry.png)
+The benchmark case [1] is a transient magnetic problem involving eddy currents and nonlinear materials, solved using [case.py](case.py). The geometry is shown below:
 
-The [mesh](geometry.mesh) was created using Netgen, with the mesh file exported to MFEM v1.3.
+<div align="center">
+    <img src="data/Geometry.png" alt="Geometry" width="85%">
+    <br/>
+    Figure 1: The geometry consists of a rotor locked at 22°, a stator, and two coils surrounded by an air domain.
+</div>
+<br/>
+
+The [mesh](geometry.mesh) was created using Netgen, with the mesh file exported to MFEM v1.3 format.
+
+The goal of the benchmark is to calculate the torque acting at the rotor.
 
 ## Setup
 
+
+
+### Updating the B-H curve 
+
 The *rotor* and *stator* are made of iron material with a constant electrical conductivity of
-$\sigma = 4.54 	\times 10^6$ and a B-H curve. However, as pointed out by [2], the provided [B-H curve](data/tables/Table_1_BH_curve.csv) lacks sufficient data between zero and the first data point, leading to significant errors. To address this issue, the modified Fröhlich formula is used to fit the data (the modification ensures physical behavior [3]). The modified Fröhlich formula is given by:
+$\sigma = 4.54 	\times 10^6 \frac{\rm{S}}{\rm{m}}$ and a nonlinear permeability specified through a B-H curve. 
+However, as pointed out by [2], the provided [B-H curve](data/tables/Table_1_BH_curve.csv) lacks sufficient data 
+between zero and the first data point, leading to significant errors. To address this issue, the modified Fröhlich
+formula is used to fit the data (the modification ensures physical behavior [3]). The modified Fröhlich formula is given by:
 
 $$
 B(H) = \frac{1}{a + b H} + \mu_0 H \quad,
@@ -20,13 +35,96 @@ where \(a\) and \(b\) are fitting parameters. We calculate these parameters base
 | ----------------- | ------------------------------- |
 | ![B-H Curve](data/tables/Table_1_BH_curve.png) | ![B-H Curve](data/tables/Updated_BH_curve.png) |
 
-For the coils, a time-dependent electric current is prescribed from a [CSV file](data/tables/Table_3_Coil_Current.csv) on both stranded (wound) coils, starting at \(I = 0\ \mathrm{A}\) and rising to the steady-state value of \(I = 7.41\ \mathrm{A}\), as shown here:
 
-![Coil Current](data/tables/Table_3_Coil_Current.png)
+### Setting the coils
 
-Finally, we create a `MagneticTorqueReport` to measure the magnetic torque on the locked rotor over time and compare it with the reference.
+The for coils, we apply a constant electric voltage of $U=23.1 \mathrm{V}$. This results in a current raise which is
+compared to the [reference](data/tables/Table_3_Coil_Current.csv).
 
-The simulation is run with:
+<div align="center">
+    <img src="data/tables/Table_3_Coil_Current.png" alt="Coil Current" width="50%">
+    <br/>
+    Figure 3: The measured coil current rise for a constant applied voltage on the coils.
+</div>
+<br/>
+
+
+### Skin-depth layered mesh
+
+As the iron is conductive, eddy currents are observed in the stator and rotor parts. 
+To accurately capture those, we use a mesh with a *prismatic boundary layer*. 
+As a rule-of-thumb it is recommended to resolve about three layers, where a layer
+is the skin-depth which for time-harmonic problems can be estimated by
+$$
+\delta_s =\sqrt{\frac{2}{\omega \mu \sigma}} \quad,
+$$
+where $\omega=2 \pi f$ and $f$ is the frequency of the excitation.
+However, in time-transient problems there is no single frequency — instead, the response is governed by
+the time scale of excitation (e.g. rise time $\tau$).
+
+For a linear setup assuming only a single coil, where a voltage of $V$ is applied and
+ignoring eddy currents, the current raise is given by
+$$
+I = \frac{V}{R} \left( 1 - \exp \left[ - \frac{t}{\tau} \right] \right) \quad,
+$$
+where $\tau = \frac{L}{R}$, $R$ is the resistance of the coil, and $L$ is the inductance.
+
+We estimate the time constant $\tau$ by calculating the inductance matrix using the
+[Magnetic Inductance Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/reports/magnetic_inductance_report.html) and the resistance using the
+[Resistance Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/reports/resistance_report.html) for our case here using following snippet:
+
+```python
+
+sim.initialize()
+
+inductance_report = MagneticInductanceReport("Coil Inductance")
+
+print("Inductance Value:\n", inductance_report.evaluate())
+
+resistance_report = MagneticInductanceReport("Coil Inductance")
+
+print("Resistance Value:\n",  resistance_report.evaluate())
+```
+
+gives 
+
+```bash
+>>> Inductance Value:
+    [0.0117051, 0.00197861]
+    [0.00197861, 0.0117273]
+
+>>> Resistance Value:
+    0.5145621732484141
+```
+So the time scale is given by $\tau = L / R \sim 0.01 /  0.5 = 0.02$. Note that for this benchmark here we have
+non-linear materials and include eddy currents so this only provides a ball park estimate.
+
+Eddy currents penetrate into the material with a diffusion like behavior where the penetration depth
+can be estimated by
+$$
+\delta = \sqrt{D \tau} \quad,
+$$
+where $\delta$ is the penetration depth, $D=\frac{1}{\mu \sigma}$ is the diffusivity constant and $\tau$ is the time-scale.
+
+<div align="center">
+    <img src="results/Scene_ElementType.png" alt="Element Type" width="50%">
+    <br/>
+    Figure 4: A prismatic boundary layer is used (Element Type: 6) to effectively capture the skin-depth effects. The
+    interior is meshed with tetrahedral elements (Element Type: 4).
+</div>
+<br/>
+
+
+
+### Torque calculation
+
+Finally, we create a [Magnetic Torque Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_domain_magnetic/reports/magnetic_torque_report.html) to measure the magnetic torque on the locked rotor over time and compare it with the reference.
+
+
+## Results
+
+
+After installing mufem run the simulation by executing [case.py](case.py) with
 ```bash
 > pymufem case.py
 ...
@@ -45,13 +143,42 @@ Time: 0.15000000000000005 of 0.15 with Δt=0.005
 Simulation done. Thank you for using the software.
 ```
 
-## Results
 
-The script [case.py](case.py) includes a subsequent analysis section that extracts the torque vs. time data and creates a plot to compare with the reference:
+The script [case.py](case.py) includes a subsequent analysis section that extracts the *coil current vs time* and 
+*torque vs. time* data and creates a plot to compare to the [reference for the coil current](data/tables/Table_3_Coil_Current.csv)
 
-![Magnetic Torque](results/Time_vs_Rotor_Torque.png)
+<div align="center">
+    <img src="results/Coil_Current_vs_Time.png" alt="Coil Current vs Time" width="50%">
+    <br/>
+    Figure 5: The coil current is well reproduced when comparing to the reference.
+</div>
+<br/>
 
-The torque is reasonably well reproduced in the simulation. Some mesh convergence study would clarify the remaining offset. Unfortunately, given that the bh curve needs to be modify a cross-comparison is somewhat limited as long as the used bh curve is not shared.
+and for the [reference for the rotor torque](data/tables/Table_4_Torque.csv)
+
+<div align="center">
+    <img src="results/Rotor_Torque_vs_Time.png" alt="Rotor Torque vs Time" width="50%">
+    <br/>
+    Figure 6: The rotor torque is well reproduced when comparing to the reference.
+</div>
+<br/>
+
+
+To create the animation, make sure that in [case.py](case.py) we set following variable 
+```python
+output_for_animation = True
+```
+
+then run the case and finally run the script `paraview_gif.py`(paraview_fig.py) (requires the installation of
+`ffmpeg`). This creates below animation:
+
+<div align="center">
+    <img src="results/Result_Animation.gif" alt="Result Animation" width="85%">
+    <br/>
+    Figure 7: The aninmation of the Electric Current Density.
+</div>
+<br/>
+
 
 ## References
 

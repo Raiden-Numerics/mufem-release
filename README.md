@@ -6,6 +6,7 @@ A finite-element multi-physics application framework based on [mfem](https://mfe
 
 See the [μfem documentation](https://raiden-numerics.github.io/mufem-doc/index.html) for more details.
 
+For questions or support please [create an issue](https://github.com/Raiden-Numerics/mufem-release/issues/new/choose).
 
 ## Validation cases
 
