@@ -172,7 +172,7 @@ for xshift in xshifts:
         runner.advance(2)
 
         if i == 0:
-            vis.save()
+            vis.save(order=2)
 
         ncells = sim.get_domain().get_mesh().get_total_number_cells()
         energy = report.evaluate()
@@ -192,4 +192,4 @@ for xshift in xshifts:
             "Maximum number of iterations reached without reaching max_ncells."
         )
 
-    vis.save()
+    vis.save(order=2)

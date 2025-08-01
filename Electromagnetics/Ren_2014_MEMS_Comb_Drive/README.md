@@ -87,7 +87,7 @@ for xshift in xshifts:
         runner.advance(2)
 
         if i == 0:
-            vis.save()
+            vis.save(order=2)
 
         ncells = sim.get_domain().get_mesh().get_total_number_cells()
         energy = report.evaluate()
@@ -107,7 +107,7 @@ for xshift in xshifts:
             "Maximum number of iterations reached without reaching max_ncells."
         )
 
-    vis.save()
+    vis.save(order=2)
 ```
 The external `for` loop iterates through all inter-comb shifts. At the start of each iteration, we generate the corresponding geometry by invoking `create_geometry(xshift)`, which writes the associated mesh to a file. Meanwhile, the internal `for` loop refines the mesh according to the established mesh refinement algorithm. This loop continues until the number of mesh elements surpasses the empirically determined limit of `max_ncells`, which is set at 100,000. For each mesh file, we save the electric potential obtained from both the initial and final meshes in the [VTK](https://vtk.org/) file format, allowing for subsequent visualization using [ParaView](https://www.paraview.org/).
 

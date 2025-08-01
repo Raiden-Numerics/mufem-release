@@ -42,7 +42,7 @@ def create_scene(data_file, screenshot_file, show=False):
     display.Representation = "Surface With Edges"
     display.EdgeColor = [0.1, 0.1, 0.1]
     display.LineWidth = 1
-    display.NonlinearSubdivisionLevel = 1
+    display.NonlinearSubdivisionLevel = 2
 
     pvs.ColorBy(display, ("POINTS", field_name))
 
