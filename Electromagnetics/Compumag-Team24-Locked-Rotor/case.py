@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy
+from pathlib import Path
 
 import mufem
 
@@ -25,8 +26,6 @@ from mufem.electromagnetics.timedomainmagnetic import (
 # Enable this to output the data per time step for animation
 output_for_animation = True
 
-
-from pathlib import Path
 
 dir_path = Path(__file__).resolve().parent
 
@@ -94,22 +93,24 @@ sim.get_model_manager().add_model(coil_model)
 for coil in ["Upper", "Lower"]:
 
     coil_topology = CoilTopologyOpen(
-        f"{coil} Coil::In" @ Bnd, f"{coil} Coil::Out" @ Bnd
+        in_marker=f"{coil} Coil::In" @ Bnd, out_marker=f"{coil} Coil::Out" @ Bnd
     )
 
     # 0.25 factor as we have two coils to which the voltage is applied and we have a symmetry plane
     symmetry = 0.25
 
-    coil_type = CoilTypeStranded(350)
+    coil_type = CoilTypeStranded(number_of_turns=350)
 
-    coil_excitation = CoilExcitationVoltage.Constant(23.1 * symmetry, 3.09 * symmetry)
+    coil_excitation = CoilExcitationVoltage.Constant(
+        voltage=23.1 * symmetry, resistance=3.09 * symmetry
+    )
 
     coil = CoilSpecification(
-        f"{coil} Coil",
-        f"{coil} Coil" @ Vol,
-        coil_topology,  # this should be a list!
-        coil_type,
-        coil_excitation,
+        name=f"{coil} Coil",
+        marker=f"{coil} Coil" @ Vol,
+        topology=coil_topology,
+        type=coil_type,
+        excitation=coil_excitation,
     )
     coil_model.add_coil_specification(coil)
 
@@ -136,11 +137,11 @@ sim.get_monitor_manager().add_monitor(coil_current_monitor)
 
 sim.initialize()
 
-inductance_report = MagneticInductanceReport("Coil Inductance")
+inductance_report = MagneticInductanceReport(name="Coil Inductance")
 
 print("Inductance Report:", inductance_report.evaluate())
 
-coil_resistance_report = ResistanceReport("Coil Resistance", 0)
+coil_resistance_report = ResistanceReport(name="Coil Resistance", coil_index=0)
 
 print("Coil Resistance Value:", coil_resistance_report.evaluate())
 
@@ -176,6 +177,9 @@ symmetry_factor = 2.0
 
 
 def xy_plot(values, reference, xlabel, ylabel, xlim, ylim, xticks, filename):
+
+    # flake8: noqa: FKA100
+
     plt.clf()
     plt.plot(reference[:, 0], reference[:, 1], "ko", label="Reference")
     plt.plot(
