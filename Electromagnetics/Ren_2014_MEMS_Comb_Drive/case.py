@@ -116,12 +116,12 @@ sim.get_model_manager().add_model(refinement_model)
 
 
 # Model --------------------------------------------------------------------------------
-order = 1  # finite element polynomial degree
+order = 2  # finite element polynomial degree
 model = ElectrostaticsModel(Everywhere @ Vol, order)
 sim.get_model_manager().add_model(model)
 
 mesh_refiner = model.get_mesh_refiner()
-mesh_refiner.set_refinement_fraction(0.6)
+mesh_refiner.set_refinement_fraction(0.3)
 
 
 # Materials ----------------------------------------------------------------------------
@@ -133,23 +133,11 @@ model.add_material(material)
 # Boundary conditions ------------------------------------------------------------------
 voltage = 1  # [V]
 
-condition_comb1 = ElectricPotentialCondition.Constant(
-    "Comb1",
-    "Comb1" @ Bnd,
-    0.0,
-)
+condition_comb1 = ElectricPotentialCondition.Constant("Comb1", "Comb1" @ Bnd, 0.0)
 
-condition_comb2 = ElectricPotentialCondition.Constant(
-    "Comb2",
-    "Comb2" @ Bnd,
-    voltage,
-)
+condition_comb2 = ElectricPotentialCondition.Constant("Comb2", "Comb2" @ Bnd, voltage)
 
-condition_ground = ElectricPotentialCondition.Constant(
-    "Ground",
-    "Ground" @ Bnd,
-    0.0,
-)
+condition_ground = ElectricPotentialCondition.Constant("Ground", "Ground" @ Bnd, 0.0)
 
 model.add_conditions([condition_comb1, condition_comb2, condition_ground])
 
@@ -163,7 +151,7 @@ sim.get_report_manager().add_report(report)
 
 
 # Run the simulation -------------------------------------------------------------------
-max_iterations = 25  # maximum number of iterations for each mesh file
+max_iterations = 10  # maximum number of iterations for each mesh file
 
 max_ncells = 1e5  # maximum number of cells
 
