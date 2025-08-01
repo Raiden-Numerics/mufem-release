@@ -42,7 +42,7 @@ def create_scene(data_file, screenshot_file, show=False):
     # Display settings:
     display = pvs.Show()
     display.Representation = "Surface"
-    display.NonlinearSubdivisionLevel = 1
+    display.NonlinearSubdivisionLevel = 2
 
     pvs.ColorBy(display, ("POINTS", field_name))
 

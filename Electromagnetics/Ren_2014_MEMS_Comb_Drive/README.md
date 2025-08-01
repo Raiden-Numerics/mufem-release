@@ -87,7 +87,7 @@ for xshift in xshifts:
         runner.advance(2)
 
         if i == 0:
-            vis.save()
+            vis.save(order=2)
 
         ncells = sim.get_domain().get_mesh().get_total_number_cells()
         energy = report.evaluate()
@@ -107,7 +107,7 @@ for xshift in xshifts:
             "Maximum number of iterations reached without reaching max_ncells."
         )
 
-    vis.save()
+    vis.save(order=2)
 ```
 The external `for` loop iterates through all inter-comb shifts. At the start of each iteration, we generate the corresponding geometry by invoking `create_geometry(xshift)`, which writes the associated mesh to a file. Meanwhile, the internal `for` loop refines the mesh according to the established mesh refinement algorithm. This loop continues until the number of mesh elements surpasses the empirically determined limit of `max_ncells`, which is set at 100,000. For each mesh file, we save the electric potential obtained from both the initial and final meshes in the [VTK](https://vtk.org/) file format, allowing for subsequent visualization using [ParaView](https://www.paraview.org/).
 
@@ -119,9 +119,9 @@ The external `for` loop iterates through all inter-comb shifts. At the start of 
 In this test case, we utilize adaptive mesh refinement (AMR) to improve the simulation's efficiency. AMR employs a specific algorithm that calculates local error based on the current solution and subdivides only the elements with the highest error. Consequently, AMR allows for local refinement of the mesh in areas where it is essential to enhance the solution, while leaving the mesh in other regions of the computational domain unaffected. The parameters of the mesh refinement algorithm can be adjusted using the model-specific Mesh Refiner:
 ```py
 mesh_refiner = model.get_mesh_refiner()
-mesh_refiner.set_refinement_fraction(0.6)
+mesh_refiner.set_refinement_fraction(0.3)
 ```
-For instance, in the code above, we set the mesh refinement fraction to 0.6, indicating that only 40% of the elements with the highest error will be refined.
+For instance, in the code above, we set the mesh refinement fraction to 0.3, indicating that 70% of the elements with the highest error will be refined.
 
 As an example, Figure 3 illustrates the calculated electric field potential along with the mesh edges for both the initial mesh and the mesh after several cycles of adaptive mesh refinement. Notably, the mesh becomes denser near the edges of the combs, where the electric potential changes most significantly.
 
@@ -169,7 +169,7 @@ F = \frac{1}{2} \frac{\partial C}{\partial x} V^2,
 ```
 where $\partial C/\partial x$ represents the change in capacitance with respect to distance between the combs, and $V$ is the applied voltage.
 
-To calculate the derivative $\partial C/\partial x$​ in Figure 6, we plot the capacitance against the shift distance. As observed, the capacitance decreases linearly as the distance between the combs increases. By applying a linear fit, we can extract the value of $\partial C/\partial x$​, which in this case is equal to $-3.1\times10^{-10}$ F/m. Using this value in the formula provided earlier, we can estimate that the comb drive generates a force $F$ with an amplitude of 0.152 nN.
+To calculate the derivative $\partial C/\partial x$​ in Figure 6, we plot the capacitance against the shift distance. As observed, the capacitance decreases linearly as the distance between the combs increases. By applying a linear fit, we can extract the value of $\partial C/\partial x$​, which in this case is equal to $-2.78\times10^{-10}$ F/m. Using this value in the formula provided earlier, we can estimate that the comb drive generates a force $F$ with an amplitude of 0.139 nN.
 
 <div align="center">
     <img src="results/Capacitance_Vs_Xshift.png" width="600">

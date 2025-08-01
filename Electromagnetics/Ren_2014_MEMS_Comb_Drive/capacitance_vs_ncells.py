@@ -15,6 +15,7 @@ for i, xshift in enumerate(xshifts):
 
     plt.plot(ncells / 1e3, capacitance / 1e-15, "o-", label=f"xshift = {xshift:.1f} μm")
 
+plt.ylim(2, 6)
 plt.legend(loc=0, frameon=False)
 plt.xlabel("Number of cells [10³]")
 plt.ylabel("Capacitance [fF]")
