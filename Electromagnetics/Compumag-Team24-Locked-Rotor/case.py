@@ -24,7 +24,8 @@ from mufem.electromagnetics.timedomainmagnetic import (
 
 
 # Enable this to output the data per time step for animation
-output_for_animation = True
+# make sure that the directory vis exists.
+output_for_animation = False
 
 
 dir_path = Path(__file__).resolve().parent
