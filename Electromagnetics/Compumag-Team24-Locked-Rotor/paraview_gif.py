@@ -4,6 +4,9 @@ import subprocess
 
 
 def create_scene(index: int, show: bool = False):
+
+    # flake8: noqa: FKA100
+
     import os
 
     renderView1 = pvs.CreateView("RenderView")

@@ -150,6 +150,15 @@ The current rise is well reproduced.
 
 The torque is reasonably well reproduced in the simulation. Some mesh convergence study would clarify the remaining offset. Unfortunately, given that the bh curve needs to be modify a cross-comparison is somewhat limited as long as the used bh curve is not shared.
 
+
+To create the animation, make sure that in [case.py](case.py) to 
+```python
+output_for_animation = True
+```
+
+Run the case and then run the script `paraview_gif.py`(paraview_fig.py) (required `ffmpeg`).
+
+
 ## References
 
 [1] https://www.compumag.org/wp/wp-content/uploads/2018/06/problem24.pdf
