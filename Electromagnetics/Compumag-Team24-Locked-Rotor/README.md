@@ -159,6 +159,14 @@ output_for_animation = True
 Run the case and then run the script `paraview_gif.py`(paraview_fig.py) (required `ffmpeg`).
 
 
+<div align="center">
+    <img src="results/Result_Animation.gif" alt="Result Animation" width="85%">
+    <br/>
+    Figure 5: The aninmation of the Electric Current Density.
+</div>
+<br/>
+
+
 ## References
 
 [1] https://www.compumag.org/wp/wp-content/uploads/2018/06/problem24.pdf

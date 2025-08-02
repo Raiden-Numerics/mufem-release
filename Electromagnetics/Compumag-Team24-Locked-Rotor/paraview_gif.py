@@ -127,7 +127,7 @@ if __name__ == "__main__":
         (
             "ffmpeg -i vis/output.mp4 "
             "-vf 'fps=8,scale=800:-1:flags=lanczos' "
-            "-c:v gif results/Electric_Current_Density.gif -y"
+            "-c:v gif results/Result_Animation.gif -y"
         ),
     ]
     for command in commands:
