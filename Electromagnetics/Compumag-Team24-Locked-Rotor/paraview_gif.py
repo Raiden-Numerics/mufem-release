@@ -55,7 +55,7 @@ def create_scene(index: int, show: bool = False):
     scalar_bar.Orientation = "Horizontal"
     scalar_bar.WindowLocation = "Any Location"
 
-    scalar_bar.Title = "Electric Current Density [J/m²]"
+    scalar_bar.Title = "Electric Current Density [A/m²]"
     scalar_bar.ComponentTitle = ""
     scalar_bar.UseCustomLabels = True
     scalar_bar.CustomLabels = [0, 1.0e5, 2.0e5, 3.0e5]
