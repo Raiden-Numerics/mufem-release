@@ -17,8 +17,6 @@ import matplotlib.pyplot as plt
 import numpy
 from pathlib import Path
 
-import mufem
-
 
 dir_path = Path(__file__).resolve().parent
 
@@ -33,12 +31,19 @@ magnetic_model = TimeHarmonicMagneticModel(Vol.Everywhere, frequency=50, order=3
 sim.get_model_manager().add_model(magnetic_model)
 
 # Define the materials
-air_material = TimeHarmonicMagneticGeneralMaterial.Constant("Air", "Air" @ Vol)
+air_material = TimeHarmonicMagneticGeneralMaterial.Constant(
+    name="Air", marker="Air" @ Vol
+)
 
-copper_material = TimeHarmonicMagneticGeneralMaterial.Constant("Copper", "Coil" @ Vol)
+copper_material = TimeHarmonicMagneticGeneralMaterial.Constant(
+    name="Copper", marker="Coil" @ Vol
+)
 
 alu_material = TimeHarmonicMagneticGeneralMaterial.Constant(
-    "Alu", "Plate" @ Vol, 1.0, 3.526e7
+    name="Alu",
+    marker="Plate" @ Vol,
+    relative_magnetic_permeability=1.0,
+    electric_conductivity=3.526e7,
 )
 
 magnetic_model.add_materials([air_material, copper_material, alu_material])
@@ -47,12 +52,16 @@ magnetic_model.add_materials([air_material, copper_material, alu_material])
 coil_model = ExcitationCoilModel()
 sim.get_model_manager().add_model(coil_model)
 
-coil_topology = CoilTopologyClosed(0.2, 0.01, 0.07, 1.0, 0.0, 0.0)
-coil_type = CoilTypeStranded(2742)
+coil_topology = CoilTopologyClosed(x=0.2, y=0.01, z=0.07, dx=1.0, dy=0.0, dz=0.0)
+coil_type = CoilTypeStranded(number_of_turns=2742)
 coil_excitation = CoilExcitationCurrent.Constant(1.0)
 
 coil = CoilSpecification(
-    "Coil", "Coil" @ Vol, coil_topology, coil_type, coil_excitation
+    name="Coil",
+    marker="Coil" @ Vol,
+    topology=coil_topology,
+    type=coil_type,
+    excitation=coil_excitation,
 )
 coil_model.add_coil_specification(coil)
 
@@ -70,10 +79,8 @@ vis.add_field_output("MagneticFluxDensityAbs")
 vis.save(order=3)
 
 # Post Process Results
-
-
 probe_reports = [("A1-B1", 0.072), ("A2-B2", 0.144)]
-x_values = numpy.linspace(0.0, 0.288, 64)
+x_values = numpy.linspace(start=0.0, stop=0.288, num=64)
 
 
 for probe in probe_reports:
@@ -106,6 +113,7 @@ for probe in probe_reports:
         b_values.append((1e3 * x, 1e3 * (-b_real.z + 1j * b_imag.z)))
 
     # Plot
+    # flake8: noqa: FKA100
 
     plt.clf()
 
