@@ -56,7 +56,7 @@ bh = numpy.loadtxt(f"{dir_path}/data/bh_table.csv", delimiter=",", comments="#")
 iron_material = TimeDomainMagneticGeneralMaterial.MagneticNonLinear(
     name="Iron",
     marker=["Center Plate", "Outer Plate 1", "Outer Plate 2"] @ mufem.Vol,
-    magnetic_field=bh[:, 1],
+    magnetic_field_strength=bh[:, 1],
     magnetic_flux_density=bh[:, 0],
     electric_conductivity=0.0,
 )
