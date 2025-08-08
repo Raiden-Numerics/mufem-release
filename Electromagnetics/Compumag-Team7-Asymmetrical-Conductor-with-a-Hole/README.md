@@ -22,10 +22,8 @@ Relevant models:
 
 ## Problem Description
 
-The aluminium plate has conductivity of $\sigma=3.526 \times 10^7$. The stranded coil is excited with a coil current of 2742 AT with a sinusoidal current with a frequency of 50Hz (reference values of 200Hz also exist.). The results are compared to measurements of the magnetic flux density at various
-positions.
-
-We use the reference solution provided by Fujiwara et al.[2]. 
+The aluminium plate has conductivity of $\sigma=3.526 \times 10^7$. The stranded coil is excited with a sinusoidal coil current of 2742 AT of frequency of 50Hz (reference values of 200Hz also exist.). The results are compared to measurements of the magnetic flux 
+density at various positions. We use the reference solution provided by Fujiwara et al.[2]. 
 
 ## Setup
 
