@@ -39,7 +39,7 @@ We use third order solution. Note however that only a second order accurate geom
 
   | Magnetic Flux Density A1-B1      |  Magnetic Flux Density A2-B2  |
   | -------------------------------- | -------------------------------- |
-  |  <img src="./results/Magnetic_Flux_Density_Bz_A1-B1.png" alt="drawing" width="600"> | <img src="./results/Magnetic_Flux_Density_Bz_A2-B2.png" alt="drawing" width="600">  |
+  |  <img src="./results/Magnetic_Flux_Density-A1-B1.png" alt="drawing" width="600"> | <img src="./results/Magnetic_Flux_Density-A2-B2.png" alt="drawing" width="600">  |
 
   We observe a very good fit for both quantities.
 

@@ -24,7 +24,7 @@ To run the validations please make sure to follow the [Installation instructions
   Introduced in the late 1980s and continuously updated, the TEAM benchmarks focus primarily on low-frequency magnetic problems, providing a standard framework for evaluating numerical methods. Available cases:
 
   - [Compumag TEAM-1b: The Felix Cylinder](Electromagnetics/Compumag-Team1b-Felix-Cylinder/README.md)
-  - [Compumag TEAM 7: Asymmetrical Conductor with a Hole](Electromagnetics/Electromagnetics/Compumag-Team7-Asymmetrical-Conductor-with-a-Hole/README.md)
+  - [Compumag TEAM 7: Asymmetrical Conductor with a Hole](Electromagnetics/Compumag-Team7-Asymmetrical-Conductor-with-a-Hole/README.md)
   - [Compumag TEAM 20: 3D Static Force Problem](Electromagnetics/Compumag-Team20-3D-Static-Force-Problem/README.md)
   - [Compumag TEAM 24: Locked Rotor](Electromagnetics/Compumag-Team24-Locked-Rotor/README.md)
 
