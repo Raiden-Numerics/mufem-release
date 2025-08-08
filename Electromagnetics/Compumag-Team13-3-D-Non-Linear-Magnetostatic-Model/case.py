@@ -38,32 +38,34 @@ magnetic_domain = [
     "Air",
 ] @ mufem.Vol
 
-magnetic_model = TimeDomainMagneticModel(magnetic_domain, 2, False)
+magnetic_model = TimeDomainMagneticModel(marker=magnetic_domain, order=2)
 sim.get_model_manager().add_model(magnetic_model)
 
 # Materials
-air_material = TimeDomainMagneticGeneralMaterial.Constant("Air", "Air" @ mufem.Vol)
+air_material = TimeDomainMagneticGeneralMaterial.Constant(
+    name="Air", marker="Air" @ mufem.Vol
+)
 
 copper_material = TimeDomainMagneticGeneralMaterial.Constant(
-    "Cu", "Coil" @ mufem.Vol, electric_conductivity=1.0e7
+    name="Cu", marker="Coil" @ mufem.Vol, electric_conductivity=1.0e7
 )
 
 bh = numpy.loadtxt(f"{dir_path}/data/bh_table.csv", delimiter=",", comments="#")
 
 
 iron_material = TimeDomainMagneticGeneralMaterial.MagneticNonLinear(
-    "Iron",
-    ["Center Plate", "Outer Plate 1", "Outer Plate 2"] @ mufem.Vol,
-    bh[:, 1],
-    bh[:, 0],
-    0.0,
+    name="Iron",
+    marker=["Center Plate", "Outer Plate 1", "Outer Plate 2"] @ mufem.Vol,
+    magnetic_field=bh[:, 1],
+    magnetic_flux_density=bh[:, 0],
+    electric_conductivity=0.0,
 )
 magnetic_model.add_materials([air_material, copper_material, iron_material])
 
 # Boundaries (all normal)
 tangential_magnetic_flux_bc = TangentialMagneticFluxBoundaryCondition(
-    "TangentialFlux",
-    "Air::Tangential Flux" @ mufem.Bnd,
+    name="TangentialFlux",
+    marker="Air::Tangential Flux" @ mufem.Bnd,
 )
 magnetic_model.add_condition(tangential_magnetic_flux_bc)
 
@@ -71,13 +73,17 @@ magnetic_model.add_condition(tangential_magnetic_flux_bc)
 coil_model = ExcitationCoilModel()
 sim.get_model_manager().add_model(coil_model)
 
-coil_topology = CoilTopologyClosed(0.09, 0.0, 0.001, 0.0, 1.0, 0.0)
-coil_type = CoilTypeStranded(500)
+coil_topology = CoilTopologyClosed(x=0.09, y=0.0, z=0.001, dx=0.0, dy=1.0, dz=0.0)
+coil_type = CoilTypeStranded(number_of_turns=500)
 
 coil_excitation = CoilExcitationCurrent.Constant(3.0)
 
 coil = CoilSpecification(
-    "Coil", "Coil" @ mufem.Vol, coil_topology, coil_type, coil_excitation
+    name="Coil",
+    marker="Coil" @ mufem.Vol,
+    topology=coil_topology,
+    type=coil_type,
+    excitation=coil_excitation,
 )
 
 coil_model.add_coil_specification(coil)
@@ -86,6 +92,7 @@ coil_model.add_coil_specification(coil)
 sim.run()
 
 # Plot Results
+# flake8: noqa: FKA100
 
 
 x_vals = numpy.linspace(0.01, 0.11, 23, endpoint=True)

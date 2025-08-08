@@ -11,7 +11,7 @@ The goal is to calculate the magnetic flux density at certain points.
 <img src="./data/Geometry.png" alt="drawing" width="600">
 </div>
 <div align="center">
-<em>Geometry of the benchmark. An excitation coil surounded by thin steel plate. Due to symmetry only half the model is modeleld..</em>
+<em>Geometry of the benchmark. An excitation coil surrounded by thin steel plate. Due to symmetry only half the model is modeleld..</em>
 </div>
 <br /><br />
 
