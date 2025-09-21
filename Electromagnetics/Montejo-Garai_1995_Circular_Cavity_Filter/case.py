@@ -77,7 +77,7 @@ frequencies = numpy.linspace(10e9, 15e9, Nf)  # [Hz] frequencies to scan
 frequencies_paraview = [12e9, 14e9]  # [Hz] frequencies at which to save the field
 
 vis = sim.get_field_exporter()
-vis.add_field_output("ElectricFieldReal")
+vis.add_field_output("Electric Field-Real")
 
 S21 = numpy.zeros(Nf, dtype=complex)
 
