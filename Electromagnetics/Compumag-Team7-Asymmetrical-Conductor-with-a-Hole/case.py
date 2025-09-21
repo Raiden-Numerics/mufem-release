@@ -72,9 +72,9 @@ sim.run()
 
 vis = sim.get_field_exporter()
 
-vis.add_field_output("MagneticFluxDensityReal")
-vis.add_field_output("MagneticFluxDensityImag")
-vis.add_field_output("MagneticFluxDensityAbs")
+vis.add_field_output("Magnetic Flux Density-Real")
+vis.add_field_output("Magnetic Flux Density-Imag")
+vis.add_field_output("Magnetic Flux Density-Abs")
 
 vis.save(order=3)
 
@@ -91,7 +91,7 @@ for probe in probe_reports:
 
         magnetic_flux_density_real_report = mufem.ProbeReport.SinglePoint(
             name="MagneticFluxDensityRealReport",
-            cff_name="MagneticFluxDensityReal",
+            cff_name="Magnetic Flux Density-Real",
             x=x,
             y=probe[1],
             z=0.034,
@@ -99,7 +99,7 @@ for probe in probe_reports:
 
         magnetic_flux_density_imag_report = mufem.ProbeReport.SinglePoint(
             name="MagneticFluxDensityImagReport",
-            cff_name="MagneticFluxDensityImag",
+            cff_name="Magnetic Flux Density-Imag",
             x=x,
             y=probe[1],
             z=0.034,
