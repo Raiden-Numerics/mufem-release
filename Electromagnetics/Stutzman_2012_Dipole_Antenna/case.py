@@ -3,7 +3,6 @@ import numpy as np
 
 import mufem
 from mufem import Bnd, Vol
-
 from mufem.electromagnetics.timeharmonicmaxwell import (
     AbsorbingBoundaryCondition,
     FarFieldRadiationSensor,

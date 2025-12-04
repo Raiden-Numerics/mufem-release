@@ -1,6 +1,3 @@
-import sys
-sys.path.insert(0, '/home/fedoroff/software/ParaView-6.0.1-MPI-Linux-Python3.12-x86_64/lib/python3.12/site-packages/')
-
 import numpy as np
 import paraview.simple as pvs
 from vtkmodules.vtkCommonCore import vtkPoints, vtkDoubleArray
@@ -110,7 +107,8 @@ ctf.ApplyPreset("Turbo")
 
 scalar_bar = pvs.GetScalarBar(ctf)
 
-scalar_bar.Title = field_name
+scalar_bar.Title = f"{field_name} [arb.u.]"
+scalar_bar.ComponentTitle = ""
 
 scalar_bar.Orientation = "Horizontal"
 scalar_bar.WindowLocation = "Lower Center"
@@ -129,10 +127,10 @@ scalar_bar.LookupTable.Discretize = 1
 scalar_bar.UseCustomLabels = 1
 scalar_bar.CustomLabels = [0.0, 0.25, 0.5, 0.75, 1.0]
 
-pvs.Render()
-
 
 # Camera settings ----------------------------------------------------------------------
+pvs.Render()
+
 view.CameraViewUp = (0, 0, 1)
 view.CameraPosition = (4, 4, 3)
 view.CameraParallelProjection = 1
