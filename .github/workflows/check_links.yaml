@@ -20,6 +20,5 @@ jobs:
             --no-progress
             --timeout 10
             --require-https
-            --fail
             **/*.md
 

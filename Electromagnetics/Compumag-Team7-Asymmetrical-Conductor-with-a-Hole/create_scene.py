@@ -190,8 +190,8 @@ def combine_images(
 
 
 def create_plot(time_s: float, index: int, steps: int, outdir: Path, freq_hz: float):
-    def I(t):
-        return math.sin(2.0 * math.pi * freq_hz * t)
+    def coil_current(t: float) -> float:
+            return math.sin(2.0 * math.pi * freq_hz * t)
 
     t_full = np.linspace(0.0, 1.0 / freq_hz, steps)
     filename = outdir / f"Coil_Current_{index:03d}.png"
@@ -206,7 +206,7 @@ def create_plot(time_s: float, index: int, steps: int, outdir: Path, freq_hz: fl
     )
 
     plt.plot(
-        *zip(*[(time_s * 1e3, I(time_s))]),
+        *zip(*[(time_s * 1e3, coil_current(time_s))]),
         "o",
         linewidth=2.5,
         markersize=8.0,
@@ -227,12 +227,11 @@ def create_plot(time_s: float, index: int, steps: int, outdir: Path, freq_hz: fl
 
 def create_magnetic_flux_density_plot(step: int, phase: float):
 
-    sim = np.loadtxt(f"results/Bz_A1-B1_mufem.csv", delimiter=",", comments="#")
+    sim = np.loadtxt("results/Bz_A1-B1_mufem.csv", delimiter=",", comments="#")
 
     plt.clf()
 
-    ref = np.loadtxt(f"data/Bz_A1-B1.csv", delimiter=",", comments="#")
-
+    ref = np.loadtxt("data/Bz_A1-B1.csv", delimiter=",", comments="#")
     plt.plot(
         ref[:, 1],
         1.0e-1 * (ref[:, 2] * np.cos(phase) - ref[:, 3] * np.sin(phase)),
@@ -245,7 +244,7 @@ def create_magnetic_flux_density_plot(step: int, phase: float):
     plt.plot(
         sim[:, 0],
         sim[:, 1] * np.cos(phase) - sim[:, 2] * np.sin(phase),
-        label=f"$\\mu$fem",
+        label="$\\mu$fem",
         color="r",
         linewidth=3.0,
     )
@@ -316,7 +315,7 @@ def main():
         phase = 2.0 * math.pi * args.freq * time
 
         print(
-            f"Creating plots for step {index:03d} at phase {phase * 180.0 / math.pi :.3f}deg time {time*1e3:.3f}ms"
+            f"Creating plot for step {index:03d} at {phase*180.0/math.pi:.3f}deg / {time*1e3:.3f}ms"
         )
 
         create_magnetic_flux_density_plot(index, phase)
