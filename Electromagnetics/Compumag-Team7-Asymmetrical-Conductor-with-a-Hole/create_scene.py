@@ -191,14 +191,14 @@ def combine_images(
 
 def create_plot(time_s: float, index: int, steps: int, outdir: Path, freq_hz: float):
     def coil_current(t: float) -> float:
-            return math.sin(2.0 * math.pi * freq_hz * t)
+        return math.sin(2.0 * math.pi * freq_hz * t)
 
     t_full = np.linspace(0.0, 1.0 / freq_hz, steps)
     filename = outdir / f"Coil_Current_{index:03d}.png"
 
     plt.clf()
     plt.plot(
-        *zip(*[(t * 1e3, I(t)) for t in t_full]),
+        *zip(*[(t * 1e3, coil_current(t)) for t in t_full]),
         "-",
         color="#444444",
         linewidth=3.5,
@@ -314,8 +314,10 @@ def main():
         time = index * dt
         phase = 2.0 * math.pi * args.freq * time
 
+        phase_deg = phase * 180.0 / math.pi
+
         print(
-            f"Creating plot for step {index:03d} at {phase*180.0/math.pi:.3f}deg / {time*1e3:.3f}ms"
+            f"Creating plot for step {index:03d} at {phase_deg:.3f}deg / {time*1e3:.3f}ms"
         )
 
         create_magnetic_flux_density_plot(index, phase)
