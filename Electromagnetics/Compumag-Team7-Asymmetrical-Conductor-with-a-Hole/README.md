@@ -31,7 +31,7 @@ Since the problem is linear and the excitation is sinusoidal, the
 can beused. The excitation is prescribed using the
 [Excitation Coil Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/excitation_coil_model.html).
 
-The setup script is provided in [`case.py`](here), together with the corresponding [`geometry.mesh`](here). The mesh contains three
+The setup script is provided in [here](case.py) and the corresponding mesh can be found [here](geometry.mesh). The mesh contains three
 [named attributes](https://mfem.org/mesh-format-v1.0/#mfem-mesh-v13): **Air**, **Coil**, and **Plate**.
 
 ### Model
