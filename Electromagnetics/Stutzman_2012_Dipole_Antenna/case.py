@@ -17,7 +17,7 @@ from mufem.electromagnetics.timeharmonicmaxwell import (
 # Problem setup
 # **************************************************************************************
 sim = mufem.Simulation.New(
-    name="Stutzman_2012_Dipole_Antenna", mesh_path="geometry.msh",
+    name="Stutzman 2012: Dipole Antenna", mesh_path="geometry.msh",
 )
 
 runner = mufem.SteadyRunner(total_iterations=1)
