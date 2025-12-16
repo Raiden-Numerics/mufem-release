@@ -55,16 +55,16 @@ condition_arms = PerfectElectricConductorCondition(
     name="PEC",  marker=["BoundaryTopArm", "BoundaryBotArm"] @ Bnd,
 )
 
-l = 0.04  # [m] port length
 w = 0.10  # [m] port width
+l = 0.04  # [m] port length
 R = 50  # [Ohm] transmission line resistance
-Rs = R * w / l  # [Ohm] surface resistance
-Zs = Rs  # [Ohm] surface impedance: 1/Zs = 1/Rs + 1/(i*w*Ls) + i*w*Cs
+Z = R  # [Ohm] transmission line impedance: 1/Z = 1/R + 1/(i*w*L) + i*w*C
+Zs = Z * w / l  # [Ohm] surface impedance
 condition_port = LumpedPortCondition(
     name="Port",
     marker="Port" @ Bnd,
     surface_impedance=Zs,
-    incident_electric_field_vector=mufem.FixedVector(0, 0, 1),
+    incident_electric_field_vector=(0, 0, 1),
 )
 
 model.add_conditions([condition_outer, condition_arms, condition_port])
@@ -85,8 +85,7 @@ vis.save(order=2)
 # Plot E-plane and H-plane far-field radiation patterns
 # **************************************************************************************
 if sim.get_machine().is_main_process():
-    print()
-    print("Plot E-plane and H-plane far-field radiation patterns...")
+    print("\nPlot E-plane and H-plane far-field radiation patterns...")
 
 
 # Analytic solution --------------------------------------------------------------------
@@ -157,8 +156,7 @@ plt.savefig("results/Far_Field_H-plane.png", bbox_inches="tight")
 # Export 3D far-field radiation pattern
 # **************************************************************************************
 if sim.get_machine().is_main_process():
-    print()
-    print("Export 3D far-field radiation pattern...")
+    print("\nExport 3D far-field radiation pattern...")
 
 sensor = FarFieldRadiationSensor(
     "FarFieldRadiationSensor",

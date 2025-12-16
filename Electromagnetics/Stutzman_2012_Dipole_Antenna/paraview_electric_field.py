@@ -17,6 +17,11 @@ data.SliceType.Origin = (0, 0, 0)
 data.SliceType.Normal = (1, 0, 0)
 
 
+# Translate ----------------------------------------------------------------------------
+data = pvs.Transform(Input=data)
+data.Transform.Translate = (0, 0, 1)
+
+
 # View settings ------------------------------------------------------------------------
 view = pvs.GetRenderView()
 
@@ -51,11 +56,9 @@ scalar_bar.TitleFontSize = 32
 scalar_bar.LabelFontSize = 28
 scalar_bar.ScalarBarThickness = 32
 scalar_bar.RangeLabelFormat = "%.2f"
-scalar_bar.LabelFormat = "%.2f"
+scalar_bar.LabelFormat = "%.0f"
 
-scalar_bar.LookupTable.RescaleTransferFunction(0, 0.03)
-scalar_bar.UseCustomLabels = 1
-scalar_bar.CustomLabels = [0.0, 0.01, 0.02, 0.03]
+scalar_bar.LookupTable.RescaleTransferFunction(0, 30)
 
 
 # Camera settings ----------------------------------------------------------------------
@@ -63,8 +66,9 @@ pvs.Render()
 
 view.CameraViewUp = (0, 0, 1)
 view.CameraPosition = (1, 0, 0)
+view.CameraFocalPoint = (0, 0, 0)
 view.CameraParallelProjection = 1
-view.CameraParallelScale = 9
+view.CameraParallelScale = 8
 
 
 # Save screenshot ----------------------------------------------------------------------
