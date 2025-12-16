@@ -45,7 +45,7 @@ ctf.ApplyPreset("Cool to Warm")
 
 scalar_bar = pvs.GetScalarBar(ctf)
 
-scalar_bar.Title = f"{field_name} [arb.u.]"
+scalar_bar.Title = f"{field_name} [V/m]"
 scalar_bar.ComponentTitle = ""
 
 scalar_bar.Orientation = "Horizontal"
@@ -55,7 +55,7 @@ scalar_bar.LabelColor = (0, 0, 0)
 scalar_bar.TitleFontSize = 32
 scalar_bar.LabelFontSize = 28
 scalar_bar.ScalarBarThickness = 32
-scalar_bar.RangeLabelFormat = "%.2f"
+scalar_bar.RangeLabelFormat = "%.0f"
 scalar_bar.LabelFormat = "%.0f"
 
 scalar_bar.LookupTable.RescaleTransferFunction(0, 30)
