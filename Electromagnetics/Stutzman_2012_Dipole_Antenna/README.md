@@ -164,6 +164,8 @@ cross-sections to the analytical solution for a radiating elementary dipole
 ```
 
 where $\theta$ is the azimuthal angle and $\phi$ is the polar angle.
+The corresponding script can be found in the
+[radiation_pattern_cross_sections.py](radiation_pattern_cross_sections.py) file.
 As shown in Fig. 5., the simulated radiation pattern closely matches the
 analytical result.
 
