@@ -26,7 +26,7 @@ Following [[1]](#Montejo-Garai1995) and [[2]](#Liu2002), we use the following di
 
 ### Mesh
 
-To generate the mesh we use [Gmsh](https://gmsh.info/) mesh generator (please note that [Gmsh](https://gmsh.info/) is not supplied with $\mu$fem and must be installed separately). The corresponding code can be found in the [geometry.py](geometry.py) file. To improve the accuracy of modeling, we use the mesh with second-order finite elements. By using such a mesh, we can avoid artifacts that arise when trying to approximate a curved surface with flat finite elements. Figure 2 shows the resulting mesh.
+To generate the mesh we use [Gmsh](https://gmsh.info/) mesh generator (please note that [Gmsh](https://gmsh.info/) is not supplied with μfem and must be installed separately). The corresponding code can be found in the [geometry.py](geometry.py) file. To improve the accuracy of modeling, we use the mesh with second-order finite elements. By using such a mesh, we can avoid artifacts that arise when trying to approximate a curved surface with flat finite elements. Figure 2 shows the resulting mesh.
 
 <div align="center">
     <img src="data/Mesh.png" alt="Mesh" width="50%">
@@ -52,7 +52,7 @@ where $\mu$ and $\varepsilon$ are the permeability and the permittivity of the m
 
 As the boundary conditions we use the [Perfect Electric Conductor Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html) for the walls of the waveguides and cavity, together with the [Input Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/input_port_condition.html) and the [Output Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/output_port_condition.html) for the input and output ports of the waveguides.
 
-As the incident electric field we consider the field in the TE$_{10}$ mode, entering through the input port of the waveguide.
+As the incident electric field we consider the field in the $\text{TE}_{10}$ mode, entering through the input port of the waveguide.
 
 We also assume that the volume of the waveguides and the cavity is filled with air, which we model using the [Constant](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_constant.html) time-harmonic Maxwell material with the permeability and permittivity of free space.
 
@@ -66,7 +66,7 @@ S_{21} = \frac{\int_{\Gamma_2} \tilde{\mathbf{E}} \cdot \tilde{\mathbf{e}}_1\, d
               {\int_{\Gamma_2} \tilde{\mathbf{e}}_1 \cdot \tilde{\mathbf{e}}_1\, d\Gamma},
 ```
 
-where $\tilde{\mathbf{E}}$ is the amplitude of the electric field obtained as a result of the simulation, $\tilde{\mathbf{e}}_1$ is the first mode of the waveguide (the TE$_{10}$ mode in the case of rectangular waveguides), and the integration is performed over the plane of the output port (arbitrarily indexed by the number 2). The $S_{21}$ parameter shows what portion of radiation emitted from the input port reaches the output port in the form of the TE$_{10}$ mode.
+where $\tilde{\mathbf{E}}$ is the amplitude of the electric field obtained as a result of the simulation, $\tilde{\mathbf{e}} _1$ is the first mode of the waveguide (the $\text{TE}_{10}$ mode in the case of rectangular waveguides), and the integration is performed over the plane of the output port (arbitrarily indexed by the number 2). The $S_{21}$ parameter shows what portion of radiation emitted from the input port reaches the output port in the form of the $\text{TE}_{10}$ mode.
 
 
 ## Running the case

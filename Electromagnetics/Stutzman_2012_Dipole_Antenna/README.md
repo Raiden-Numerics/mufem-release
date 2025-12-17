@@ -30,13 +30,14 @@ In our simulation the antenna consists of two perfectly conducting cylinders
 (modeled using
 [Perfect Electric Conductor Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html)),
 each with a length of $L=1$ m and a radius of $a=L/20=5$ cm, separated by a
-narrow gap of height $h=L/100=1$ cm.
+narrow gap of length $l=L/100=1$ cm.
 With these geometric parameters, the operating wavelength is approximately
 $\lambda=4$ m, corresponding to a frequency of $f=0.0749$ GHz.
 
 The gap acts as the excitation point for the antenna.
-The feeding circuit is modeled using a `Lumped Port Condition` applied to a flat
-rectangular strip that connects the two arms of the antenna.
+The feeding circuit is modeled using a
+[Lumped Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/lumped_port_condition.html)
+applied to a flat rectangular strip that connects the two arms of the antenna.
 
 The antenna is surrounded by free space, which is represented in the model by an
 enclosing sphere of radius $r=1.5\lambda=6$ m, centered at the origin.
