@@ -81,6 +81,7 @@ sim.run()
 # Export ParaView data:
 vis = sim.get_field_exporter()
 vis.add_field_output("Electric Field-Real")
+vis.add_field_output("Electric Field-Imag")
 vis.save(order=2)
 
 
