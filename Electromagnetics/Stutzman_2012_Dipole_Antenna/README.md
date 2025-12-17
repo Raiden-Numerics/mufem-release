@@ -95,12 +95,20 @@ We assume that the domain surrounding the antenna is filled with air, which we
 simulate using the
 [Constant](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_constant.html)
 time-harmonic Maxwell material, characterized by the permeability and
-permittivity of free space.
+permittivity of free space:
+
+```py
+material = TimeHarmonicMaxwellGeneralMaterial.Constant(
+    name="Air",
+    marker="Domain" @ Vol,
+)
+```
 
 
 ### Running the case
 
-To run the simulation, use the [case.py](case.py) file along with the following terminal command:
+To run the simulation, use the [case.py](case.py) file along with the following
+terminal command:
 
 ```bash
 pymufem case.py

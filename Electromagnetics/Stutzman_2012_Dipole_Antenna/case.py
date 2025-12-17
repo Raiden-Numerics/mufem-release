@@ -17,7 +17,8 @@ from mufem.electromagnetics.timeharmonicmaxwell import (
 # Problem setup
 # **************************************************************************************
 sim = mufem.Simulation.New(
-    name="Stutzman 2012: Dipole Antenna", mesh_path="geometry.msh",
+    name="Stutzman 2012: Dipole Antenna",
+    mesh_path="geometry.msh",
 )
 
 runner = mufem.SteadyRunner(total_iterations=1)
@@ -38,10 +39,11 @@ sim.get_model_manager().add_model(model)
 # **************************************************************************************
 # Materials
 # **************************************************************************************
-material_air = TimeHarmonicMaxwellGeneralMaterial.Constant(
-    name="Air", marker="Domain" @ Vol,
+material = TimeHarmonicMaxwellGeneralMaterial.Constant(
+    name="Air",
+    marker="Domain" @ Vol,
 )
-model.add_material(material_air)
+model.add_material(material)
 
 
 # **************************************************************************************
@@ -52,14 +54,15 @@ condition_outer = AbsorbingBoundaryCondition(
 )
 
 condition_arms = PerfectElectricConductorCondition(
-    name="PEC",  marker=["BoundaryTopArm", "BoundaryBotArm"] @ Bnd,
+    name="PEC",
+    marker=["BoundaryTopArm", "BoundaryBotArm"] @ Bnd,
 )
 
 w = 0.10  # [m] port width
-l = 0.04  # [m] port length
+h = 0.04  # [m] port length
 R = 50  # [Ohm] transmission line resistance
 Z = R  # [Ohm] transmission line impedance: 1/Z = 1/R + 1/(i*w*L) + i*w*C
-Zs = Z * w / l  # [Ohm] surface impedance
+Zs = Z * w / h  # [Ohm] surface impedance
 condition_port = LumpedPortCondition(
     name="Port",
     marker="Port" @ Bnd,
