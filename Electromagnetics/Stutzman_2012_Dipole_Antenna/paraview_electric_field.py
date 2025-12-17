@@ -16,18 +16,15 @@ def create_scene(data_original, phase, screenshot_file):
         f'"{field_name_real}" * cos({phase}) + "{field_name_imag}" * sin({phase})'
     )
 
-
     # Slice plane at z=0 ---------------------------------------------------------------
     data = pvs.Slice(Input=data)
     data.SliceType = "Plane"
     data.SliceType.Origin = (0, 0, 0)
     data.SliceType.Normal = (1, 0, 0)
 
-
     # Translate ------------------------------------------------------------------------
     data = pvs.Transform(Input=data)
     data.Transform.Translate = (0, 0, 1)
-
 
     # View settings --------------------------------------------------------------------
     view = pvs.GetRenderView()
@@ -39,10 +36,8 @@ def create_scene(data_original, phase, screenshot_file):
     view.OrientationAxesVisibility = 1
     view.OrientationAxesLabelColor = (0.0, 0.0, 0.0)
 
-
     # Display settings -----------------------------------------------------------------
     display = pvs.Show()
-
 
     # Scalar bar settings --------------------------------------------------------------
     pvs.ColorBy(display, ("POINTS", field_name))
@@ -67,7 +62,6 @@ def create_scene(data_original, phase, screenshot_file):
 
     scalar_bar.LookupTable.RescaleTransferFunction(0, 30)
 
-
     # Camera settings ------------------------------------------------------------------
     pvs.Render()
 
@@ -77,9 +71,7 @@ def create_scene(data_original, phase, screenshot_file):
     view.CameraParallelProjection = 1
     view.CameraParallelScale = 8
 
-
     # Save screenshot ------------------------------------------------------------------
-
     pvs.SaveScreenshot(screenshot_file)
 
     pvs.Delete(view)
@@ -94,7 +86,7 @@ phases = np.linspace(0.0, np.pi, 51)
 
 
 # **************************************************************************************
-data_original = pvs.OpenDataFile(f"VisualizationOutput/Output_0.vtpc")
+data_original = pvs.OpenDataFile("VisualizationOutput/Output_0.vtpc")
 
 os.makedirs(wdir, exist_ok=True)
 

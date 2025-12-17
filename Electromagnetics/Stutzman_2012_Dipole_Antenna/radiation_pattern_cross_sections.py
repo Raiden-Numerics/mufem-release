@@ -13,13 +13,13 @@ thetas_full = np.concatenate((thetas, thetas + np.pi))
 
 # E-plane:
 iph = np.argmin(np.abs(phis - 0.0))
-eplane = radiation_pattern[:,iph]
+eplane = radiation_pattern[:, iph]
 eplane = eplane / np.max(eplane)
 eplane_full = np.concatenate((eplane, eplane[::-1]))
 
 # H-plane:
-ith = np.argmin(np.abs(thetas - np.pi/2))
-hplane = radiation_pattern[ith,:]
+ith = np.argmin(np.abs(thetas - np.pi / 2))
+hplane = radiation_pattern[ith, :]
 hplane = hplane / np.max(hplane)
 
 
