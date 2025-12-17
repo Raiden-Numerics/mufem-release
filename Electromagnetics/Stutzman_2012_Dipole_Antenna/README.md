@@ -22,10 +22,6 @@ elementary electric dipole.
 
 ## Setup
 
-### Dimensions
-
-
-
 In our simulation the antenna consists of two perfectly conducting cylinders
 (modeled using
 [Perfect Electric Conductor Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html)),
@@ -41,12 +37,32 @@ applied to a flat rectangular strip that connects the two arms of the antenna.
 
 The antenna is surrounded by free space, which is represented in the model by an
 enclosing sphere of radius $r=1.5\lambda=6$ m, centered at the origin.
-An `Absorbing Boundary Condition` is applied to the sphere boundary to simulate
-an infinite domain.
+An
+[Absorbing Boundary Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/absorbing_condition.html)
+is applied to the sphere boundary to simulate an infinite domain.
 
-The following figures show the resulting mesh.
+The problem geometry and corresponding mesh are generated in the
+[geometry.py](geometry.py) file using the [Gmsh](https://gmsh.info/) mesh
+generator.
+To achieve higher precision, we set the maximum size of the mesh elements to
+one-fifth of the radiation wavelength $\lambda$:
 
-### Mesh
+```py
+gmsh.option.setNumber("Mesh.MeshSizeMax", wavelength / 5)
+```
+Additionally, we employ second-order mesh elements, ensuring at least 12
+elements per $2\pi$ radians of the mesh curvature:
+
+```py
+gmsh.option.setNumber("Mesh.ElementOrder", 2)
+gmsh.option.setNumber("Mesh.HighOrderOptimize", 2)
+gmsh.option.setNumber("Mesh.MeshSizeFromCurvature", 12)
+```
+
+This approach results in a smoother mesh around the cylindrical arms of the
+antenna.
+
+The resulting mesh is illustrated in Fig. 2.
 
 <div align="center">
     <img src="data/Mesh.png" alt="drawing" width="49%">
@@ -61,9 +77,45 @@ The following figures show the resulting mesh.
 
 ### Model
 
-### Reports
+The complete code for the simulation can be found in the [case.py](case.py)
+file.
+For this simulation, we utilize the
+[Time-Harmonic Maxwell Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/time_harmonic_maxwell_model.html)
+with a finite element polynomial degree of two for enhanced precision:
 
-**Electric Field**
+```py
+model = TimeHarmonicMaxwellModel(
+    marker="Domain" @ Vol,
+    frequency=0.0749e9,  # [Hz]
+    order=2,  # finite element polynomial degree
+)
+```
+
+We assume that the domain surrounding the antenna is filled with air, which we
+simulate using the
+[Constant](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_constant.html)
+time-harmonic Maxwell material, characterized by the permeability and
+permittivity of free space.
+
+
+### Running the case
+
+To run the simulation, use the [case.py](case.py) file along with the following terminal command:
+
+```bash
+pymufem case.py
+```
+
+## Results
+
+### Electric Field
+
+To visualize the resulting electric field, we export it to a
+[VTK](https://vtk.org/) file and then visualize it with
+[Paraview](https://www.paraview.org/)
+using the script from the
+[paraview_electric_field.py](paraview_electric_field.py) file.
+Figure 3 illustrates the electric field distribution radiated by the antenna.
 
 <div align="center">
     <img src="results/Scene_Electric_Field-Real.png" alt="drawing" width="60%">
@@ -73,7 +125,7 @@ The following figures show the resulting mesh.
 </div>
 <br/>
 
-**Radiation pattern**
+### Radiation pattern
 
 <div align="center">
     <img src="results/Scene_Radiation_Pattern.png" alt="drawing" width="50%">
