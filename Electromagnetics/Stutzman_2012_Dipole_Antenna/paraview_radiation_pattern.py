@@ -78,7 +78,7 @@ src.GetClientSideObject().SetOutput(poly)
 # Use 20*log10 to convert amplitude to dB, not 10*log10 which is for power.
 src = pvs.Calculator(Input=src)
 src.ResultArrayName = f"{field_name}"
-src.Function = (f'20 * log10("{field_name}")')
+src.Function = f'20 * log10("{field_name}")'
 
 
 # View settings ------------------------------------------------------------------------
