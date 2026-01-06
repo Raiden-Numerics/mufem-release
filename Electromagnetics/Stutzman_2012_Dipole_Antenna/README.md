@@ -9,8 +9,8 @@ It consists of two thin metallic rods that have a sinusoidal voltage difference
 applied between them.
 The length of the rods is equal to a quarter of the wavelength at the operating
 frequency.
-This design produces a doughnut-shaped radiation pattern that approximates that
-of an elementary electric dipole.
+This design produces a donut-shaped radiation pattern that approximates that of
+an elementary electric dipole.
 Simple yet versatile, dipole antennas are used in various applications,
 including Wi-Fi, cellular, GPS, and amateur radio, serving as basic radiating
 elements or components in more complex designs.
@@ -33,10 +33,7 @@ Each cylinder has a length of $L=1$ m and a radius of $a=L/20=5$ cm, separated
 by a narrow gap of length $l=L/100=1$ cm.
 Given these geometric parameters, the operating wavelength is approximately
 $\lambda=4$ m, corresponding to a frequency of $f=0.0749$ GHz.
-This design is inspired by the
-[Dipole Antenna and Radiation Fields](https://awslabs.github.io/palace/stable/examples/antenna/)
-example from the [Palace](https://github.com/awslabs/palace) finite element
-code.
+This design is inspired by [[2]](#references).
 
 The gap acts as the excitation point for the antenna.
 The feeding circuit is modeled using a
@@ -148,8 +145,8 @@ to generate the far-field data.
 Subsequently, we utilize the
 [paraview_radiation_pattern.py](paraview_radiation_pattern.py) file to plot it
 in ParaView.
-As shown in Fig. 4, the resulting radiation pattern exhibits a doughnut-like
-shape, characteristic of dipole radiation.
+As shown in Fig. 4, the resulting radiation pattern exhibits a donut-like shape,
+characteristic of dipole radiation.
 
 <div align="center">
     <img src="results/Scene_Radiation_Pattern.png" alt="drawing" width="50%">
@@ -162,7 +159,7 @@ shape, characteristic of dipole radiation.
 To further assess how closely the radiation of the dipole antenna aligns with
 that of an ideal dipole, we compare the simulated radiation pattern
 cross-sections to the analytical solution for a radiating elementary dipole
-[[2]](#references):
+[[3]](#references):
 
 ```math
     E(\theta,\phi)
@@ -190,4 +187,5 @@ analytical result.
 
 ## References
 [1] https://en.wikipedia.org/wiki/Dipole_antenna \
-[2] W.L. Stutzman and G.A. Thiele "Antenna Theory and Design", 3rd ed., John Wiley & Sons (2012)
+[2] https://awslabs.github.io/palace/stable/examples/antenna \
+[3] W.L. Stutzman and G.A. Thiele "Antenna Theory and Design", 3rd ed., John Wiley & Sons (2012)
