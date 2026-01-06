@@ -30,10 +30,11 @@ To run the validations please make sure to follow the [Installation instructions
   - [Compumag TEAM 24: Locked Rotor](Electromagnetics/Compumag-Team24-Locked-Rotor/README.md)
 
 * **Electrostatics**
-  - [Ren (2014): MEMS Comb Drive](Electromagnetics/Ren_2014_MEMS_Comb_Drive/README.md)
+  - [Ren 2014: MEMS Comb Drive](Electromagnetics/Ren_2014_MEMS_Comb_Drive/README.md)
 
 * **Time-Harmonic Maxwell (High-Frequency Electromagnetics)**
-  - [Montejo-Garai (1995): Circular Cavity Filter](Electromagnetics/Montejo-Garai_1995_Circular_Cavity_Filter/README.md)
+  - [Montejo-Garai 1995: Circular Cavity Filter](Electromagnetics/Montejo-Garai_1995_Circular_Cavity_Filter/README.md)
+  - [Stutzman 2012: Dipole Antenna](Electromagnetics/Stutzman_2012_Dipole_Antenna/README.md)
 
 ## Continuous Integration
 
