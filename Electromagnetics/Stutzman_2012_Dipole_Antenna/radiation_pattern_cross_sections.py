@@ -2,6 +2,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+def to_db(value):
+    # Use 20*log10 to convert amplitude to dB, not 10*log10 which is for power.
+    level = np.max(value) * 1e-10
+    value_lvl = np.copy(value)
+    value_lvl[value_lvl < level] = level
+    value_db = 20 * np.log10(value_lvl)
+    return value_db - np.max(value_db)
+
+
 # mufem results ------------------------------------------------------------------------
 data = np.load("results/Far_Field_3D.npz")
 
@@ -46,16 +55,26 @@ hplane_theory = np.ones(len(phis))
 # Plot ---------------------------------------------------------------------------------
 # E-plane:
 fig, ax = plt.subplots(subplot_kw={"projection": "polar"})
-ax.plot(thetas_full, eplane_theory_full, "k-", label="Analytic")
-ax.plot(thetas_full, eplane_full, "r-", label="$\\mu$fem")
-ax.set_rmax(1.1)
-ax.legend(loc=0)
+ax.set_theta_zero_location("N")
+ax.set_theta_direction(-1)
+ax.plot(thetas_full, to_db(eplane_theory_full), "k-", label="Analytic")
+ax.plot(thetas_full, to_db(eplane_full), "r-", label="$\\mu$fem")
+ax.set_ylim(-12, 2)
+ax.set_yticks([-10, -8, -6, -4, -2, 0])
+ax.legend(loc="lower center", bbox_to_anchor=(0.5, 0.12))
+ax.set_title("E-plane", fontweight="bold")
 plt.savefig("results/Far_Field_E-plane.png", bbox_inches="tight")
 
 # H-plane:
 fig, ax = plt.subplots(subplot_kw={"projection": "polar"})
-ax.plot(phis, hplane_theory, "k-", label="Analytic")
-ax.plot(phis, hplane, "r-", label="$\\mu$fem")
-ax.set_rmax(1.1)
-ax.legend(loc=0)
+ax.set_theta_zero_location("N")
+ax.set_theta_direction(-1)
+ax.plot(phis, to_db(hplane_theory), "k-", label="Analytic")
+ax.plot(phis, to_db(hplane), "r-", label="$\\mu$fem")
+ax.set_ylim(-12, 2)
+ax.set_yticks([-10, -8, -6, -4, -2, 0])
+ax.legend(loc="lower center", bbox_to_anchor=(0.5, 0.12))
+ax.set_title("H-plane", fontweight="bold")
 plt.savefig("results/Far_Field_H-plane.png", bbox_inches="tight")
+
+plt.show()

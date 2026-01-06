@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '/home/fedoroff/software/ParaView-6.0.1-MPI-Linux-Python3.12-x86_64/lib/python3.12/site-packages/')
+
 import os
 import numpy as np
 import paraview.simple as pvs
@@ -13,7 +16,7 @@ def create_scene(data_original, phase, screenshot_file):
     data = pvs.Calculator(Input=data_original)
     data.ResultArrayName = f"{field_name}"
     data.Function = (
-        f'"{field_name_real}" * cos({phase}) + "{field_name_imag}" * sin({phase})'
+        f'"{field_name_real}" * cos({phase}) - "{field_name_imag}" * sin({phase})'
     )
 
     # Slice plane at z=0 ---------------------------------------------------------------

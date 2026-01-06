@@ -9,8 +9,11 @@ It consists of two thin metallic rods that have a sinusoidal voltage difference
 applied between them.
 The length of the rods is equal to a quarter of the wavelength at the operating
 frequency.
-Such antenna produces a torus-like radiation pattern approximating that of an
-elementary electric dipole.
+This design produces a doughnut-shaped radiation pattern that approximates that
+of an elementary electric dipole.
+Simple yet versatile, dipole antennas are used in various applications,
+including Wi-Fi, cellular, GPS, and amateur radio, serving as basic radiating
+elements or components in more complex designs.
 
 <div align="center">
     <img src="data/Geometry.png" alt="drawing" width="50%">
@@ -20,26 +23,31 @@ elementary electric dipole.
 </div>
 <br/>
 
+
 ## Setup
 
-In our simulation the antenna consists of two perfectly conducting cylinders
-(modeled using
-[Perfect Electric Conductor Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html)),
-each with a length of $L=1$ m and a radius of $a=L/20=5$ cm, separated by a
-narrow gap of length $l=L/100=1$ cm.
-With these geometric parameters, the operating wavelength is approximately
+In our simulation, the dipole antenna consists of two perfectly conducting
+cylinders modeled using the
+[Perfect Electric Conductor Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html)).
+Each cylinder has a length of $L=1$ m and a radius of $a=L/20=5$ cm, separated
+by a narrow gap of length $l=L/100=1$ cm.
+Given these geometric parameters, the operating wavelength is approximately
 $\lambda=4$ m, corresponding to a frequency of $f=0.0749$ GHz.
+This design is inspired by the
+[Dipole Antenna and Radiation Fields](https://awslabs.github.io/palace/stable/examples/antenna/)
+example from the [Palace](https://github.com/awslabs/palace) finite element
+code.
 
 The gap acts as the excitation point for the antenna.
 The feeding circuit is modeled using a
-[Lumped Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/lumped_port_condition.html)
-applied to a flat rectangular strip that connects the two arms of the antenna.
+[Lumped Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/lumped_port_condition.html),
+applied to a flat rectangular strip connecting the two arms of the antenna.
 
-The antenna is surrounded by free space, which is represented in the model by an
+The antenna is surrounded by free space, represented in the model by an
 enclosing sphere of radius $r=1.5\lambda=6$ m, centered at the origin.
 An
 [Absorbing Boundary Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/absorbing_condition.html)
-is applied to the sphere boundary to simulate an infinite domain.
+is applied to the sphere's boundary to simulate an infinite domain.
 
 The problem geometry and corresponding mesh are generated in the
 [geometry.py](geometry.py) file using the [Gmsh](https://gmsh.info/) mesh
@@ -50,7 +58,7 @@ one-fifth of the radiation wavelength $\lambda$:
 ```py
 gmsh.option.setNumber("Mesh.MeshSizeMax", wavelength / 5)
 ```
-Additionally, we employ second-order mesh elements, ensuring at least 12
+Additionally, we employ second-order mesh elements to ensure at least 12
 elements per $2\pi$ radians of the mesh curvature:
 
 ```py
@@ -60,9 +68,7 @@ gmsh.option.setNumber("Mesh.MeshSizeFromCurvature", 12)
 ```
 
 This approach results in a smoother mesh around the cylindrical arms of the
-antenna.
-
-The resulting mesh is illustrated in Fig. 2.
+antenna. The resulting mesh is illustrated in Fig. 2.
 
 <div align="center">
     <img src="data/Mesh.png" alt="drawing" width="49%">
@@ -90,7 +96,7 @@ model = TimeHarmonicMaxwellModel(
 ```
 
 We assume that the domain surrounding the antenna is filled with air, which we
-simulate using the
+model using the
 [Constant](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_constant.html)
 time-harmonic Maxwell material, characterized by the permeability and
 permittivity of free space:
@@ -113,11 +119,13 @@ pymufem case.py
 
 ### Electric Field
 
-To visualize the resulting electric field, we export it to a
-[VTK](https://vtk.org/) file and then visualize it with
-[Paraview](https://www.paraview.org/)
-using the script from the
-[paraview_electric_field.py](paraview_electric_field.py) file.
+To visualize the resulting electric field, we export it to a VTK file, as
+outlined in the
+[Visualization](https://raiden-numerics.github.io/mufem-doc/framework/visualization.html)
+section of the documentation.
+We then use the script from the
+[paraview_electric_field.py](paraview_electric_field.py) file to plot it in
+ParaView.
 Figure 3 illustrates the electric field radiated by the antenna.
 As can be seen, the field distribution of a dipole antenna closely resembles
 that generated by an elementary dipole.
@@ -134,14 +142,14 @@ that generated by an elementary dipole.
 
 ### Radiation pattern
 
-In order to visualize the antenna's radiation pattern, we use the
+To visualize the antenna's radiation pattern, we employ the
 [Far-Field Radiation Sensor](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/reports/far_field_radiation_sensor.html)
 to generate the far-field data.
-We then employ the
+Subsequently, we utilize the
 [paraview_radiation_pattern.py](paraview_radiation_pattern.py) file to plot it
-in [Paraview](https://www.paraview.org/).
-As shown Fig. 4, the resulting radiation pattern exhibits a torus-like shape,
-characteristic to dipole radiation.
+in ParaView.
+As shown in Fig. 4, the resulting radiation pattern exhibits a doughnut-like
+shape, characteristic of dipole radiation.
 
 <div align="center">
     <img src="results/Scene_Radiation_Pattern.png" alt="drawing" width="50%">
@@ -151,8 +159,8 @@ characteristic to dipole radiation.
 </div>
 <br/>
 
-To further evaluate how closely the radiation of the dipole antenna resembles
-that of an actual dipole, we compare the simulated radiation pattern
+To further assess how closely the radiation of the dipole antenna aligns with
+that of an ideal dipole, we compare the simulated radiation pattern
 cross-sections to the analytical solution for a radiating elementary dipole
 [[2]](#references):
 
@@ -166,7 +174,7 @@ cross-sections to the analytical solution for a radiating elementary dipole
 where $\theta$ is the azimuthal angle and $\phi$ is the polar angle.
 The corresponding script can be found in the
 [radiation_pattern_cross_sections.py](radiation_pattern_cross_sections.py) file.
-As shown in Fig. 5., the simulated radiation pattern closely matches the
+As depicted in Fig. 5., the simulated radiation pattern closely matches the
 analytical result.
 
 <div align="center">

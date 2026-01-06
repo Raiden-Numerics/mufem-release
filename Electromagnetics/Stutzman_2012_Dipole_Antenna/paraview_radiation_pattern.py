@@ -74,6 +74,12 @@ poly.SetPolys(cells)
 src = pvs.TrivialProducer()
 src.GetClientSideObject().SetOutput(poly)
 
+# Convert to dB:
+# Use 20*log10 to convert amplitude to dB, not 10*log10 which is for power.
+src = pvs.Calculator(Input=src)
+src.ResultArrayName = f"{field_name}"
+src.Function = (f'20 * log10("{field_name}")')
+
 
 # View settings ------------------------------------------------------------------------
 view = pvs.GetRenderView()
@@ -107,7 +113,7 @@ ctf.ApplyPreset("Turbo")
 
 scalar_bar = pvs.GetScalarBar(ctf)
 
-scalar_bar.Title = f"{field_name} [arb.u.]"
+scalar_bar.Title = f"{field_name} [dB]"
 scalar_bar.ComponentTitle = ""
 
 scalar_bar.Orientation = "Horizontal"
@@ -117,15 +123,15 @@ scalar_bar.LabelColor = (0, 0, 0)
 scalar_bar.TitleFontSize = 32
 scalar_bar.LabelFontSize = 28
 scalar_bar.ScalarBarThickness = 32
-scalar_bar.RangeLabelFormat = "%.2f"
-scalar_bar.LabelFormat = "%.2f"
+scalar_bar.RangeLabelFormat = "%.0f"
+scalar_bar.LabelFormat = "%.0f"
 
-scalar_bar.LookupTable.RescaleTransferFunction(0.0, 1.0)
+scalar_bar.LookupTable.RescaleTransferFunction(-10, 0.0)
 scalar_bar.LookupTable.NumberOfTableValues = 256
 scalar_bar.LookupTable.Discretize = 1
 
-scalar_bar.UseCustomLabels = 1
-scalar_bar.CustomLabels = [0.0, 0.25, 0.5, 0.75, 1.0]
+# scalar_bar.UseCustomLabels = 1
+# scalar_bar.CustomLabels = [0.0, 0.25, 0.5, 0.75, 1.0]
 
 
 # Camera settings ----------------------------------------------------------------------
