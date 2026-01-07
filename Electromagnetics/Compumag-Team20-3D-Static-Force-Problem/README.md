@@ -32,17 +32,17 @@ Figure 2: The mesh used in the simulation visualized using <a href="https://glvi
 
 ### Model
 
-We use the [Time-Domain Magnetic Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_domain_magnetic/time_domain_magnetic_model.html) which solves for the magnetic field using finite-element discretization and following equation:
+We use the [Time-Domain Magnetic Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_domain_magnetic/time_domain_magnetic_model) which solves for the magnetic field using finite-element discretization and following equation:
 ```math
 \rm{curl}\, \mu^{-1} \rm{curl}\, \mathbf{A} = \mathbf{J} \quad,
 ```
 where $\mathbf{A} [\frac{\rm{Wb}}{\rm{m}}]$ is the magnetic vector potential, $\mu [\frac{\rm{H}}{\rm{m}}]$ is the magnetic permeability, and $\mathbf{J} [\frac{\rm{A}}{\rm{m}^2}]$ is the electric current density. The magnetic flux density $\mathbf{B} [T]$ is then given by $\mathbf{B} = \rm{curl} \mathbf{A}$. The magnetic field $\mathbf{H}[\frac{\rm{A}}{\rm{m}}]$ can be obtained from $\mathbf{H} = \mu^{-1} \mathbf{B}$. Note that the electric current density is only non-zero in the coil body and is required to be divergence free, i.e., $\nabla \cdot \mathbf{J} = 0$.
 
-As for the boundary, by symmetry the magnetic flux needs to be tangential to the symmetry faces; thus we assign a [Tangential Magnetic Flux Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_domain_magnetic/conditions/tangential_magnetic_flux_condition.html) which ensures that $\mathbf{B} \cdot \mathbf{n} = 0$. This is achieved by specifying the tangential components of $\mathbf{A}$ to zero, i.e. $\mathbf{n} \times \mathbf{A} = 0$. While the air boundary, as a far field boundary can be chosen to be either left free, for simplicity we assign a tangential flux condition to it as well.
+As for the boundary, by symmetry the magnetic flux needs to be tangential to the symmetry faces; thus we assign a [Tangential Magnetic Flux Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_domain_magnetic/conditions/tangential_magnetic_flux_condition) which ensures that $\mathbf{B} \cdot \mathbf{n} = 0$. This is achieved by specifying the tangential components of $\mathbf{A}$ to zero, i.e. $\mathbf{n} \times \mathbf{A} = 0$. While the air boundary, as a far field boundary can be chosen to be either left free, for simplicity we assign a tangential flux condition to it as well.
 
 ### Excitation
 
-The electric current density in the right-hand side of the equation is provided by the [Excitation Coil Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/excitation_coil_model.html) which models the properties of the stranded coil. The electric current density inside the coil body can be calculated using
+The electric current density in the right-hand side of the equation is provided by the [Excitation Coil Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/excitation_coil_model) which models the properties of the stranded coil. The electric current density inside the coil body can be calculated using
 ```math
 \mathbf{J}= I \frac{n_t}{S_c} \mathbf{d} \quad,
 ```
@@ -50,7 +50,7 @@ where $I [\rm{A}]$ is the applied coil current, $n_t$ is the number of coil turn
 
 ### Reports
 
-The force is calculated using the [Magnetic Force Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_domain_magnetic/reports/magnetic_force_report.html) which uses the Maxwell stress tensor $\mathbb{T} [\rm{Pa}]$ given by
+The force is calculated using the [Magnetic Force Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_domain_magnetic/reports/magnetic_force_report) which uses the Maxwell stress tensor $\mathbb{T} [\rm{Pa}]$ given by
 ```math
 \mathbb{T} = \mathbf{B} \otimes \mathbf{H} - \frac{1}{2} \left( \mathbf{B} \cdot \mathbf{H} \right) \mathbb{I}   \quad.
 ```
@@ -137,9 +137,9 @@ Which sets the current, runs the simulation and stores the resulting force. Fina
 <br /><br />
 
 
-The results are presented in Figure 3, where we find a good match to the experimental and numerical values reported in [[2]](#[2]) and [[3]](#[3]). Note that initially the force increases quadratically with an increase of current until around $I=3A$, where the steel saturates.
+The results are presented in Figure 3, where we find a good match to the experimental and numerical values reported in [[2]](#[2]) and [[3]](#[3]). Note that initially the force increases quadratically with an increase of current until around $I=3$ A, where the steel saturates.
 
-Finally, we save the fields at $I=5A$ for further evaluation with [paraview](https://www.paraview.org/).
+Finally, we save the fields at $I=5$ A for further evaluation with [ParaView](https://www.paraview.org/).
 
 <div align="center">
 <img src="data/Vis_MagneticFluxDensity.png" alt="drawing" width="600">
