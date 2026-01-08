@@ -18,8 +18,8 @@ jobs:
         with:
           args: >
             --no-progress
+            --quiet
             --timeout 10
             --require-https
-            --accept '200..=299,403'            
+            --accept '200..=299,403'
             **/*.md
-
