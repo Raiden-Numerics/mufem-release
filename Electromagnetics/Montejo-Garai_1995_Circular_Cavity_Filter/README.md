@@ -41,7 +41,7 @@ During the mesh generation, we assign named attributes to the waveguide input ("
 
 ### Model
 
-For the simulation we use [Time-Harmonic Maxwell Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/time_harmonic_maxwell_model.html) which solves the following equation for the complex amplitude $\tilde{\mathbf{E}}$ of the electric field:
+For the simulation we use [Time-Harmonic Maxwell Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/time_harmonic_maxwell_model) which solves the following equation for the complex amplitude $\tilde{\mathbf{E}}$ of the electric field:
 
 ```math
 \nabla \times \left(\frac{1}{\mu} \nabla \times \tilde{\mathbf{E}}\right) -
@@ -50,16 +50,16 @@ For the simulation we use [Time-Harmonic Maxwell Model](https://raiden-numerics.
 
 where $\mu$ and $\varepsilon$ are the permeability and the permittivity of the material filling the waveguides and the cavity, and $\omega = 2\pi f$ is the angular frequency of the incoming radiation of frequency $f$.
 
-As the boundary conditions we use the [Perfect Electric Conductor Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition.html) for the walls of the waveguides and cavity, together with the [Input Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/input_port_condition.html) and the [Output Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/output_port_condition.html) for the input and output ports of the waveguides.
+As the boundary conditions we use the [Perfect Electric Conductor Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition) for the walls of the waveguides and cavity, together with the [Input Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/input_port_condition) and the [Output Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/output_port_condition) for the input and output ports of the waveguides.
 
 As the incident electric field we consider the field in the TE$_{10}$ mode, entering through the input port of the waveguide.
 
-We also assume that the volume of the waveguides and the cavity is filled with air, which we model using the [Constant](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_constant.html) time-harmonic Maxwell material with the permeability and permittivity of free space.
+We also assume that the volume of the waveguides and the cavity is filled with air, which we model using the [Constant](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_constant) time-harmonic Maxwell material with the permeability and permittivity of free space.
 
 
 ### Reports
 
-To calculate what fraction of the incident radiation passes through the filter, we use the [S-parameters Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/reports/s_parameters_report.html). This report calculates scattering parameters, or S-parameters, which describe the input-output relationships between various ports of a device. In our case, we are interested in the $S_{21}$ parameter, which plays the role of the filter transmission coefficient and is determined by the formula:
+To calculate what fraction of the incident radiation passes through the filter, we use the [S-parameters Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/reports/s_parameters_report). This report calculates scattering parameters, or S-parameters, which describe the input-output relationships between various ports of a device. In our case, we are interested in the $S_{21}$ parameter, which plays the role of the filter transmission coefficient and is determined by the formula:
 
 ```math
 S_{21} = \frac{\int_{\Gamma_2} \tilde{\mathbf{E}} \cdot \tilde{\mathbf{e}}_1\, d\Gamma}
@@ -88,7 +88,7 @@ for i, frequency in enumerate(frequencies):
     report_data = report_s_parameters.evaluate().to_numpy()
     S21[i] = report_data[0, 0]
 ```
-At each iteration, we extract the data corresponding to $S_{21}$ parameter and store it in a separate array. For two frequencies 12 and 14 GHz stored in the list `frequencies_paraview`, we save the electric field in the [VTK](https://vtk.org/) file format for subsequent visualization with [Paraview](https://www.paraview.org/). Figure 3 shows the squared magnitude of the obtained $S_{21}$​ parameter as a function of frequency.
+At each iteration, we extract the data corresponding to $S_{21}$ parameter and store it in a separate array. For two frequencies 12 and 14 GHz stored in the list `frequencies_paraview`, we save the electric field in the [VTK](https://vtk.org/) file format for subsequent visualization with [ParaView](https://www.paraview.org/). Figure 3 shows the squared magnitude of the obtained $S_{21}$​ parameter as a function of frequency.
 
 <div align="center">
     <img src="results/S21_vs_frequency.png" alt="S21 vs frequency" width="50%">
@@ -99,7 +99,7 @@ At each iteration, we extract the data corresponding to $S_{21}$ parameter and s
 
 In Fig. 3 we can see that the transmission spectrum of the waveguide circular filter has a number of resonances around 10.4, 11.5, and 12.6 GHz, as well as a fairly wide bandwidth from 13.8 to 14.5 GHz. Radiation emitted at these frequencies passes through the filter with minimal loss, while radiation at other frequencies is reflected back. Figure 3 also shows that the results of our simulations are in a very good agreement with the experimental data presented in [[1]](#Montejo-Garai1995).
 
-To illustrate the electric field configuration inside the filter at frequencies both within and outside the filter's bandwidth, during the simulation we export the electric field at 12 GHz and 14 GHz to a [VTK](https://vtk.org/) file. For the visualization of the fields we use [Paraview](https://www.paraview.org/) (please note that [Paraview](https://www.paraview.org/) is not supplied with $\mu$fem and must be installed separately). You can find the corresponding code in the [create_scene.py](create_scene.py) file. Figure 4 shows the distribution of the electric field inside the waveguide filter at both frequencies.
+To illustrate the electric field configuration inside the filter at frequencies both within and outside the filter's bandwidth, during the simulation we export the electric field at 12 GHz and 14 GHz to a [VTK](https://vtk.org/) file. For the visualization of the fields we use [ParaView](https://www.paraview.org/) (please note that [ParaView](https://www.paraview.org/) is not supplied with $\mu$fem and must be installed separately). You can find the corresponding code in the [create_scene.py](create_scene.py) file. Figure 4 shows the distribution of the electric field inside the waveguide filter at both frequencies.
 
 <div align="center">
   <img src="results/scene_electric_field_12GHz.png" alt="|E| at 12 GHz" width="49%" />

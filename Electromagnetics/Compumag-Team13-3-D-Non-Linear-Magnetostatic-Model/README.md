@@ -3,7 +3,7 @@
 
 ## Introduction
 
-The problem[1] is a non linear magnetostatic case with an exciting coil set between two steel channels, and
+The problem [1] is a non linear magnetostatic case with an exciting coil set between two steel channels, and
 a steel plate inserted between the channels. The applied coil current is is large enough to saturate the steel.
 The goal is to calculate the magnetic flux density at certain points.
 

@@ -17,7 +17,7 @@ results reported by Fujiwara et al. [2].
 
 ## Problem Description
 
-The aluminium plate has an electrical conductivity of $\sigma = 3.526 \times 10^7\,\mathrm{S/m}$.
+The aluminum plate has an electrical conductivity of $\sigma = 3.526 \times 10^7\,\mathrm{S/m}$.
 The stranded coil is excited by a sinusoidal current corresponding to $2742\rm{AT}$ at a frequency
 of $f=50\rm{Hz}$ (reference results at $200\rm{Hz}$ are also available).
 The numerical results are compared with measurements of the magnetic flux density along two
@@ -27,9 +27,9 @@ lines on top of the plate, denoted A1–B1 and A2–B2.
 ## Setup
 
 Since the problem is linear and the excitation is sinusoidal, the
-[Time-Harmonic Magnetic Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_magnetic/time_harmonic_magnetic_model.html)
+[Time-Harmonic Magnetic Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_magnetic/time_harmonic_magnetic_model)
 can beused. The excitation is prescribed using the
-[Excitation Coil Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/excitation_coil_model.html).
+[Excitation Coil Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/excitation_coil_model).
 
 The setup script is provided in [here](case.py) and the corresponding mesh can be found [here](geometry.mesh). The mesh contains three
 [named attributes](https://mfem.org/mesh-format-v1.0/#mfem-mesh-v13): **Air**, **Coil**, and **Plate**.
@@ -50,7 +50,7 @@ magnetic_model = TimeHarmonicMagneticModel(
 ### Materials
 
 Three
-[materials](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_magnetic/materials/time_harmonic_magnetic_material.html)
+[materials](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_magnetic/materials/time_harmonic_magnetic_material)
 are defined: *air*, *copper*, and *aluminium*. Only aluminium is electrically conductive and
 therefore supports eddy currents.
 
@@ -77,12 +77,12 @@ alu_material = TimeHarmonicMagneticGeneralMaterial.Constant(
 ### Coil Excitation
 
 The
-[Excitation Coil Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/excitation_coil_model.html)
+[Excitation Coil Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/excitation_coil_model)
 is added to the simulation. The coil is modeled as
 
-- a [current excitation](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/excitation_current.html) with \(I = 1\,\mathrm{A}\),
-- a [stranded coil type](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/stranded_coil.html) with 2742 turns,
-- a [closed coil topology](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/closed_coil.html).
+- a [current excitation](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/excitation_current) with \(I = 1\,\mathrm{A}\),
+- a [stranded coil type](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/stranded_coil) with 2742 turns,
+- a [closed coil topology](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/closed_coil).
 
 
 ```python
@@ -161,5 +161,5 @@ The animation is generated using the script [`create_anim.sh`](create_anim.sh).
 [1] Compumag TEAM Benchmark Problem 7: https://www.compumag.org/wp/wp-content/uploads/2018/06/problem7.pdf
 
 [2] K. Fujiwara, T. Nakata, "Results for benchmark problem 7 (asymmetrical conductor with a hole),"
-COMPEL – The International Journal for Computation and Mathematics in Electrical and Electronic Engineering,  
+COMPEL – The International Journal for Computation and Mathematics in Electrical and Electronic Engineering,
 vol. 9, no. 3, pp. 137–154, 1990.
