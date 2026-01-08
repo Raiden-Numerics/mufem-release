@@ -1,6 +1,6 @@
 # μfem
 
-A finite-element multi-physics application framework based on [MFEM](https://mfem.org123/) library.
+A finite-element multi-physics application framework based on [MFEM](https://mfem.org/) library.
 
 ![Logo](.logo.png)
 
@@ -11,7 +11,7 @@ For questions or support please [create an issue](https://github.com/Raiden-Nume
 ## Validation cases
 
 A collection of validation examples for μfem (tested with [version](VERSION)).
-To run the validations please make sure to follow the [Installation](https://raiden-numerics.github.io/mufem-doc/getting_started/installation123) instructions. To execute a specific case write
+To run the validations please make sure to follow the [Installation](https://raiden-numerics.github.io/mufem-doc/getting_started/installation) instructions. To execute a specific case write
 
 ```bash
 (mufem-env) pymufem Electromagnetics/Compumag-Team1b-Felix-Cylinder/case.py
@@ -23,7 +23,7 @@ To run the validations please make sure to follow the [Installation](https://rai
 
   Introduced in the late 1980s and continuously updated, the TEAM benchmarks focus primarily on low-frequency magnetic problems, providing a standard framework for evaluating numerical methods. Available cases:
 
-  - [Compumag TEAM 1b: The Felix Cylinder](Electromagnetics/Compumag-Team1b-Felix-Cylinder/123README.md)
+  - [Compumag TEAM 1b: The Felix Cylinder](Electromagnetics/Compumag-Team1b-Felix-Cylinder/README.md)
   - [Compumag TEAM 7: Asymmetrical Conductor with a Hole](Electromagnetics/Compumag-Team7-Asymmetrical-Conductor-with-a-Hole/README.md)
   - [Compumag TEAM 13: 3-D Non-Linear Magnetostatic Model](Electromagnetics/Compumag-Team13-3-D-Non-Linear-Magnetostatic-Model/README.md)
   - [Compumag TEAM 20: 3D Static Force Problem](Electromagnetics/Compumag-Team20-3D-Static-Force-Problem/README.md)
