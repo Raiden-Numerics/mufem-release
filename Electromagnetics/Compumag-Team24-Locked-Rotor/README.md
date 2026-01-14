@@ -37,7 +37,7 @@ where $a$ and $b$ are fitting parameters. These parameters are computed from the
 
 A constant electric voltage of $U=23.1 \, \mathrm{V}$ is applied to the stranded coils.
 
-We specify a stranded coil by using the [Stranded Coil](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/stranded_coil) option, and the voltage excitation is set by using
+We specify a stranded coil by using the [Stranded Coil](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/type_stranded_coil/) option, and the voltage excitation is set by using
 [Excitation Voltage](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/excitation_voltage) option.
 
 ```python
