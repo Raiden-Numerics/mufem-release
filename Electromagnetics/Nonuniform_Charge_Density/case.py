@@ -1,3 +1,7 @@
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
 import mufem
 import mufem.electromagnetics.electrostatics as estat
 
@@ -45,17 +49,15 @@ model.add_conditions([charge_density_condition, potential_condition])
 # Run the simulation -------------------------------------------------------------------
 sim.run()
 
-# Analyze the results ------------------------------------------------------------------
-import numpy as np
-import math
-import matplotlib.pyplot as plt
 
+# Analyze the results ------------------------------------------------------------------
 def theory(r):
     eps0 = 8.8541878188e-12  # [F/m] vacuum permittivity
     factor = Q / (4 * np.pi * eps0 * r**2)
     term1 = np.sqrt(np.pi / 2) * a**3 * math.erf(r / (np.sqrt(2) * a))
-    term2 = a**2 * r * np.exp(-r**2 / (2 * a**2))
+    term2 = a**2 * r * np.exp(-(r**2) / (2 * a**2))
     return factor * (term1 - term2)
+
 
 R = 10.0  # [m] sphere radius
 Nr = 500
@@ -66,7 +68,11 @@ E_theory = np.zeros(Nr)
 
 for i in range(Nr):
     report = mufem.ProbeReport.SinglePoint(
-        name="Electric Field Report", cff_name="Electric Field", x=r[i], y=0, z=0,
+        name="Electric Field Report",
+        cff_name="Electric Field",
+        x=r[i],
+        y=0,
+        z=0,
     )
     E = report.evaluate()
     E_mufem[i] = E.x
