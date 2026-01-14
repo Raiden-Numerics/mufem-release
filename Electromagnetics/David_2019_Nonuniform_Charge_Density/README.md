@@ -1,4 +1,4 @@
-# Nonuniform Charge Density
+# David 2019: Nonuniform Charge Density
 
 ## Introduction
 
@@ -469,3 +469,8 @@ The following figure illustrates the distribution of the $x$-component of the
 electric field in the $z=0$ cross-section:
 
 ![Scene_Electric_Field.png](results/Scene_Electric_Field.png)
+
+
+## References
+
+[1] https://comphysblog.wordpress.com/2019/08/22/electrostatic-simulations-with-non-uniform-charge-density-distributions/
