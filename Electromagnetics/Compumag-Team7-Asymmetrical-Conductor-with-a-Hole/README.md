@@ -81,7 +81,7 @@ The
 is added to the simulation. The coil is modeled as
 
 - a [current excitation](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/excitation_current) with \(I = 1\,\mathrm{A}\),
-- a [stranded coil type](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/stranded_coil) with 2742 turns,
+- a [stranded coil type](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/type_stranded_coil) with 2742 turns,
 - a [closed coil topology](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/closed_coil).
 
 

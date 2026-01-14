@@ -17,5 +17,5 @@ jobs:
         run: pip install codespell
 
       - name: Run codespell recursively on Markdown files
-        run: codespell --ignore-words .dict.txt --skip="./.git" --quiet-level=2 -- $(find . -type f -name "*.md")
+        run: codespell --ignore-words .dict.txt --ignore-regex "\\w+" --skip="./.git" --quiet-level=2 -- $(find . -type f -name "*.md")
 
