@@ -31,7 +31,7 @@ To run the validations please make sure to follow the [Installation](https://rai
 
 * **Electrostatics**
   - [Ren 2014: MEMS Comb Drive](Electromagnetics/Ren_2014_MEMS_Comb_Drive/README.md)
-  - [David 2019: Nonuniform Charge Density](Electromagnetics/Nonuniform_Charge_Density/README.md)
+  - [David 2019: Nonuniform Charge Density](Electromagnetics/David_2019_Nonuniform_Charge_Density/README.md)
 
 * **Time-Harmonic Maxwell (High-Frequency Electromagnetics)**
   - [Montejo-Garai 1995: Circular Cavity Filter](Electromagnetics/Montejo-Garai_1995_Circular_Cavity_Filter/README.md)
