@@ -17,7 +17,6 @@ from mufem.electromagnetics.timedomainmagnetic import (
 from pathlib import Path
 import matplotlib.pyplot as plt
 
-
 dir_path = Path(__file__).resolve().parent
 
 

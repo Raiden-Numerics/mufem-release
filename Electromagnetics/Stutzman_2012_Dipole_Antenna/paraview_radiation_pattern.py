@@ -3,7 +3,6 @@ import paraview.simple as pvs
 from vtkmodules.vtkCommonCore import vtkPoints, vtkDoubleArray
 from vtkmodules.vtkCommonDataModel import vtkPolyData, vtkCellArray, vtkQuad
 
-
 # **************************************************************************************
 # Load data
 # **************************************************************************************

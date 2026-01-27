@@ -11,7 +11,6 @@ from mufem.electromagnetics.timeharmonicmaxwell import (
     WaveguideOutputPortCondition,
 )
 
-
 # **************************************************************************************
 # Problem setup
 # **************************************************************************************

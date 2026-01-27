@@ -1,7 +1,6 @@
 import paraview.simple as pvs
 import os
 
-
 renderView1 = pvs.CreateView("RenderView")
 
 
