@@ -22,7 +22,6 @@ from mufem.electromagnetics.timedomainmagnetic import (
     TimeDomainMagneticModel,
 )
 
-
 # Enable this to output the data per time step for animation
 # make sure that the directory vis exists.
 output_for_animation = False

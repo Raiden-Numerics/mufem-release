@@ -3,59 +3,64 @@ import numpy
 
 from mufem import Bnd, Vol, Simulation, SteadyRunner
 from mufem.electromagnetics.timeharmonicmaxwell import (
-    InputPortCondition,
-    OutputPortCondition,
     PerfectElectricConductorCondition,
     SParametersReport,
     TimeHarmonicMaxwellGeneralMaterial,
     TimeHarmonicMaxwellModel,
+    WaveguideInputPortCondition,
+    WaveguideOutputPortCondition,
 )
-
 
 # **************************************************************************************
 # Problem setup
 # **************************************************************************************
 sim = Simulation.New(
-    name="Montejo-Garai_1995_Circular_Cavity_Filter", mesh_path="geometry.msh"
+    name="Montejo-Garai_1995_Circular_Cavity_Filter",
+    mesh_path="geometry.msh",
 )
 
-steady_runner = SteadyRunner(total_iterations=0)
-
-
-# **************************************************************************************
-# Markers
-# **************************************************************************************
-marker_input_port = "InputPort" @ Bnd
-marker_output_port = "OutputPort" @ Bnd
-marker_walls = "Walls" @ Bnd
-marker_domain = "Domain" @ Vol
+runner = SteadyRunner(total_iterations=0)
 
 
 # **************************************************************************************
 # Model
 # **************************************************************************************
-frequency = 14.5e9  # [Hz] radiation frequency
-order = 2  # finite element polynomial degree
-model = TimeHarmonicMaxwellModel(marker_domain, frequency, order)
+model = TimeHarmonicMaxwellModel(
+    marker="Domain" @ Vol,
+    frequency=14.5e9,  # [Hz] radiation frequency
+    order=2,  # finite element polynomial degree
+)
 sim.get_model_manager().add_model(model)
 
 
 # **************************************************************************************
 # Materials
 # **************************************************************************************
-material_air = TimeHarmonicMaxwellGeneralMaterial.Constant("Air", marker_domain)
+material_air = TimeHarmonicMaxwellGeneralMaterial.Constant(
+    name="Air",
+    marker="Domain" @ Vol,
+)
 model.add_material(material_air)
 
 
 # **************************************************************************************
 # Boundary conditions
 # **************************************************************************************
-condition_pec = PerfectElectricConductorCondition("PEC", marker_walls)
+condition_pec = PerfectElectricConductorCondition(
+    name="PEC",
+    marker="Walls" @ Bnd,
+)
 
-mode_index = 0  # index of the mode that will be launched from the input port
-condition_input_port = InputPortCondition("Input", marker_input_port, mode_index)
+condition_input_port = WaveguideInputPortCondition(
+    name="Input",
+    marker="InputPort" @ Bnd,
+    mode_index=0,  # index of the mode that will be launched from the input port
+)
 
-condition_output_port = OutputPortCondition("Output", marker_output_port)
+condition_output_port = WaveguideOutputPortCondition(
+    name="Output",
+    marker="OutputPort" @ Bnd,
+)
 
 model.add_conditions([condition_pec, condition_input_port, condition_output_port])
 
@@ -63,8 +68,11 @@ model.add_conditions([condition_pec, condition_input_port, condition_output_port
 # **************************************************************************************
 # Reports
 # **************************************************************************************
-nmodes = 1  # number of modes to be calculated for the report
-report_s_parameters = SParametersReport("S-parameters", condition_output_port, nmodes)
+report_s_parameters = SParametersReport(
+    name="S-parameters",
+    condition=condition_output_port,
+    nmodes=1,  # number of modes to be calculated for the report
+)
 sim.get_report_manager().add_report(report_s_parameters)
 
 
@@ -83,7 +91,7 @@ S21 = numpy.zeros(Nf, dtype=complex)
 
 for i, frequency in enumerate(frequencies):
     model.set_frequency(frequency)
-    steady_runner.advance(1)
+    runner.advance(1)
 
     if frequency in frequencies_paraview:
         vis.save(order=2)
