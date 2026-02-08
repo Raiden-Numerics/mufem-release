@@ -200,6 +200,7 @@ for rpm in [500, 1000, 2000]:
 
 time_torque = sim.get_monitor_manager().get_monitor("Plate Torque").get_values()
 
+
 # Show Torque vs Time
 
 
@@ -251,6 +252,7 @@ plt.savefig(f"{dir_path}/results/Torque_vs_RPM.png", dpi=200)
 # For animation: show the torque vs slip speed with an arrow indicating the current rpm
 
 if output_for_animation:
+    # flake8: noqa: FKA100
 
     for n, (rpm, torque) in enumerate(torque_vs_rpm_step):
 

@@ -78,7 +78,7 @@ The braking torque initially increases with slip speed because the induced elect
 
 ## Animation
 
-An animation is shown below (requires an installation of the *focus-viewer*.)
+An animation is shown below (requires an installation of the *focus-viewer*) created using [create_animation.py](create_animation.py).
 
 
 <figure style="text-align: center;">

@@ -17,20 +17,12 @@ def create_scene2(index: int, rpm: int):
 
     scene = viewer.get_active_scene()
 
-    # scalar_visual = scene.new_scalar_visual()
     solid_visual = scene.new_solid_visual()
 
-    # scalar_visual.set_scalar_field("Electric Current Density")
-
-    # why does the order matter ?
     for hide in [13, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
         solid_visual.set_block_visibility(hide, False)
 
-    # @todo: might be nice to introduce a scalar and show in A/mm²
-    # scalar_visual.set_scalar_range(0, 5e7)
-    # scalar_visual.set_colorbar_number_of_labels(3)
-
-    solid_visual.set_color(205, 112, 43)  # Blue for S magnets
+    solid_visual.set_color(205, 112, 43)  # Copper
 
     # Note that if we put this later it is influenced by the vectors reaching
     # out of the domain.
@@ -142,6 +134,3 @@ if __name__ == "__main__":
 
         if result.returncode != 0:
             print(result.stderr)
-
-
-#
