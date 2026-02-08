@@ -171,7 +171,7 @@ torque_vs_rpm_step = []
 
 if output_for_animation:
 
-    # We save a few fields so we can visualize with paraview
+    # We save a few fields so we can visualize with focus-viewer/paraview
     field_exporter = sim.get_field_exporter()
     field_exporter.add_field_output("Electric Current Density")
     field_exporter.add_field_output("Magnetic Flux Density")
@@ -279,14 +279,13 @@ if output_for_animation:
         )
         leg.get_frame().set_linewidth(2.0)
 
-        # arrow parameters
-        arrow_height = 6.0  # Nm, vertical arrow length
-        text_offset = 1.0  # Nm, text offset
+        arrow_height = 6.0
+        text_offset = 1.0
 
         ax.annotate(
             "",
-            xy=(rpm, 0.1 + arrow_height),  # arrow head
-            xytext=(rpm, 0.1),  # arrow tail
+            xy=(rpm, 0.1 + arrow_height),
+            xytext=(rpm, 0.1),
             arrowprops=dict(
                 arrowstyle="->",
                 linewidth=2.5,
@@ -295,6 +294,6 @@ if output_for_animation:
             clip_on=False,
         )
 
-        plt.gcf().set_size_inches(7.5, 5.5)  # larger canvas
+        plt.gcf().set_size_inches(7.5, 5.5)
 
         plt.savefig(f"{dir_path}/vis/Torque_vs_RPM_{n:03d}.png", dpi=200)
