@@ -19,6 +19,15 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 
 
+import argparse
+
+# add near the existing `output_for_animation = True`
+parser = argparse.ArgumentParser(add_help=False)
+parser.add_argument("--output_for_animation", action="store_true")
+args, _ = parser.parse_known_args()
+output_for_animation = args.output_for_animation
+
+
 def create_report_and_monitor(sim, report, report_name: str, *args):
 
     import mufem
@@ -158,9 +167,6 @@ plate_torque_report, plate_torque_monitor = create_report_and_monitor(
 
 torque_vs_rpm = []
 torque_vs_rpm_step = []
-
-
-output_for_animation = True
 
 
 if output_for_animation:

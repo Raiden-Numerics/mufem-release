@@ -4,7 +4,6 @@ import subprocess
 
 from typing import List
 
-
 # Temporary workaround for cases which currently do not support
 # parallel execution.
 serial_only_cases = [
