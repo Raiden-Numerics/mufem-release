@@ -19,7 +19,7 @@ To run the validations please make sure to follow the [Installation](https://rai
 
 ### Electromagnetics
 
-* [**TEAM (Testing Electromagnetic Analysis Methods)**](https://www.compumag.org/wp/team/)
+* [**TEAM (Testing Electromagnetic Analysis Methods) Benchmark Suite**](https://www.compumag.org/wp/team/)
 
   Introduced in the late 1980s and continuously updated, the TEAM benchmarks focus primarily on low-frequency magnetic problems, providing a standard framework for evaluating numerical methods. Available cases:
 
@@ -29,11 +29,15 @@ To run the validations please make sure to follow the [Installation](https://rai
   - [Compumag TEAM 20: 3D Static Force Problem](Electromagnetics/Compumag-Team20-3D-Static-Force-Problem/README.md)
   - [Compumag TEAM 24: Locked Rotor](Electromagnetics/Compumag-Team24-Locked-Rotor/README.md)
 
-* **Electrostatics**
+* **[Electrostatics](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/electrostatics/electrostatics_model/)**
   - [Ren 2014: MEMS Comb Drive](Electromagnetics/Ren_2014_MEMS_Comb_Drive/README.md)
   - [David 2019: Nonuniform Charge Density](Electromagnetics/David_2019_Nonuniform_Charge_Density/README.md)
 
-* **Time-Harmonic Maxwell (High-Frequency Electromagnetics)**
+* **[Time-Domain Magnetics](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_domain_magnetic/time_domain_magnetic_model/)**
+
+  - [Lubin 2015: Axial-Flux Eddy Current Brake](Electromagnetics/Lubin_2015_Axial_Flux_Eddy_Current_Brake/README.md)
+
+* **[Time-Harmonic Maxwell (High-Frequency Electromagnetics)](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/time_harmonic_maxwell_model/)**
   - [Montejo-Garai 1995: Circular Cavity Filter](Electromagnetics/Montejo-Garai_1995_Circular_Cavity_Filter/README.md)
   - [Stutzman 2012: Dipole Antenna](Electromagnetics/Stutzman_2012_Dipole_Antenna/README.md)
 
