@@ -83,7 +83,8 @@ iron_material = TimeDomainMagneticGeneralMaterial.Constant(
     has_eddy_currents=False,
 )
 
-# The eddy-current coupling is made with 10 sector type NdFeB magnets (grade N40) glued on the soft-magnetic yoke
+# The eddy-current coupling is made with 10 sector type NdFeB magnets (grade N40) glued
+# on the soft-magnetic yoke
 magnet_material_ns = TimeDomainMagneticGeneralMaterial.Constant(
     name="NdFeB N40",
     marker=["Magnet::0", "Magnet::2", "Magnet::4", "Magnet::6", "Magnet::8"] @ Vol,

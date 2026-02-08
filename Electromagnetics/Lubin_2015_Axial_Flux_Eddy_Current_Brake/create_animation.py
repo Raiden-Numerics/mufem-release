@@ -1,7 +1,10 @@
 import subprocess
 
+# flake8: noqa: FKA100
+from PIL import Image
 
-def create_scene2(index: int, rpm: int):
+
+def create_scene(index: int, rpm: int):
 
     import focus_viewer  # type: ignore[import-not-found]
     import os
@@ -29,7 +32,7 @@ def create_scene2(index: int, rpm: int):
     viewer.get_camera().set_orientation(13)
     viewer.get_camera().fit_to_scene(0.7)
 
-    #
+    # Show currents
     vector_visual = scene.new_vector_visual()
     vector_visual.set_vector_field("Electric Current Density")  # magnitude only
 
@@ -43,7 +46,8 @@ def create_scene2(index: int, rpm: int):
     vector_visual.set_arrow_tip_radius(0.19)
     vector_visual.set_arrow_shaft_radius(0.08)
     vector_visual.set_arrow_resolution(12, 12)
-    #
+
+    # Show magnets
 
     scene_magnet_n = scene.new_solid_visual()
     for hide in [0, 1, 3, 5, 7, 9, 11, 12, 13]:
@@ -65,11 +69,6 @@ def create_scene2(index: int, rpm: int):
     ann1.set_bold(True)
 
     viewer.save_screenshot(f"vis/Scene_Electric_Current_Density_{index:03d}.png")
-
-
-from PIL import Image
-
-from PIL import Image
 
 
 def combine_images(
@@ -104,12 +103,13 @@ def combine_images(
 
 
 if __name__ == "__main__":
-    # Create the scene images with a siple name pattern:
-    for i in range(90):  # 60):
+
+    # 90 is currently hard-coded to three rotation rates each for 30 time steps
+    for i in range(90):
 
         rpm = [500, 1000, 2000][i // 30]
 
-        create_scene2(i, rpm)
+        create_scene(i, rpm)
         combine_images(
             large_path=f"vis/Scene_Electric_Current_Density_{i:03d}.png",
             small1_path=f"vis/Torque_vs_RPM_{i:03d}.png",
