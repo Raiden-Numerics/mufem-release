@@ -248,7 +248,6 @@ if output_for_animation:
 
     for n, (rpm, torque) in enumerate(torque_vs_rpm_step):
 
-
         plt.clf()
 
         ref = numpy.loadtxt(
@@ -268,7 +267,6 @@ if output_for_animation:
 
         ax.tick_params(axis="both", labelsize=14)
 
-
         leg = ax.legend(
             loc="best",
             fontsize=16,
@@ -277,13 +275,12 @@ if output_for_animation:
 
         # arrow parameters
         arrow_height = 6.0  # Nm, vertical arrow length
-        text_offset  = 1.0  # Nm, text offset
-
+        text_offset = 1.0  # Nm, text offset
 
         ax.annotate(
             "",
-            xy=(rpm, 0.1 + arrow_height),   # arrow head
-            xytext=(rpm, 0.1),              # arrow tail
+            xy=(rpm, 0.1 + arrow_height),  # arrow head
+            xytext=(rpm, 0.1),  # arrow tail
             arrowprops=dict(
                 arrowstyle="->",
                 linewidth=2.5,
@@ -291,7 +288,6 @@ if output_for_animation:
             ),
             clip_on=False,
         )
-
 
         plt.gcf().set_size_inches(7.5, 5.5)  # larger canvas
 

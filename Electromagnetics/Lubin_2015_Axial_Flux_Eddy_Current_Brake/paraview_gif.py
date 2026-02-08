@@ -75,7 +75,6 @@ def create_scene2(index: int, rpm: int):
     viewer.save_screenshot(f"vis/Scene_Electric_Current_Density_{index:03d}.png")
 
 
-
 from PIL import Image
 
 from PIL import Image
