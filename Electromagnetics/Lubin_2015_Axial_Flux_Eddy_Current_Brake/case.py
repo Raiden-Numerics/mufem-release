@@ -64,18 +64,18 @@ magnetic_model = TimeDomainMagneticModel(
 sim.get_model_manager().add_model(magnetic_model)
 
 # Material
-air_material = TimeDomainMagneticGeneralMaterial.Constant(
+air_material = TimeDomainMagneticGeneralMaterial(
     "Air", "Air" @ Vol, has_eddy_currents=False
 )
 
-copper_material = TimeDomainMagneticGeneralMaterial.Constant(
+copper_material = TimeDomainMagneticGeneralMaterial(
     name="Copper",
     marker="Copper Plate" @ Vol,
     electric_conductivity=5.7e7,
     has_eddy_currents=True,
 )
 
-iron_material = TimeDomainMagneticGeneralMaterial.Constant(
+iron_material = TimeDomainMagneticGeneralMaterial(
     name="AISI-1010 Carbon Steel",
     marker=["Back Iron::Magnet Side", "Back Iron::Copper Side"] @ Vol,
     relative_magnetic_permeability=1000.0,
@@ -85,7 +85,7 @@ iron_material = TimeDomainMagneticGeneralMaterial.Constant(
 
 # The eddy-current coupling is made with 10 sector type NdFeB magnets (grade N40) glued
 # on the soft-magnetic yoke
-magnet_material_ns = TimeDomainMagneticGeneralMaterial.Constant(
+magnet_material_ns = TimeDomainMagneticGeneralMaterial(
     name="NdFeB N40",
     marker=["Magnet::0", "Magnet::2", "Magnet::4", "Magnet::6", "Magnet::8"] @ Vol,
     relative_magnetic_permeability=1.0,
@@ -93,7 +93,7 @@ magnet_material_ns = TimeDomainMagneticGeneralMaterial.Constant(
     has_eddy_currents=False,
 )
 
-magnet_material_sn = TimeDomainMagneticGeneralMaterial.Constant(
+magnet_material_sn = TimeDomainMagneticGeneralMaterial(
     name="NdFeB N40",
     marker=["Magnet::1", "Magnet::3", "Magnet::5", "Magnet::7", "Magnet::9"] @ Vol,
     relative_magnetic_permeability=1.0,
