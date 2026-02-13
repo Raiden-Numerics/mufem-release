@@ -79,7 +79,6 @@ if is_main_process:
     print()
 
 # Plot the temperature -----------------------------------------------------------------
-eps = 1.0e-6
 x_vals = numpy.linspace(0, 0.6, 23, endpoint=True)
 T_vals = []
 
