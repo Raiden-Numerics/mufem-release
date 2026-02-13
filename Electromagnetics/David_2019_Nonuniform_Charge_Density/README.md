@@ -230,7 +230,7 @@ sim = mufem.Simulation.New(
 We then create an instance of the `mufem.SteadyRunner` class, which governs the
 execution of the simulation, and specify the total number of iterations (more
 information on simulation runners can be found in
-[Runners](https://raiden-numerics.github.io/mufem-doc/framework/runners)).
+[Runners](https://raiden-numerics.github.io/mufem-doc/framework/runners.html)).
 We register the runner in the simulation by calling the `set_runner` method:
 
 ```python
@@ -258,7 +258,7 @@ After setting up the simulation object and the runner, we configure the model
 for our simulations.
 To solve electrostatic problems, such as the one described in Eqs. (1)-(3), μfem
 utilizes the
-[Electrostatics Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/electrostatics/electrostatics_model).
+[Electrostatics Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/electrostatics/model.html).
 We create this model by calling the constructor of the `ElectrostaticsModel`
 class and passing the marker `domain_marker` that refers to the computational
 domain to which the model will be applied.
@@ -275,7 +275,7 @@ sim.get_model_manager().add_model(model)
 In this case, the `domain_marker`, an instance of the `mufem.Marker`, refers to
 the mesh volume with the name attribute "Sphere" that we defined during mesh
 generation (more information on markers can be found in
-[Markers](https://raiden-numerics.github.io/mufem-doc/framework/markers)).
+[Markers](https://raiden-numerics.github.io/mufem-doc/framework/markers.html)).
 To enhance simulation precision, we also pass the `order=2` argument, indicating
 that the model should use second-order polynomial functions to approximate the
 solution within each finite element.
@@ -312,7 +312,7 @@ cff_charge = mufem.CffExpressionScalar(expr)
 ```
 
 More information on μfem coefficients can be found in
-[Coefficients](https://raiden-numerics.github.io/mufem-doc/framework/coefficients).
+[Coefficients](https://raiden-numerics.github.io/mufem-doc/framework/coefficients.html).
 
 We use this scalar coefficient to define the source condition with an instance
 of the `ChargeDensityCondition` class:
@@ -405,7 +405,7 @@ computational domain.
 At each step of the loop, we create a `mufem.ProbeReport` for a single point to
 access the electric field calculated by μfem (more information about reports can
 be found in
-[Reports and Monitors](https://raiden-numerics.github.io/mufem-doc/framework/reports_and_monitors)).
+[Reports and Monitors](https://raiden-numerics.github.io/mufem-doc/framework/reports_and_monitors.html)).
 After evaluating this report, we extract the desired component of the electric
 field and store it in the `E_mufem` array.
 Similarly, we update the `E_theory` array by calling the previously defined
@@ -437,7 +437,7 @@ plt.savefig("results/Electric_Field.png")
 Also, for further postprocessing and visualization, we export the electric field
 data into a [VTK](https://vtk.org/) file using the field exporter (more
 information about the field exporter can be found in the
-[Field Exporter](https://raiden-numerics.github.io/mufem-doc/framework/visualization/#field-exporter)):
+[Field Exporter](https://raiden-numerics.github.io/mufem-doc/framework/visualization.html#field-exporter)):
 
 ```python
 vis = sim.get_field_exporter()

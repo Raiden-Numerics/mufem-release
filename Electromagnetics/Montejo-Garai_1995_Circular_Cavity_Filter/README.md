@@ -79,7 +79,7 @@ cavity ("Walls"), and the entire computational domain ("Domain").
 ### Model
 
 For the simulation we use
-[Time-Harmonic Maxwell Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/time_harmonic_maxwell_model)
+[Time-Harmonic Maxwell Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/model.html)
 which solves the following equation for the complex amplitude
 $\tilde{\mathbf{E}}$ of the electric field:
 
@@ -93,28 +93,27 @@ material filling the waveguides and the cavity, and $\omega = 2\pi f$ is the
 angular frequency of the incoming radiation of frequency $f$.
 
 As the boundary conditions we use the
-[Perfect Electric Conductor Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor_condition)
+[Perfect Electric Conductor Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/perfect_electric_conductor.html)
 for the walls of the waveguides and cavity, together with the
-[Waveguide Input Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/waveguide_input_port_condition)
+[Waveguide Input Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/waveguide_input_port.html)
 and the
-[Waveguide Output Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/waveguide_output_port_condition)
+[Waveguide Output Port Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/conditions/waveguide_output_port.html)
 for the input and output ports of the waveguides.
 
 As the incident electric field we consider the field in the $\text{TE}_{10}$
 mode, entering through the input port of the waveguide.
 
 We also assume that the volume of the waveguides and the cavity is filled with
-air, which we model using the
-[Constant](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/time_harmonic_maxwell_material_constant)
-time-harmonic Maxwell material with the permeability and permittivity of free
-space.
+air, which we model using the time-harmonic Maxwell
+[General Material](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/materials/general.html)
+with the permeability and permittivity of free space.
 
 
 ### Reports
 
 To calculate what fraction of the incident radiation passes through the filter,
 we use the
-[S-parameters Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/reports/s_parameters_report).
+[S-parameters Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/reports/s_parameters.html).
 This report calculates scattering parameters, or S-parameters, which describe
 the input-output relationships between various ports of a device.
 In our case, we are interested in the $S_{21}$ parameter, which plays the role
