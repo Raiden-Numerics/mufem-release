@@ -26,21 +26,21 @@ model.add_material(material)
 # Setup the conditions -----------------------------------------------------------------
 Q = 1.0  # [C] charge
 a = 0.5  # [m] radius of the charge distribution
-expr = f"""
+
+charge_expr = f"""
     var r := sqrt(x()^2 + y()^2 + z()^2);
     var Q := {Q};
     var a := {a};
 
     Q / (4 * pi) * exp(-r^2 / (2 * a^2))
 """
-cff_charge = mufem.CffExpressionScalar(expr)
 
 charge_density_condition = estat.ChargeDensityCondition(
-    name="Volume Charge", marker=domain_marker, charge_density=cff_charge
+    name="Volume Charge", marker=domain_marker, charge_density=charge_expr
 )
 
 boundary_marker = "Domain::Boundary" @ mufem.Bnd
-potential_condition = estat.ElectricPotentialCondition.Constant(
+potential_condition = estat.ElectricPotentialCondition(
     name="Potential = 0V", marker=boundary_marker, electric_potential=0
 )
 

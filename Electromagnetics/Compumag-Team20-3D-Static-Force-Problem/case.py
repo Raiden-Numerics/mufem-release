@@ -35,21 +35,18 @@ steady_runner = SteadyRunner(total_iterations=0)
 magnetic_domain = ["Yoke", "Pole", "Coil", "Air"] @ Vol
 magnetic_model = TimeDomainMagneticModel(marker=magnetic_domain, order=1)
 
-air_material = TimeDomainMagneticGeneralMaterial.Constant(
-    name="Air", marker="Air" @ Vol
-)
+air_material = TimeDomainMagneticGeneralMaterial(name="Air", marker="Air" @ Vol)
 
-copper_material = TimeDomainMagneticGeneralMaterial.Constant(
+copper_material = TimeDomainMagneticGeneralMaterial(
     name="Copper", marker="Coil" @ Vol, electric_conductivity=1.0e7
 )
 
 bh = numpy.loadtxt(f"{dir_path}/data/Table_1_BH_Curve.csv", delimiter=",", comments="#")
 
-iron_material = TimeDomainMagneticGeneralMaterial.MagneticNonLinear(
+iron_material = TimeDomainMagneticGeneralMaterial(
     name="Iron",
     marker=["Yoke", "Pole"] @ Vol,
-    magnetic_field_strength=bh[:, 1],
-    magnetic_flux_density=bh[:, 0],
+    magnetic_permeability=(bh[:, 1], bh[:, 0]),
     electric_conductivity=0.0,
 )
 
