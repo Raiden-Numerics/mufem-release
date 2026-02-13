@@ -43,7 +43,7 @@ To investigate the change in capacitance as the distance between the combs incre
 
 ### Model
 
-For the simulation, we employ the [Electrostatics Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/electrostatics/electrostatics_model), which describes a static electric field $\mathbf{E}$ in terms of its scalar electric potential $\phi$ using the following equation:
+For the simulation, we employ the [Electrostatics Model](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/electrostatics/model.html), which describes a static electric field $\mathbf{E}$ in terms of its scalar electric potential $\phi$ using the following equation:
 ```math
     \nabla \cdot \varepsilon \nabla\phi = -\rho,
 ```
@@ -52,9 +52,9 @@ where $\varepsilon$ is the electric permittivity, and $\rho$ denotes the density
     C = \frac{2 W}{V^2}.
 ```
 
-The potentials on the two comb electrodes are set to 0 V for the four-tooth electrode and 1 V for the three-tooth electrode, while the ground plate is maintained at 0 V. In order to implement these voltages we use the [Electric Potential Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/electrostatics/conditions/electric_potential_condition).
+The potentials on the two comb electrodes are set to 0 V for the four-tooth electrode and 1 V for the three-tooth electrode, while the ground plate is maintained at 0 V. In order to implement these voltages we use the [Electric Potential Condition](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/electrostatics/conditions/electric_potential.html).
 
-We also assume that the computational domain is filled with air, which we model using the [Constant](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/electrostatics/materials/electrostatics_material_constant) electrostatic material with the electric permittivity of free space.
+We also assume that the computational domain is filled with air, which we model using the [Electrostatics Material](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/electrostatics/materials/electrostatics.html) with the electric permittivity of free space.
 
 
 
