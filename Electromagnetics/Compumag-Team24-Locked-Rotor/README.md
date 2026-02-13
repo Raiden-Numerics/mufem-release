@@ -37,8 +37,8 @@ where $a$ and $b$ are fitting parameters. These parameters are computed from the
 
 A constant electric voltage of $U=23.1 \, \mathrm{V}$ is applied to the stranded coils.
 
-We specify a stranded coil by using the [Stranded Coil](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/type_stranded_coil/) option, and the voltage excitation is set by using
-[Excitation Voltage](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/excitation_voltage) option.
+We specify a stranded coil by using the [Stranded Coil](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/type_stranded_coil.html) option, and the voltage excitation is set by using
+[Excitation Voltage](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/specs/excitation_voltage.html) option.
 
 ```python
 for coil in ["Upper", "Lower"]:
@@ -96,8 +96,8 @@ $$
 
 with $\tau = L/R$, where $L$ is inductance and $R$ resistance.
 
-These values are estimated using the [Magnetic Inductance Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/reports/magnetic_inductance_report)
-and the [Coil Resistance Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/reports/coil_resistance_report) via:
+These values are estimated using the [Magnetic Inductance Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/reports/magnetic_inductance_report.html)
+and the [Coil Resistance Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/excitation_coil/reports/coil_resistance_report.html) via:
 
 ```python
 sim.initialize()
@@ -135,7 +135,7 @@ $$
 
 ### Torque Calculation
 
-The [Magnetic Torque Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_domain_magnetic/reports/magnetic_torque_report) is used to compute the magnetic torque on the locked rotor over time, which is then compared to the reference.
+The [Magnetic Torque Report](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_domain_magnetic/reports/magnetic_torque_report.html) is used to compute the magnetic torque on the locked rotor over time, which is then compared to the reference.
 
 ## Results
 
