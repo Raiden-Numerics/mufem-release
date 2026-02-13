@@ -21,6 +21,8 @@ sim = Simulation.New(
 
 runner = SteadyRunner(total_iterations=0)
 
+is_main_process = sim.get_machine().is_main_process()
+
 
 # **************************************************************************************
 # Model
@@ -90,6 +92,9 @@ vis.add_field_output("Electric Field-Real")
 S21 = numpy.zeros(Nf, dtype=complex)
 
 for i, frequency in enumerate(frequencies):
+    if is_main_process:
+        print(f"\nFrequency {i+1} of {Nf}...")
+
     model.set_frequency(frequency)
     runner.advance(1)
 
