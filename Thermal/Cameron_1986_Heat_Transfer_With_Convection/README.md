@@ -54,6 +54,4 @@ height of $y = 0.5$ m.
 ## References
 
 [1] A. D. Cameron, J. A. Casey, and G. B. Simpson,
-    "Benchmark Tests for Thermal Analysis (Summary)", NAFEMS (1986) \
-[2] [Quanscient Allsolve Docs: Steady state heat transfer in solid materials - NAFEMS Benchmark](
-    https://allsolve.quanscient.com/documentation/guides/step-by-step-tutorials/tutorial-nafems2dheattransfer)
+    "Benchmark Tests for Thermal Analysis (Summary)", NAFEMS (1986)
