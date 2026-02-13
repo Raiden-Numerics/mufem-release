@@ -133,11 +133,17 @@ model.add_material(material)
 # Boundary conditions ------------------------------------------------------------------
 voltage = 1  # [V]
 
-condition_comb1 = ElectricPotentialCondition.Constant("Comb1", "Comb1" @ Bnd, 0.0)
+condition_comb1 = ElectricPotentialCondition(
+    name="Comb1", marker="Comb1" @ Bnd, electric_potential=0.0
+)
 
-condition_comb2 = ElectricPotentialCondition.Constant("Comb2", "Comb2" @ Bnd, voltage)
+condition_comb2 = ElectricPotentialCondition(
+    name="Comb2", marker="Comb2" @ Bnd, electric_potential=voltage
+)
 
-condition_ground = ElectricPotentialCondition.Constant("Ground", "Ground" @ Bnd, 0.0)
+condition_ground = ElectricPotentialCondition(
+    name="Ground", marker="Ground" @ Bnd, electric_potential=0.0
+)
 
 model.add_conditions([condition_comb1, condition_comb2, condition_ground])
 

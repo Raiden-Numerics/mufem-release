@@ -41,23 +41,22 @@ magnetic_model = TimeDomainMagneticModel(marker=magnetic_domain, order=2)
 sim.get_model_manager().add_model(magnetic_model)
 
 # Materials
-air_material = TimeDomainMagneticGeneralMaterial.Constant(
-    name="Air", marker="Air" @ mufem.Vol
-)
+air_material = TimeDomainMagneticGeneralMaterial(name="Air", marker="Air" @ mufem.Vol)
 
-copper_material = TimeDomainMagneticGeneralMaterial.Constant(
-    name="Cu", marker="Coil" @ mufem.Vol, electric_conductivity=1.0e7
+copper_material = TimeDomainMagneticGeneralMaterial(
+    name="Cu",
+    marker="Coil" @ mufem.Vol,
+    electric_conductivity=1.0e7,
+    has_eddy_currents=False,
 )
 
 bh = numpy.loadtxt(f"{dir_path}/data/bh_table.csv", delimiter=",", comments="#")
 
 
-iron_material = TimeDomainMagneticGeneralMaterial.MagneticNonLinear(
+iron_material = TimeDomainMagneticGeneralMaterial(
     name="Iron",
     marker=["Center Plate", "Outer Plate 1", "Outer Plate 2"] @ mufem.Vol,
-    magnetic_field_strength=bh[:, 1],
-    magnetic_flux_density=bh[:, 0],
-    electric_conductivity=0.0,
+    magnetic_permeability=(bh[:, 1], bh[:, 0]),
 )
 magnetic_model.add_materials([air_material, copper_material, iron_material])
 
