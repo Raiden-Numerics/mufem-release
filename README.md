@@ -19,8 +19,7 @@ To run the validations please make sure to follow the [Installation](https://rai
 
 ### Electromagnetics
 
-* [**TEAM (Testing Electromagnetic Analysis Methods) Benchmark Suite**](https://www.compumag.org/wp/team/)
-
+* [**TEAM (Testing Electromagnetic Analysis Methods) Benchmark Suite**](https://www.compumag.org/wp/team/) \
   Introduced in the late 1980s and continuously updated, the TEAM benchmarks focus primarily on low-frequency magnetic problems, providing a standard framework for evaluating numerical methods. Available cases:
 
   - [Compumag TEAM 1b: The Felix Cylinder](Electromagnetics/Compumag-Team1b-Felix-Cylinder/README.md)
@@ -40,6 +39,16 @@ To run the validations please make sure to follow the [Installation](https://rai
 * **[Time-Harmonic Maxwell (High-Frequency Electromagnetics)](https://raiden-numerics.github.io/mufem-doc/models/electromagnetics/time_harmonic_maxwell/model.html)**
   - [Montejo-Garai 1995: Circular Cavity Filter](Electromagnetics/Montejo-Garai_1995_Circular_Cavity_Filter/README.md)
   - [Stutzman 2012: Dipole Antenna](Electromagnetics/Stutzman_2012_Dipole_Antenna/README.md)
+
+
+### Structural
+
+* [**NAFEMS Benchmark Suite**](https://www.nafems.org/publications/resource_center/r0006/) \
+  A long-standing set of reference problems from the NAFEMS simulation community
+  covering structural, thermal, fluid, and multi-physics analyses.
+
+  - [Cameron 1986: Cameron 1986: Heat Transfer With Convection](Thermal/Cameron_1986_Heat_Transfer_With_Convection/README.md)
+
 
 ## Continuous Integration
 
