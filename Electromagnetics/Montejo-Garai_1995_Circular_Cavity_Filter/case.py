@@ -81,7 +81,7 @@ sim.get_report_manager().add_report(report_s_parameters)
 # **************************************************************************************
 # Run the simulation
 # **************************************************************************************
-Nf = 51  # number of frequencies to scan
+Nf = 251  # number of frequencies to scan
 frequencies = numpy.linspace(10e9, 15e9, Nf)  # [Hz] frequencies to scan
 
 frequencies_paraview = [12e9, 14e9]  # [Hz] frequencies at which to save the field
